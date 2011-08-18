@@ -1,28 +1,28 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class SurveyBuilder extends CI_Controller {
+class SurveyBuilder extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 	} 
 	
 	/**
@@ -33,7 +33,10 @@ class SurveyBuilder extends CI_Controller {
     * @return void
     */
 	public function addSurveyName() {
-				
+		
+		// sanitize data
+		$_POST = $this->input->xss_clean($_POST);
+		
 		// remove smart quotes
 		$this->load->library('convertsmartquotes');
 		$_POST = $this->convertsmartquotes->convert($_POST);
@@ -60,12 +63,12 @@ class SurveyBuilder extends CI_Controller {
     */
 	public function addSurveyQuestion() {	
 		
-		$surveyQuestion = array('surveyID'=>$this->input->post('surveyID'),
-								'question'=>$this->input->post('question'),
-								'fieldTypeID'=>$this->input->post('fieldTypeID'),
-								'subQuestion'=>$this->input->post('subQuestion'),
-								'required'=>$this->input->post('required'),										
-								'questionType'=>$this->input->post('questionType')
+		$surveyQuestion = array('surveyID'=>$this->input->post('surveyID', TRUE),
+								'question'=>$this->input->post('question', TRUE),
+								'fieldTypeID'=>$this->input->post('fieldTypeID', TRUE),
+								'subQuestion'=>$this->input->post('subQuestion', TRUE),
+								'required'=>$this->input->post('required', TRUE),										
+								'questionType'=>$this->input->post('questionType', TRUE)
 								);
 							
 		$questionID['questionID'] = $this->SurveyBuilderModel->addSurveyQuestion($surveyQuestion);
@@ -82,15 +85,15 @@ class SurveyBuilder extends CI_Controller {
     */
 	public function addSurveySubQuestion() {
 		
-		$surveySubQuestion = array('questionID'=>$this->input->post('questionID'),
-								'fieldTypeID'=>$this->input->post('fieldTypeID'),
-								'subQuestion'=>$this->input->post('subQuestion'),
-								'subChoiceQuestionCheck'=>$this->input->post('subChoiceQuestionCheck'),
-								'toggle'=>$this->input->post('toggle')										
+		$surveySubQuestion = array('questionID'=>$this->input->post('questionID', TRUE),
+								'fieldTypeID'=>$this->input->post('fieldTypeID', TRUE),
+								'subQuestion'=>$this->input->post('subQuestion', TRUE),
+								'subChoiceQuestionCheck'=>$this->input->post('subChoiceQuestionCheck', TRUE),
+								'toggle'=>$this->input->post('toggle', TRUE)										
 								);
-		$surveySubChoiceQuesiton = array('subChoiceQuestion'=>$this->input->post('subChoiceQuestion'),
-										'fieldTypeID'=>$this->input->post('subFieldTypeID'),
-										'toggle'=>$this->input->post('toggle')
+		$surveySubChoiceQuesiton = array('subChoiceQuestion'=>$this->input->post('subChoiceQuestion', TRUE),
+										'fieldTypeID'=>$this->input->post('subFieldTypeID', TRUE),
+										'toggle'=>$this->input->post('toggle', TRUE)
 										);											
 		$this->SurveyBuilderModel->addSurveySubQuestion($surveySubQuestion, $surveySubChoiceQuesiton);
 	}
@@ -103,9 +106,9 @@ class SurveyBuilder extends CI_Controller {
     * @return void
     */
 	public function addSurveyContactQuestion() {
-		$surveyContactQuestion = array('surveyID'=>$this->input->post('surveyID'),
-									'contactQuestion'=>$this->input->post('contactQuestion'),
-									'questionType'=>$this->input->post('questionType'),
+		$surveyContactQuestion = array('surveyID'=>$this->input->post('surveyID', TRUE),
+									'contactQuestion'=>$this->input->post('contactQuestion', TRUE),
+									'questionType'=>$this->input->post('questionType', TRUE),
 									);
 		$contactQuestionID['contactQuestionID'] = $this->SurveyBuilderModel->addSurveyContactQuestion($surveyContactQuestion);
 		$id = $contactQuestionID['contactQuestionID'];
@@ -120,10 +123,10 @@ class SurveyBuilder extends CI_Controller {
     * @return void
     */
 	public function addSurveyContactField() {
-		$surveyContactField = array('contactQuestionID'=>$this->input->post('contactQuestionID'),
-								'contactField'=>$this->input->post('contactField'),
-								'fieldTypeID'=>$this->input->post('fieldTypeID'),
-								'required'=>$this->input->post('required')
+		$surveyContactField = array('contactQuestionID'=>$this->input->post('contactQuestionID', TRUE),
+								'contactField'=>$this->input->post('contactField', TRUE),
+								'fieldTypeID'=>$this->input->post('fieldTypeID', TRUE),
+								'required'=>$this->input->post('required', TRUE)
 								);
 		$this->SurveyBuilderModel->addSurveyContactField($surveyContactField);
 	}
@@ -203,12 +206,6 @@ class SurveyBuilder extends CI_Controller {
 		}		
 	}
 	
-	/**
-	 * edits survey questions
-	 * 
-	 * @access public
-	 * @return $formHtml
-	 */
 	public function editSurveyQuestions() {
 		
 		$this->load->model('JsModel');
@@ -219,43 +216,23 @@ class SurveyBuilder extends CI_Controller {
 		echo $formHtml; // results pulled into view via jQuery AJAX
 	} 
 	
-	/**
-	 * edits survey sub questions
-	 * 
-	 * @access public
-	 * @return $formHtml
-	 */
 	public function editSurveySubQuestions() {
+					
 		$questionID = $this->uri->segment(3, 0);
 		$formHtml = $this->SurveyBuilderModel->editSurveySubQuestions($questionID);
 		echo $formHtml; // results pulled into view via jQuery AJAX
 	}
 	
-	/**
-	 * edits sub choice questions
-	 * 
-	 * @access public
-	 * @return $formHtml
-	 */
 	public function editSurveySubChoiceQuestions() {
 		$subQuestionID = $this->uri->segment(3, 0);
 		$formHtml = $this->SurveyBuilderModel->editSurveySubChoiceQuestions($subQuestionID);
 		echo $formHtml; // results pulled into view via jQuery AJAX
 	}
 	
-	/**
-	 * updates survey
-	 * 
-	 * @access public
-	 * @return void
-	 */
 	public function updateSurvey() {
+	
+		$_POST = $this->input->xss_clean($_POST);
 		
-		// updates survey description
-		if (isset($_POST['surveyID']) && isset($_POST['descriptionID'])) {
-			$this->SurveyBuilderModel->updateSurveyDescription($_POST);
-		}	
-				
 		// updates survey question
 		if (isset($_POST['questionID']) && !isset($_POST['subQuestionID'])) {
 			$this->SurveyBuilderModel->updateSurveyQuestion($_POST);
@@ -269,45 +246,6 @@ class SurveyBuilder extends CI_Controller {
 		// updates survey sub choice question
 		if (isset($_POST['subChoiceQuestionID'])) {
 			$this->SurveyBuilderModel->updateSurveySubChoiceQuestion($_POST);
-		}
-	}
-	
-	/** 
-	 * deletes survey question 
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function deleteSurveyQuestion() {
-		if ($_POST['questionID']) {
-			$questionID = trim($_POST['questionID']);
-			$this->SurveyBuilderModel->deleteSurveyQuestion($questionID);
-		}
-	}
-	
-	/**
-	 * deletes survey sub question
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function deleteSurveySubQuestion() {
-		if ($_POST['subQuestionID']) {
-			$subQuestionID = trim($_POST['subQuestionID']);
-			$this->SurveyBuilderModel->deleteSurveySubQuestion($subQuestionID);	
-		}
-	}
-	
-	/**
-	 * deletes survey sub choice question
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function deleteSurveySubChoiceQuestion() {
-		if ($_POST['subChoiceQuestionID']) {
-			$subChoiceQuestionID = trim($_POST['subChoiceQuestionID']);
-			$this->SurveyBuilderModel->deleteSurveySubChoiceQuestion($subChoiceQuestionID);	
 		}
 	}
 }

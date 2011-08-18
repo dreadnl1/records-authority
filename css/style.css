@@ -1,5 +1,5 @@
 /* import browser reset css */
-@import "reset.css";
+@import "http://du.edu/display/css/global/reset.css";
 
 /*This is important because reset css formats the page to look the same across web browsers such as opera, firefox, IE, safari, and so on.*/
 
@@ -11,7 +11,7 @@ body.red, body.red #global-header, body.red #global-footer {
 	height: 100%; 
 	color: #333;
 }
-body.red #global-searchBtn {background: transparent url("../images/global/black/global-go.gif") top left no-repeat;}
+body.red #global-searchBtn {background: transparent url("http://du.edu/display/images/global/black/global-go.gif") top left no-repeat;}
 body.red #global-inside-header { margin: 0 auto; background: #990E0E;}
 body.red #top-nav li.selected a, body.red #top-nav li.selected a:link, body.red #top-nav li.selected a:visited, body.red #top-nav li a:hover { background: url("../images/topnavActiveBG_red.gif") repeat center; color: #fff;}
 
@@ -114,14 +114,14 @@ hr {
 #masthead {
 	width: 960px;
 	background: #fff;
-	height: 80px;
+	height: 160px;
 	float: left;
 }
 #masthead .header {
 	float: left;
 	background: #fff url("../images/header.jpg") no-repeat center bottom;
-	width: 959px;
-	height: 80px;
+	width: 960px;
+	height: 160px;
 	cursor: hand;
 }
 
@@ -140,10 +140,10 @@ hr {
 	margin: 0;
 	padding: 0;
 }
-
-#searchContent {
-	margin: 0 auto;
-	padding: 95px 265px 10px 0px;
+body.two #main-content {
+	background: #EBE7E6;
+	width: 960px; 
+	color: #000;
 }
 
 /*IE min-height hack*/
@@ -173,12 +173,14 @@ hr {
 #loginMessage {
     float: right;
     width: 625px;
+    /*height: 200px;*/
     padding: 10px 25px 20px 10px;
 }
 
 #loginForm {
     float: left;
     width: 175px;
+    /*height: 200px;*/
     padding: 10px 15px 20px 60px;
 }
 
@@ -187,147 +189,4 @@ hr {
     border: 1px dotted #000;
     padding: 5px;
     width: 130px;
-}
-
-#retentionScheduleSearchResults {
-   margin:0 auto; 
-   background: #fff;  
-   padding: 10px 5px 10px 5px;	
-}
-
-#divDeptRetentionScheduleSearchResults {
-	margin:0 auto; 
-    background: #fff;  
-    padding: 10px 5px 10px 5px;	
-}
-
-#searchFullTextForm {
-   margin:0 auto; 
-   width: 760px;
-   background: #fff;  
-   padding: 20px 100px 20px 100px;
-}
-
-#searchByDepartmentForm {
-   margin:0 auto; 
-   width: 500px;
-   background: #fff;  
-   padding: 10px 10px 20px 300px;
-}
-
-.searchFormFullText {
-    background-color: #ccc;
-    border: 1px dotted #000;
-    padding: 15px 15px 15px 15px;
-    width: 725px;
-}
-
-.leftFloat {
-	float: left;
-	width: 230px;
-	position: relative;
-}
-
-.rightFloat {
-	float: right;
-	width: 230px;
-	position: relative;
-}
-
-.searchFormByDepartment {
-    background-color: #ccc;
-    border: 1px dotted #000;
-    padding: 15px 15px 15px 15px;
-    width: 275px;
-}
-
-.searchByDept-div {
-	font-size: 11px;
-}
-
-.searchByDept-div a{
-	padding-left: 40px;	
-}
-
-.searchByDept-div h3{
-	margin-left: 0px;	
-}
-
-.fileTypeError {
-	color: red;
-}
-
-
-/* search results table */
-
-#searchResultsTable {
-	margin-left:auto; 
-    margin-right:auto;
-	border: 0px dotted #000;
-	width: 100%;
-	font-size: 12px;
-}
-
-table { 
-	font-size: 100%;
-    border: 0px #ccc solid;  
-    width: 100%;
-}
-
-th { 
-    background-color:#9F3528;
-    color: #EBE7E6;
-    /*text-align: center;*/
-    padding: 4px;
-}
-
-td {
-   padding: 4px; 
-   /*text-align: center;*/
-}
-
-.oddtr {
-	background-color:#EBE7E6;
-}
-
-.eventr {
-	background-color:#F8F8F8;
-}
-.trover {
-	background-color: #FFEDC7;
-}
-.trclick {
-	background-color: #FFEDC7;
-}
-
-/* styles urls on search result headers (retention schedule) */
-th a:link {
-	color: #EBE7D7;
-}
-
-th a:visited {
-	color: #EBE7D7;
-}
-
-th a:active {
-	color: #EBE7D7;
-}
-
-#hideMe {
-	display: none; 
-}
-
-#loadingContainer {
-	height: 10px;	
-}
-
-#sorting {
-    background: #FFE9B2;
-    display: none; 
-    position: relative; 
-}
-
-.question a {
-	font-size: 14px;
-	margin-left: -40px;
 }

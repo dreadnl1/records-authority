@@ -1,30 +1,13 @@
-<?php  
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
- * 
- * This file is part of Records Authority.
- * 
- * Records Authority is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * Records Authority is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
- **/
+ *	Class used to check if admin user is logged in
+ *
+ *
+*/
 
-class SessionManager extends CI_Model {
+class SessionManager extends Model {
 
-	/**
-	 * checks if admin user is logged in
-	 *
-	 */
 	public function isAdminLoggedIn() {
 			
 			$this->load->library('session');
@@ -40,20 +23,6 @@ class SessionManager extends CI_Model {
 				exit();
 			}
 		}
-		
-	/**
-	 * checks if the admin account is logged in
-	 * 
-	 */
-	public function isAdmin() {
-		$this->load->library('session');
-		$isAdmin = $this->session->userdata('username');
-		if($isAdmin == "admin") {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
  }
  
 ?>

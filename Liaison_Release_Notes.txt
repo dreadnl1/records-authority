@@ -1,0 +1,12 @@
+Liaison Release Notes
+
+a.b.c Where a is Major version #, b is Minor version #, c is Bug fix #
+
+0.10 : working survey builder controller and model classes used to all users to build a survey and add questions to it.
+0.20 : AJAX applied to survey builder forms
+0.30 : working survey class used to render survey form
+0.40 : survey preview added / css template added
+0.50 : admin add/edit forms added
+0.60 : AJAX applied to admin forms
+0.70 : LDAP functionality added
+0.80 : edit survey forms added

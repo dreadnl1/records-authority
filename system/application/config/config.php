@@ -11,20 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "https://recordsmanagement.du.edu/recordsAuthority/";
-
-/*
-|--------------------------------------------------------------------------
-| Site Name
-|--------------------------------------------------------------------------
-|
-| Name of your CodeIgniter folder name. Typically this will be your base 
-| folder you installed to
-|
-|	http://example.com/
-|
-*/
-$config['site_name'] = "recordsAuthority";
+$config['base_url']	= "https://lib-devrecmgmt.cair.du.edu/liaison/";
 
 /*
 |--------------------------------------------------------------------------
@@ -186,7 +173,7 @@ $config['function_trigger'] = 'm';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 1;
+$config['log_threshold'] = 4;
 
 /*
 |--------------------------------------------------------------------------
@@ -245,13 +232,13 @@ $config['encryption_key'] = "R3c0rdM@n@g3m3ntL1@50n";
 |
 */
 $config['sess_cookie_name']		= 'rm_session';
-$config['sess_expiration']		= 0;
+$config['sess_expiration']		= 7200;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'rm_sessions';
 $config['sess_match_ip']		= TRUE;
 $config['sess_match_useragent']	= TRUE;
-$config['sess_time_to_update'] 	= 300;
+$config['sess_time_to_update'] 		= 300;
 
 /*
 |--------------------------------------------------------------------------
@@ -276,7 +263,7 @@ $config['cookie_path']		= "/";
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = TRUE;
+$config['global_xss_filtering'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -324,47 +311,6 @@ $config['time_reference'] = 'local';
 $config['rewrite_short_tags'] = FALSE;
 
 
-/*
-|--------------------------------------------------------------------------
-| Upload Path (custom - not part of original framework)
-|--------------------------------------------------------------------------
-|
-|  sets upload directory
-|
-*/
-$config['uploadDirectory'] = '/var/www/html/recordsAuthority/surveyFileUploads/';
-
-
-/*
-|--------------------------------------------------------------------------
-| Dev Email (custom - not part of original framework)
-|--------------------------------------------------------------------------
-|
-|  sets development email
-|
-*/
-$config['devEmail'] = 'records@du.edu';
-
-
-/*
-|--------------------------------------------------------------------------
-| Prod Email (custom - not part of original framework)
-|--------------------------------------------------------------------------
-|
-|  sets production email
-|
-*/
-$config['prodEmail'] = 'records@du.edu';
-
-/*
-|--------------------------------------------------------------------------
-| Solr (custom - not part of original framework)
-|--------------------------------------------------------------------------
-|
-|  sets solr url
-|
-*/
-$config['solr'] = 'http://localhost:8080/solr';
 
 /* End of file config.php */
 /* Location: ./system/application/config/config.php */

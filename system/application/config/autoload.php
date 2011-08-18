@@ -39,7 +39,7 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','session');
+$autoload['libraries'] = array('database');
 
 
 /*
@@ -51,7 +51,7 @@ $autoload['libraries'] = array('database','session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'form', 'text', 'email','date','html','inflector');
+$autoload['helper'] = array('url', 'form', 'text');
 
 
 /*
@@ -63,7 +63,7 @@ $autoload['helper'] = array('url', 'form', 'text', 'email','date','html','inflec
 |	$autoload['plugin'] = array('captcha', 'js_calendar');
 */
 
-$autoload['plugin'] = array('url', 'form', 'text', 'email','date','html','inflector');
+$autoload['plugin'] = array();
 
 
 /*
@@ -108,7 +108,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('SurveyBuilderModel', 'SurveyModel', 'DashboardModel', 'SearchModel', 'RetentionScheduleModel','RecordTypeModel');
+$autoload['model'] = array('SurveyBuilderModel', 'SurveyModel', 'DashboardModel', 'SearchModel');
 
 
 /*
