@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -21,16 +21,13 @@
 ?>
 
 <?php 
-	$data['title'] = 'Search Record Inventory - Records Authority';
+	$data['title'] = 'Search Record Types - Records Authority';
 	$this->load->view('includes/adminHeader', $data); 
 ?>
-<?php 
-	echo $unitScript; 
-	//echo $sortByScript;
-?>
+<?php echo $unitScript; ?>
 	<div id="tabs">
 		<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Search Record Inventory</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Search Record Types</a></li>
         </ul>
        	
 		<div id="fragment-1" class="adminForm">
@@ -39,8 +36,6 @@
 			<form id="searchRecordTypes" method="post" action="<?php echo site_url();?>/search/getRecordTypes">
 				<select id='divisions' name='divisionID' size='1' class='required'> 
 					<option value='' selected='selected'>Select your division</option>
-					<option value=''>--------------------</option>
-					<option value='999999'>Display All</option>
 					<option value=''>--------------------</option>
 					<?php 
 						foreach ($divisions as $divisionID => $divisionName) {
@@ -55,7 +50,7 @@
 					<option value=''>Select your department</option>
 				</select>
 				&nbsp;&nbsp;
-				<input name="searchRecordTypes" type="submit" value="Get Department Record Types" /> *<br /><br />		
+				<input name="searchRecordTypes" type="submit" value="Get Record Types" /> *<br /><br />		
 			</form>
         	<div id="recordTypeSearchResults"></div>
     </div>

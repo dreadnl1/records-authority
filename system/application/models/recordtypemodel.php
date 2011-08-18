@@ -1,30 +1,8 @@
 <?php
-
-/**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
- * 
- * This file is part of Records Authority.
- * 
- * Records Authority is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * Records Authority is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
- **/
-
-
-class RecordTypeModel extends CI_Model  {
+class RecordTypeModel extends Model  {
 	
 	public function __construct() {
-		parent::__construct();
+		parent::Model();
 		
 		$this->devEmail = $this->config->item('devEmail');
 	}
@@ -219,69 +197,15 @@ class RecordTypeModel extends CI_Model  {
 	}
 	
 	/**
-	 * deletes Record Type and moves it to rm_recordTypeDeleted
+	 * deletes Record Type
 	 *
 	 * @access private
 	 * @return void
 	 */
 	private function deleteRecordTypeQuery($recordInformationID)
 	{
-		$this->db->trans_start();
-		$this->db->query("INSERT INTO rm_recordTypeDeleted SELECT * FROM rm_recordType WHERE recordInformationID = $recordInformationID");
 		$this->db->where('recordInformationID',$recordInformationID);
 		$this->db->delete('rm_recordType');
-		$this->db->trans_complete();
-	}
-	
-	/**
-	 * invokes restoreRecordTypeQuery()
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function restoreRecordType($recordInformationID)
-	{
-		$recordInformationID = $this->restoreRecordTypeQuery($recordInformationID);
-	}
-	
-	/**
-	 * restores Record Type and moves it to rm_recordType
-	 *
-	 * @access private
-	 * @return void
-	 */
-	private function restoreRecordTypeQuery($recordInformationID)
-	{
-		$this->db->trans_start();
-		$this->db->query("INSERT INTO rm_recordType SELECT * FROM rm_recordTypeDeleted WHERE recordInformationID = $recordInformationID");
-		$this->db->where('recordInformationID',$recordInformationID);
-		$this->db->delete('rm_recordTypeDeleted');
-		$this->db->trans_complete();
-	}
-	
-	/**
-	 * invokes permanentDeleteRecordTypeQuery()
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function permanentDeleteRecordType($recordInformationID)
-	{
-		$recordInformationID = $this->permanentDeleteRecordTypeQuery($recordInformationID);
-	}
-	
-	/**
-	 * deletes Record Type
-	 *
-	 * @access private
-	 * @return void
-	 */
-	private function permanentDeleteRecordTypeQuery($recordInformationID)
-	{
-		$this->db->trans_start();
-		$this->db->where('recordInformationID',$recordInformationID);
-		$this->db->delete('rm_recordTypeDeleted');
-		$this->db->trans_complete();
 	}
 }
 ?>

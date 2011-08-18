@@ -1,7 +1,7 @@
 <?php  
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,7 +19,7 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class SessionManager extends CI_Model {
+class SessionManager extends Model {
 
 	/**
 	 * checks if admin user is logged in
@@ -40,20 +40,6 @@ class SessionManager extends CI_Model {
 				exit();
 			}
 		}
-		
-	/**
-	 * checks if the admin account is logged in
-	 * 
-	 */
-	public function isAdmin() {
-		$this->load->library('session');
-		$isAdmin = $this->session->userdata('username');
-		if($isAdmin == "admin") {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
  }
  
 ?>

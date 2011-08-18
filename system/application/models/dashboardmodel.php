@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
  * Author evan.blount@du.edu
  * 
  * This file is part of Records Authority.
@@ -20,10 +20,10 @@
  **/
 
 
-class DashboardModel extends CI_Model {
+class DashboardModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  	}
 	
 	/**
@@ -175,11 +175,12 @@ class DashboardModel extends CI_Model {
 	 			$division = $surveyData['division'];
 	 			$department = $surveyData['department'];
 	 			
-	 			$surveyFormHtml .= "<h1 style='font-size:20px;'>" . trim(strip_tags($division)) . "<h1>";
-	 			$surveyFormHtml .= "<h2 style='font-size:15px;'>" . trim(strip_tags($department)) . "</h2>";
+	 			$surveyFormHtml .= "<h1>" . trim(strip_tags($division)) . "<h1>";
+	 			$surveyFormHtml .= "<h2>" . trim(strip_tags($department)) . "</h2>";
 	 			$surveyFormHtml .= "<br />";
 	 			$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 	 			$surveyFormHtml .= "<strong>Department Contact</strong>";
+	 			$surveyFormHtml .= "</div>";
 	 			$surveyFormHtml .= "<br />";
 	 			
 	 			foreach ($surveyData as $j => $contact) {
@@ -215,7 +216,7 @@ class DashboardModel extends CI_Model {
 				
 				$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 				$surveyFormHtml .= "<strong>Survey Contacts</strong>";
-				
+				$surveyFormHtml .= "</div>";	
 				$surveyFormHtml .= "<br />";
 				
 				$surveyContacts = array();
@@ -264,15 +265,14 @@ class DashboardModel extends CI_Model {
 						} 
 					}
 				++$f;
-				}	
-				$surveyFormHtml .= "</div>";			
+				}			
 			}
 
 			$qCount = 1; // sets question count
 	 		if ($i == "responses") {
 	 			$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 	 			$surveyFormHtml .= "<strong>Survey Responses</strong>";
-	 			//$surveyFormHtml .= "</div>";
+	 			$surveyFormHtml .= "</div>";
 	 			 				 			
 	 			foreach ($surveyData as $count => $responseData) {
 	 			
@@ -343,9 +343,8 @@ class DashboardModel extends CI_Model {
 	 					}
 	 				}
 	 			}
-	 			$surveyFormHtml .= "</div>";
 	 		} 	
-	 		$surveyFormHtml .= "</div>";
+	 		
 	 		$surveyFormHtml .= "<br /><br />"; 	
 
 	 		
@@ -1070,6 +1069,38 @@ class DashboardModel extends CI_Model {
  		} else {
  			return FALSE;
  		}
+	}
+	
+	/**
+    * invokes newUserQuery()
+    *
+    * @access public
+    * @param $_POST
+    * @return void
+    */
+	public function newUser($_POST) {
+		$user = $this->newUserQuery($_POST);
+	}
+	
+	/**
+	 * adds new user
+	 *
+	 * @access private
+	 * @param $_POST
+	 * @return void
+	 */
+	private function newUserQuery($_POST)
+	{
+		$userdata = array();
+		$username = $_POST['uname'];
+		$passcode = $_POST['pcode'];
+		
+		$this->load->library('encrypt');
+		$passcodeHash = $this->encrypt->sha1($passcode);
+		
+		$userdata['username'] = $username;
+		$userdata['passcode'] = $passcodeHash;
+		$this->db->insert('rm_users', $userdata);
 	}
 	
 	/**

@@ -1,17 +1,20 @@
 /***********************************************
  Fool-Proof Date Input Script with DHTML Calendar
- by Jason Moon - calendar@moonscript.com
+ by Jason Moon - http://calendar.moonscript.com/dateinput.cfm
  ************************************************/
 
 // Customizable variables
-var DefaultDateFormat = 'YYYY-MM-DD'; // If no date format is supplied, this will be used instead
-var HideWait = 2; // Number of seconds before the calendar will disappear
+var DefaultDateFormat = 'MM/DD/YYYY'; // If no date format is supplied, this will be used instead
+var HideWait = 3; // Number of seconds before the calendar will disappear
 var Y2kPivotPoint = 76; // 2-digit years before this point will be created in the 21st century
 var UnselectedMonthText = ''; // Text to display in the 1st month list item when the date isn't required
-var FontSize = 11; // In pixels
+var FontSize = 9; // In pixels
 var FontFamily = 'Tahoma';
 var CellWidth = 18;
 var CellHeight = 16;
+var ImageURL = 'http://lib-io.cair.du.edu/recordsAuthority//images/calendar.jpg';
+var NextURL = 'http://lib-io.cair.du.edu/recordsAuthority//images/next.gif';
+var PrevURL = 'http://lib-io.cair.du.edu/recordsAuthority//images/prev.gif';
 var CalBGColor = 'white';
 var TopRowBGColor = 'buttonface';
 var DayBGColor = 'lightgrey';

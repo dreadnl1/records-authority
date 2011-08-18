@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2010 University of Denver--Penrose Library--University Records Management Program
  * Author evan.blount@library.du.edu
  * 
  * This file is part of Records Authority.
@@ -22,16 +22,8 @@
 
 <?php 
 	$data['title'] = 'User - Records Authority';
+	$data['recordUpdated'] = 'User Added Successfully';
 	$this->load->view('includes/adminHeader', $data); 
-	$this->load->model('SessionManager');
-	$siteUrl = site_url();
-	$loginUrl = $siteUrl . "/login/dashboard";
-	
-	$isAdmin = $this->SessionManager->isAdmin();
-	if (!isset($isAdmin) || $isAdmin != TRUE){
-		header("Location: $loginUrl");
-		exit();
-	}
 ?>
 
 <div id="tabs">
@@ -40,20 +32,18 @@
 	</ul>
 	<div id="fragment-1">
 		<div class="adminForm">
-			<?php
-				if(isset($recordUpdated)) {
-					echo $recordUpdated . br(2); 
-				}
-			?>
-			<form name="addUser" method="post" action="<?php echo site_url();?>/upkeep/save" />
-			<input name="username" size="16" maxlength="20" class="required"/>&nbsp;&nbsp;Username<br /><br />
-			<input name="passcode" type="password" size="16" maxlength="20" class="required">&nbsp;&nbsp;Password<br /><br />
-			<input name="passtest" type="password" size="16" maxlength="20" class="required"/>&nbsp;&nbsp;Repeat Password<br /><br />
-			<input name="userdata" type="submit" value="Save" />
+		
+			<form name="departments" id="searchRecordTypes" method="post" action="<?php echo site_url();?>/dashboard/newuser" />
+			Username:
+			<input name="uname" type="text"/>
+			<br /><br />
+			Passcode:
+			<input name="pcode" type="password"/>
+			<br /><br />
+			<input name="userdata" onclick="alert('User Added')" type="submit" value="Save" />
 			</form>
-
+			<?php if (isset($recordSaved)) { echo $recordSaved; } ?>
 		</div>
 	</div>
 </div>
-
 <?php $this->load->view('includes/adminFooter',$data); ?>

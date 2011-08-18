@@ -318,7 +318,7 @@ th {
 
 td {
    padding: 4px; 
-   text-align: left;
+   text-align: center;
 }
 
 .oddtr {
@@ -409,8 +409,4 @@ th a:active {
 
 #approvedByCounselDate {
 	width: 100px;
-}
-
-.ui-accordion-sections {
-	font-size: 12px;
 }

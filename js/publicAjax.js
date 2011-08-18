@@ -50,44 +50,6 @@ function displayRetentionScheduleSearchResults(responseText, statusText) {
 	$("#retentionScheduleSearchResults").html(responseText); // injects html into div
 }
 
-//Search All Full Text
-
-var searchAllRetentionSchedulesOptions = { 
-        success:		displayAllRetentionScheduleSearchResults, // post-submit callback 
-        resetForm:		false,        // reset the form after successful submit 
-     	timeout:   		4000, 
-	    beforeSend: 	retentionScheduleSearchAllBegins, // changes submit button text
-		complete: 		retentionScheduleSearchAllEnds 
-    }; 
-
-	
-	var validateFTSearchAllRetentionSchedules = $("#searchAllRetentionSchedules").validate({
-									rules: {
-										//keyword: "required"
-									},
-									messages: {
-										//keyword: "Required"	
-									},		
-									submitHandler: function(searchAllRetentionSchedules) {
-									$(searchAllRetentionSchedules).ajaxSubmit(searchAllRetentionSchedulesOptions); 
-								}
-							});
-
-
-function retentionScheduleSearchAllBegins() {
-	document.forms['searchAllRetentionSchedules'].searchAllRetentionSchedules.value = "Searching...";
-}
-
-function retentionScheduleSearchAllEnds() {
-	document.forms['searchAllRetentionSchedules'].searchAllRetentionSchedules.value = "Full Schedule";
-	changePageTitle();
-}
-
-// post-submit callback...injects search results into div
-function displayAllRetentionScheduleSearchResults(responseText, statusText) {
-	$("#retentionScheduleSearchResults").html(responseText); // injects html into div
-}
-
 //------------------search by div/dept-------------------------------//
 
     var divDeptsearchRetentionSchedulesOptions = { 

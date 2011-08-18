@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,7 +20,7 @@
  **/
 ?>
 
-<?php
+<?php 
 	$data['title'] = 'Survey Notes - Records Authority';
 	$this->load->view('includes/adminHeader', $data); 
 ?>
@@ -31,7 +31,6 @@
     </ul>
     
     <div id="fragment-1">
- 
     <div class="adminForm">
 
 	<?php if (!isset($_POST['departmentID'])) { ?>
@@ -82,9 +81,8 @@
 	 
 			if (isset($_POST['departmentID']) && $surveyResponses !== '<br />No surveys found for the selected department') { 
 				$departmentID = $_POST['departmentID']; 
-				$url = "recordType/view/" . $departmentID;
-				echo "<div class='adminForm'>";
-				echo anchor_popup($url, 'Create Record Inventory', $popUpParams) . "</div><br />";
+				$url = "dashboard/recordTypeForm/" . $departmentID;
+				echo anchor_popup($url, 'Create Record Type', $popUpParams) . "<br />";
 			}
 		?>
  

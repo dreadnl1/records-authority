@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
  
- class Dashboard extends CI_Controller {
+ class Dashboard extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		// admin user must be loggedin in order to use dashboard methods
 		$this->load->model('SessionManager');
@@ -42,8 +42,6 @@
 		$data['popUpParams'] = $this->JsModel->popUp();
 		$data['searchPopUpParams'] = $this->JsModel->searchPopUp();
 		$data['mediumPopUpParams'] = $this->JsModel->mediumPopUp();
-		$data['shadowboxMediumPopUpParams'] = $this->JsModel->shadowboxMediumPopUp();
-		$data['shadowboxPopUpParams'] = $this->JsModel->shadowboxPopUp();
 		$data['retentionSchedulePopUp'] = $this->JsModel->retentionSchedulePopUp();
 		$this->load->view('admin/displays/dashboard', $data);	
 	}
@@ -98,6 +96,91 @@
 	}
 	
 	/**
+    * displays record type form
+    *
+    * @access public
+    * @return void
+    *//*
+	public function recordTypeForm() {
+		
+		$this->load->model('LookUpTablesModel');
+		$this->load->model('JsModel');
+		
+		$departmentID = $this->uri->segment(3, 0);
+		if ($departmentID !== 0) {
+			$data['division'] = $this->LookUpTablesModel->getDivision($departmentID);
+		} elseif (!empty($_POST['divisionID'])) {
+			$divisionID = $_POST['divisionID'];
+			$data['departmentData'] = $this->LookUpTablesModel->setDepartments($divisionID);
+		}
+		
+		$siteUrl = site_url();
+		$jQuery = $this->JsModel->departmentWidgetJs($siteUrl);
+		$jQueryDeptWidget = $this->JsModel->managementDepartmentWidgetJs($siteUrl);
+		$jQueryDeptMasterCopyWidget = $this->JsModel->managementMasterCopyDepartmentWidgetJs($siteUrl);
+		$jQueryDeptDuplicationWidget = $this->JsModel->managementDuplicationDepartmentWidgetJs($siteUrl);
+		$smallPopUp = $this->JsModel->smallPopUp(); 
+		$mediumPopUp = $this->JsModel->mediumPopUp();
+		
+		$data['recordCategories'] = $this->LookUpTablesModel->getRecordCategories();
+		$data['smallPopUp'] = $smallPopUp;
+		$data['mediumPopUp'] = $mediumPopUp;
+		$data['jQuery'] = $jQuery;
+		$data['jQueryDeptWidget'] = $jQueryDeptWidget;
+		$data['jQueryDeptMasterCopyWidget'] = $jQueryDeptMasterCopyWidget;
+		$data['jQueryDeptDuplicationWidget'] = $jQueryDeptDuplicationWidget;
+		$data['divisionData'] = $this->LookUpTablesModel->createDivisionDropDown();
+		$this->load->view('admin/forms/recordTypeForm', $data);	
+	}
+	
+	
+	/**
+    * displays record type edit form 
+    *
+    * @access public
+    * @return void
+    *//*
+	public function editRecordTypeForm() {
+		
+		$this->load->model('LookUpTablesModel');
+		$this->load->model('JsModel');
+		
+		$recordInformationID = $this->uri->segment(3);
+		
+		$siteUrl = site_url();
+		$jQuery = $this->JsModel->departmentWidgetJs($siteUrl);
+		$jQueryDeptWidget = $this->JsModel->managementDepartmentWidgetJs($siteUrl);
+		$jQueryDeptMasterCopyWidget = $this->JsModel->managementMasterCopyDepartmentWidgetJs($siteUrl);
+		$jQueryDeptDuplicationWidget = $this->JsModel->managementDuplicationDepartmentWidgetJs($siteUrl);
+		$popUp = $this->JsModel->retentionSchedulePopUp();
+		
+		$data['recordCategories'] = $this->LookUpTablesModel->getRecordCategories();
+		$data['jQuery'] = $jQuery;
+		$data['jQueryDeptWidget'] = $jQueryDeptWidget;
+		$data['jQueryDeptMasterCopyWidget'] = $jQueryDeptMasterCopyWidget;
+		$data['jQueryDeptDuplicationWidget'] = $jQueryDeptDuplicationWidget;
+		$data['popUp'] = $popUp;
+		
+		$data['recordTypeData'] = $this->RecordTypeModel->getRecordType($recordInformationID);
+		$data['divisionData'] = $this->LookUpTablesModel->createDivisionDropDown();
+		
+		$this->load->view('admin/forms/editRecordTypeForm', $data);		
+	}
+	
+	/**
+    * updates record type information 
+    *
+    * @access public
+    * @return void
+    *//*
+	public function updateRecordTypeEditForm() {
+		
+		if (isset($_POST['recordInformationID'])) {
+			$this->RecordTypeModel->updateRecordType($_POST);	
+		}
+	}
+	
+	/**
     * displays survey notes form
     *
     * @access public
@@ -109,7 +192,6 @@
 		$this->load->model('LookUpTablesModel');
 		$data['popUpParams'] = $this->JsModel->popUp();
 		
-		$viewID = $this->uri->segment(3);
 		// saves notes
 		if (!empty($_POST['departmentID']) && !empty($_POST['contactID']) && !isset($_POST['surveyNotesID'])) {
 			$this->DashboardModel->saveNotes($_POST);
@@ -131,25 +213,167 @@
 			$departmentID = $_POST['departmentID'];
 			$surveyResponses = $this->DashboardModel->getSurveyResponses($departmentID);
 			$data['surveyResponses'] = $surveyResponses;	
-		}
-
-		if (!empty($viewID)) {
-			$departmentID = $viewID;
-			$divDeptArray = array();
-			$divDeptArray = $this->LookUpTablesModel->getDivision($departmentID);
-			$divisionID = $divDeptArray['divisionID'];
-			
-			$_POST['departmentID'] = $departmentID;
-			$_POST['divisionID'] = $divisionID;
-			
-			$data['departmentData'] = $this->LookUpTablesModel->setDepartments($divisionID);
-			$surveyResponses = $this->DashboardModel->getSurveyResponses($departmentID);
-			$data['surveyResponses'] = $surveyResponses;
-		}
+		} 
 		
 		$data['divisionData'] = $this->LookUpTablesModel->createDivisionDropDown();
 		$data['title'] = "Admin Department Form";
 		$this->load->view('admin/forms/surveyNotesForm', $data);
+	}
+		
+	/**
+    * echo's departmentID / used by jQuery, record type forms
+    *
+    * @access public
+    * @return void
+    *//*
+	public function setRecordTypeFormDepartment() {
+		if (!empty($_POST['departmentID'])) {
+			echo $_POST['departmentID'];
+		}
+	}*/
+	
+	/**
+	 * saves data from recordTypeInformation form
+	 * 
+	 * @access public
+	 * @return $recordInformationID / used by jQuery, record type forms
+	 *//*
+	public function saveRecordTypeRecordInformation() {
+		$recordInformation = array(
+								'recordTypeDepartment'=>trim(strip_tags($this->input->post('recordTypeDepartment'))),
+								'recordInformationDivisionID'=>trim(strip_tags($this->input->post('recordInformationDivisionID'))), //'recordInformationDepartmentID'=>$this->input->post('recordInformationDepartmentID', TRUE)
+								'recordName'=>trim(strip_tags($this->input->post('recordName'))),										
+								'recordDescription'=>trim(strip_tags($this->input->post('recordDescription'))),
+								'recordCategory'=>trim(strip_tags($this->input->post('recordCategory'))),
+								'recordNotesDeptAnswer'=>trim(strip_tags($this->input->post('recordNotesDeptAnswer'))),
+								'recordNotesRmNotes'=>trim(strip_tags($this->input->post('recordNotesRmNotes')))
+								);
+	
+		$recordInformationID = $this->DashboardModel->saveRecordTypeRecordInformation($recordInformation);
+		echo $recordInformationID; //  result used by jQuery	
+	}
+	
+	/**
+	 * saves data from recordTypeFormatAndLocation form
+	 * 
+	 * @access public
+	 * @return void
+	 *//*
+	public function saveRecordTypeFormatAndLocation() {
+		
+		// turn posted arrays (checkbox options) into lists
+		if (isset($_POST['system'])) {
+			$system = implode(",", $_POST['system']);
+		} else {
+			$system = "";
+		}
+		if (isset($_POST['location'])) {
+			$location = implode(",", $_POST['location']);
+		} else {
+			$location = "";
+		}
+		if (isset($_POST['recordLocation'])) {
+			$recordLocation = implode(",", $_POST['recordLocation']);
+		} else {
+			$recordLocation = "";
+		}
+						
+		$formatAndLocation = array(
+								'recordTypeDepartment'=>trim(strip_tags($this->input->post('recordTypeDepartment'))),
+								'electronicRecord'=>trim(strip_tags($this->input->post('electronicRecord'))),
+								'system'=>$system,
+								'otherText'=>trim(strip_tags($this->input->post('otherText'))),										
+								'paperVersion'=>trim(strip_tags($this->input->post('paperVersion'))),
+								'location'=>$location,
+								'otherBuilding'=>trim(strip_tags($this->input->post('otherBuilding'))),
+								'otherStorage'=>trim(strip_tags($this->input->post('otherStorage'))),
+								'finalRecordExist'=>trim(strip_tags($this->input->post('finalRecordExist'))),
+								'backupMedia'=>trim(strip_tags($this->input->post('backupMedia'))),
+								'recordLocation'=>$recordLocation,
+								'otherRecordLocation'=>trim(strip_tags($this->input->post('otherRecordLocation'))),
+								'fileFormat'=>trim(strip_tags($this->input->post('fileFormat'))),
+								'formatAndLocationDeptAnswer'=>trim(strip_tags($this->input->post('formatAndLocationDeptAnswer'))),
+								'formatAndLocationRmNotes'=>trim(strip_tags($this->input->post('formatAndLocationRmNotes'))),
+								'recordInformationID' =>trim(strip_tags($this->input->post('recordInformationID')))
+								);
+								
+		$this->DashboardModel->saveRecordTypeFormatAndLocation($formatAndLocation);
+	} 
+	
+	/**
+	 * saves data from recordTypeManagement form
+	 * 
+	 * @access public
+	 * @return void
+	 *//*
+	public function saveRecordTypeManagement() {
+		// turn posted arrays (checkbox options) into lists
+		if (isset($_POST['duplicationDivisionID'])) {
+			$duplicationDivisionID = implode(",", $_POST['duplicationDivisionID']);
+		} else {
+			$duplicationDivisionID = "";
+		}
+		if (isset($_POST['duplicationDepartmentID'])) {
+			$duplicationDepartmentID = implode(",", $_POST['duplicationDepartmentID']);
+		} else {
+			$duplicationDepartmentID = "";
+		}
+
+		// TODO: refactor...use loop
+		$management = array(
+						'recordTypeDepartment'=>trim(strip_tags($this->input->post('recordTypeDepartment'))),
+						'accessAndUseDeptAnswer'=>trim(strip_tags($this->input->post('accessAndUseDeptAnswer'))),
+						'accessAndUseRmNotes'=>trim(strip_tags($this->input->post('accessAndUseRmNotes'))),
+						'yearsActive'=>trim(strip_tags($this->input->post('yearsActive'))),										
+						'yearsAvailable'=>trim(strip_tags($this->input->post('yearsAvailable'))),
+						'activePeriodDeptAnswer'=>trim(strip_tags($this->input->post('activePeriodDeptAnswer'))),
+						'activePeriodRmNotes'=>trim(strip_tags($this->input->post('activePeriodRmNotes'))),
+						'yearsKept'=>trim(strip_tags($this->input->post('yearsKept'))),
+						'retentionPeriodDeptAnswer'=>trim(strip_tags($this->input->post('retentionPeriodDeptAnswer'))),
+						'retentionPeriodRmNotes'=>trim(strip_tags($this->input->post('retentionPeriodRmNotes'))),
+						'managementDivisionID'=>trim(strip_tags($this->input->post('managementDivisionID'))),
+						'managementDepartmentID'=>trim(strip_tags($this->input->post('managementDepartmentID'))),
+						'custodianDeptAnswer'=>trim(strip_tags($this->input->post('custodianDeptAnswer'))),
+						'custodianRmNotes'=>trim(strip_tags($this->input->post('custodianRmNotes'))),
+						'legislationGovernRecords'=>trim(strip_tags($this->input->post('legislationGovernRecords'))),
+						'legislation'=>trim(strip_tags($this->input->post('legislation'))),
+						'legislationHowLong'=>trim(strip_tags($this->input->post('legislationHowLong'))),
+						'legalRequirmentsDeptAnswer'=>trim(strip_tags($this->input->post('legalRequirmentsDeptAnswer'))),
+						'legalRequirmentsRmNotes'=>trim(strip_tags($this->input->post('legalRequirmentsRmNotes'))),
+						'standardsAndBestPracticesDeptAnswer'=>trim(strip_tags($this->input->post('standardsAndBestPracticesDeptAnswer'))),
+						'standardsAndBestPracticesRmNotes'=>trim(strip_tags($this->input->post('standardsAndBestPracticesRmNotes'))),
+						'destroyRecords'=>trim(strip_tags($this->input->post('destroyRecords'))),
+						'howOftenDestruction'=>trim(strip_tags($this->input->post('howOftenDestruction'))),
+						'howAreRecordsDestroyed'=>trim(strip_tags($this->input->post('howAreRecordsDestroyed'))),
+						'destructionDeptAnswer'=>trim(strip_tags($this->input->post('destructionDeptAnswer'))),
+						'destructionRmNotes'=>trim(strip_tags($this->input->post('destructionRmNotes'))),
+						'transferToArchives'=>trim(strip_tags($this->input->post('transferToArchives'))),
+						'howOftenArchive'=>trim(strip_tags($this->input->post('howOftenArchive'))),
+						'transferToArchivesDeptAnswer'=>trim(strip_tags($this->input->post('transferToArchivesDeptAnswer'))),
+						'transferToArchivesRmNotes'=>trim(strip_tags($this->input->post('transferToArchivesRmNotes'))),
+						'vitalRecords'=>trim(strip_tags($this->input->post('vitalRecords'))),
+						'manageVitalRecords'=>trim(strip_tags($this->input->post('manageVitalRecords'))),
+						'vitalRecordsDeptAnswer'=>trim(strip_tags($this->input->post('vitalRecordsDeptAnswer'))),
+						'vitalRecordsRmNotes'=>trim(strip_tags($this->input->post('vitalRecordsRmNotes'))),
+						'sensitiveInformation'=>trim(strip_tags($this->input->post('sensitiveInformation'))),
+						'describeInformation'=>trim(strip_tags($this->input->post('describeInformation'))),
+						'sensitiveInformationDeptAnswer'=>trim(strip_tags($this->input->post('describeInformation'))),
+						'sensitiveInformationRmNotes'=>trim(strip_tags($this->input->post('sensitiveInformationRmNotes'))),
+						'secureRecords'=>trim(strip_tags($this->input->post('secureRecords'))),
+						'describeSecurityRecords'=>trim(strip_tags($this->input->post('describeSecurityRecords'))),
+						'securityDeptAnswer'=>trim(strip_tags($this->input->post('securityDeptAnswer'))),
+						'securityRmNotes'=>trim(strip_tags($this->input->post('securityRmNotes'))),
+						'duplication'=>trim(strip_tags($this->input->post('duplication'))),
+						'duplicationDivisionID'=>$duplicationDivisionID,
+						'duplicationDepartmentID'=>$duplicationDepartmentID,
+						'masterCopyDivisionID'=>trim(strip_tags($this->input->post('masterCopyDivisionID'))),
+						'masterCopyDepartmentID'=>trim(strip_tags($this->input->post('masterCopyDepartmentID'))),
+						'duplicationDeptAnswer'=>trim(strip_tags($this->input->post('duplicationDeptAnswer'))),
+						'duplicationRmNotes'=>trim(strip_tags($this->input->post('duplicationRmNotes'))),
+						'recordInformationID' =>trim(strip_tags($this->input->post('recordInformationID')))
+					);
+								
+		$this->DashboardModel->saveRecordTypeManagement($management);
 	}
 	
 	/**
@@ -291,6 +515,15 @@
 		
 	}
 	
+	public function adduser() {
+		$this->load->view('admin/forms/addUserForm');
+	}
+	
+ 	public function newuser() {	
+ 		$auth = $this->DashboardModel->newUser($_POST);
+ 		$data['recordUpdated'] = 'User Added';
+		$this->load->view('admin/displays/success',$data);
+ 	}
 }
  
 ?>
