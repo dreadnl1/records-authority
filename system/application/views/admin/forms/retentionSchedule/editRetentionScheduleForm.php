@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -21,7 +21,7 @@
 ?>
 
 <?php 
-	$data['title'] = 'Record Series - Records Authority';
+	$data['title'] = 'Record Group - Records Authority';
 	
 	$var1 = $retentionSchedule['timestamp'];
 	$var2 = mysql_to_unix($var1);
@@ -140,7 +140,7 @@
 	 
 	<div id="tabs">
 		<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Series</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Group</a></li>
         </ul>
        <div id="fragment-1" class="adminForm">
        <br />
@@ -440,7 +440,7 @@
 				?>
 			<br /><br />
 			
-			<label for='approvedByCounselDate'>Public Record Series - Approved Date:&nbsp;*</label><br />
+			<label for='approvedByCounselDate'>Public Record Group - Approved Date:&nbsp;*</label><br />
 			<div style="width:0%;">
 			<?php 
 				$approvedByCounselDate = $retentionSchedule['approvedByCounselDate']; 
@@ -456,7 +456,7 @@
 			<br /><br />
 			
 			<br />
-				<input name="retentionSchedule" type="submit" value="Update Record Series" onClick='setTimeout("self.close()",5000);'/>&nbsp;&nbsp;
+				<input name="retentionSchedule" type="submit" value="Update Record Group" />&nbsp;&nbsp;
 			</form>
 	   <?php
 	   		echo "<span class='deleteSpan'>";

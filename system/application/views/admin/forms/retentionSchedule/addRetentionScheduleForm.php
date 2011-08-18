@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -21,7 +21,7 @@
 ?>
 
 <?php 
-	$data['title'] = 'Record Series - Records Authority';
+	$data['title'] = 'Record Group - Records Authority';
 	$this->load->view('includes/adminHeader', $data); 
 ?>
 
@@ -38,7 +38,7 @@
 
 	<div id="tabs">
 		<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Series</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Group</a></li>
         </ul>
        <div id="fragment-1" class="adminForm">
        <br />
@@ -262,14 +262,14 @@
 			<input name="approvedByCounsel" type="radio" value="no" class="required" checked="checked" />&nbsp;No<br />
 			<br />
 			
-			<label for='approvedByCounselDate'>Public Record Series - Approved Date:&nbsp;*</label><br />
+			<label for='approvedByCounselDate'>Public Record Group - Approved Date:&nbsp;*</label><br />
 				<!-- <input name="approvedByCounselDate" id="approvedByCounselDate" type="text" size="40" value="" /><br />-->
 			<div style="width:0%;">
 				<script>DateInput('approvedByCounselDate', true, 'YYYY-MM-DD')</script>
 			</div>
 			<br /><br />
 			<br />
-				<input name="retentionSchedule" type="submit" value="Create Record Series" />&nbsp;&nbsp;
+				<input name="retentionSchedule" type="submit" value="Create Record Group" />&nbsp;&nbsp;
 			</form>
 			<br />
 	</div>

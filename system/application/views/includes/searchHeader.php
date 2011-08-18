@@ -2,8 +2,8 @@
 
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -29,7 +29,6 @@ error_reporting(E_ALL|E_STRICT);
    <meta name="robots" content="noindex nofollow" />	
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2015 11:12:01 GMT" />
-   <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
 	<!-- GLOBAL CSS and Javascript -->
 	    <link href="<?php echo base_url();?>css/global.css" rel="stylesheet" type="text/css" media="screen" />
 	    <link rel="stylesheet" href="<?php echo base_url();?>js/shadowbox/shadowbox.css" type="text/css" />
@@ -77,7 +76,6 @@ error_reporting(E_ALL|E_STRICT);
 <div id="main-wrapper">
 <!-- global-header -->
 <!--please do not edit the standard global header on all du pages-->
-<?php /*
 	<div id="global-header">
 		<div id="global-inside-header">
 		    <h1><a href="http://www.du.edu/" title="University of Denver">University of Denver</a></h1>
@@ -108,7 +106,6 @@ error_reporting(E_ALL|E_STRICT);
 			</ul>
 		</div>
 	</div>
-	*/ ?>
 <!-- end global-header -->
 
 <div id="inner-wrapper">

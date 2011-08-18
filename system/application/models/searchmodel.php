@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,11 +19,11 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
  
- class SearchModel extends CI_Model 
+ class SearchModel extends Model 
 {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  		
  		$this->solr = $this->config->item('solr');
  	}
@@ -1450,8 +1450,6 @@
 		);
 		$siteUrl = site_url();
 		$publishUrl = $siteUrl . "/retentionSchedule/publish/";
-		$siteName = $this->config->item('site_name');
-		
 		$js = 'onclick="jqCheckAll( this.id, "approvedByCounsel" )"';
 		
 		// load model (loading a model within a model is not typical)
@@ -1527,19 +1525,6 @@
 			$rc = 1; // recordCategory
 			$pb = 3; // publication
 			
-			if($keyword != '*') {
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/excel'><img src='/$siteName/images/page_excel.png' alt='Export to Excel' border='0' /></a>&nbsp;&nbsp;";
-				//$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/pdf'><img src='/$siteName/images/page_white_acrobat.png' alt='Export to PDF' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/csv'><img src='/$siteName/images/page_csv.png' alt='Export to CSV' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/html'><img src='/$siteName/images/page_html.png' alt='Export to HTML' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/xml'><img src='/$siteName/images/page_xml.png' alt='Export to XML' border='0' /></a>&nbsp;&nbsp;";
-			} else {
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/excel'><img src='/$siteName/images/page_excel.png' alt='Export to Excel' border='0' /></a>&nbsp;&nbsp;";
-				//$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/pdf'><img src='/$siteName/images/page_white_acrobat.png' alt='Export to PDF' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/csv'><img src='/$siteName/images/page_csv.png' alt='Export to CSV' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/html'><img src='/$siteName/images/page_html.png' alt='Export to HTML' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/xml'><img src='/$siteName/images/page_xml.png' alt='Export to XML' border='0' /></a>&nbsp;&nbsp;";
-			}
 			$globalRetentionSchedulesResults .= "<table id='searchResultsTable'>";
 			$globalRetentionSchedulesResults .= "<tr>"; 
 
@@ -1940,9 +1925,9 @@
 		} elseif(isset($_POST['field']) && $_POST['field'] == 4) {
 			$field = "retentionPeriod";
 		} elseif(isset($_POST['field']) && $_POST['field'] == 5) {
-			$field = "recordName";
-		} else {
 			$field = "recordCode";
+		} else {
+			$field = "recordName";
 		}
 		// set sort order
 		if (isset($_POST['sortBy']) && $_POST['sortBy'] == 1) {
@@ -1952,7 +1937,7 @@
 			$sortBy = 1; // asc : A - Z
 			$sort = "asc";
 		}
-		$this->db->select(); // "*" is assumed by codeigniter
+		$this->db->select('retentionScheduleID, recordCode, recordName, recordCategory, keywords, officeOfPrimaryResponsibility, disposition, retentionPeriod, recordDescription');
 		$this->db->from('rm_fullTextSearch'); 
 		//$this->db->where('recordCategory', $rc[0]);
 		$categories = "";
@@ -1975,7 +1960,7 @@
 		}
 		$this->db->order_by($field, $sort);
 		$retentionScheduleQuery = $this->db->get();
-
+		
 		if ($retentionScheduleQuery->num_rows() > 0) {
 				
 	 			$retentionScheduleResults = "";
@@ -2008,11 +1993,11 @@
  		
  		if ($retentionScheduleIDs->num_rows() > 0) {
 					
-			// set sort by field name
+ 			// set sort by field name
 			if (isset($_POST['field']) && $_POST['field'] == 2) {
 				$field = "disposition";
 			} elseif(isset($_POST['field']) && $_POST['field'] == 1) {
-				$field = "keywords";
+				$field = "officeOfPrimaryResponsibility";
 			} elseif(isset($_POST['field']) && $_POST['field'] == 3) {
 				$field = "recordCategory";
 			} elseif(isset($_POST['field']) && $_POST['field'] == 4) {
@@ -2037,7 +2022,7 @@
 				$ids[] = $id->retentionScheduleID;				
 			}
 			 		 		
- 			$this->db->select(); // "*" is assumed by codeigniter
+ 			$this->db->select('retentionScheduleID, recordCode, recordName, recordCategory, officeOfPrimaryResponsibility, disposition, retentionPeriod, recordDescription');
 			$this->db->from('rm_fullTextSearch'); 
 			$this->db->where_in('retentionScheduleID', $ids);
 		 	$this->db->order_by($field, $sort);
@@ -2046,7 +2031,7 @@
 	 		if ($retentionScheduleQuery->num_rows() > 0) {
 				
 	 			$retentionScheduleResults = "";
-	 			$results = $this->generateSearchResults($divisionID, $departmentID, $sortBy, $retentionScheduleQuery, $keyword="", $recordCategory="", $field);
+	 			$results = $this->generateSearchResults($divisionID, $departmentID, $sortBy, $retentionScheduleQuery, $keyword="", $recordCategory="");
 				$retentionScheduleResults .= $results;
 	 						
 				return $retentionScheduleResults;
@@ -2118,14 +2103,12 @@
 			$retentionScheduleResults .= "</script>";
 		}
 				
-		$rco = 0; // 0 = record code
+		$rco = 0; // 5 = record code
 		$kw = 1; // 1 = keywords
 		$dis = 2; // 2 = disposition
 		$rc =  3; // 3 = recordCategory
 		$rp =  4; // 4 = retentionPeriod
-		$rn =  5; // 5 = recordName
-		$opr = 6; // 6 = officeOfPrimaryResponsibility
-
+		$rn =  5; // 0 = recordName
 		
 		//Assign regular image
 		$image0 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
@@ -2134,7 +2117,6 @@
 		$image3 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
 		$image4 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
 		$image5 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image6 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
 		
 		//Assign Sort arrow images
 		if($field == "recordCode") {
@@ -2195,14 +2177,14 @@
 		
 		$retentionScheduleResults .= "<table id='searchResultsTable' width='100%'>";
 		$retentionScheduleResults .= "<tr>";
-		$retentionScheduleResults .= "<th width='6%'><strong><a href='#' title='Click to sort' onClick='sortBy($rco);'>Record Code$image0</a></strong></th>";
+		$retentionScheduleResults .= "<th width='6%'><strong><a href='#' title='Click to sort' onClick='sortBy($rco);'>Record Code$image5</a></strong></th>";
 		$retentionScheduleResults .= "<th width='10%'><strong><a href='#' title='Click to sort' onClick='sortBy($rc);'>Functional Category$image3</a></strong></th>";
-		$retentionScheduleResults .= "<th width='13%'><strong><a href='#' title='Click to sort' onClick='sortBy($rn);'>Record Group$image5</a></strong></th>";
-		$retentionScheduleResults .= "<th width='19%'><strong>Description</strong></th>";
+		$retentionScheduleResults .= "<th width='13%'><strong><a href='#' title='Click to sort' onClick='sortBy($rn);'>Record Group$image0</a></strong></th>";
+		$retentionScheduleResults .= "<th width='19%'><strong>Record Description</strong></th>";
 		$retentionScheduleResults .= "<th width='19%'><strong><a href='#' title='Click to sort' onClick='sortBy($kw);'>Search Terms$image1</a></strong></th>";
 		$retentionScheduleResults .= "<th width='16%'><strong><a href='#' title='Click to sort' onClick='sortBy($rp);'>Retention Period$image4</a></strong></th>";
 		$retentionScheduleResults .= "<th width='16%'><strong><a href='#' title='Click to sort' onClick='sortBy($dis);'>Retention Rules$image2</a></strong></th>";
-		//$retentionScheduleResults .= "<th width='10%'><strong><a href='#' title='Click to sort' onClick='sortBy($opr);'>Primary Owner$image6</a></strong></th>";
+		//$retentionScheduleResults .= "<th width='10%'><strong><a href='#' title='Click to sort' onClick='sortBy($opr);'>Primary Owner$image1</a></strong></th>";
 		$retentionScheduleResults .= "<th width='1%'><strong></strong></th>";
 		$retentionScheduleResults .= "</tr>";
 		$retentionScheduleResults .= "</table>";

@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class Search extends CI_Controller {
+class Search extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		$this->load->model('LookUpTablesModel');
 		$this->load->model('JsModel');

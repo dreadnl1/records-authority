@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2010 University of Denver--Penrose Library--University Records Management Program
  * Author evan.blount@du.edu
  *
  * This file is part of Records Authority.
@@ -18,10 +18,10 @@
  * You should have received a copy of the GNU General Public License
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
-class ImportModel extends CI_Model {
+class ImportModel extends Model {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Model();
 	}
 
 	/**
@@ -33,7 +33,6 @@ class ImportModel extends CI_Model {
 	 */
 	public function csvImport($filePath) {
 		//open file
-		ini_set('auto_detect_line_endings',TRUE);
 		$fh = fopen($filePath, "r");
 		$result = "";
 		

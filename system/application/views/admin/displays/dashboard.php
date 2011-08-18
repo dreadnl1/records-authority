@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -67,14 +67,14 @@
 			echo "<td style='text-align:left;width:100px;'>";
 			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/searchSurveys', 'Browse Submitted Surveys', $searchPopUpParams) . br();
 			echo img($imagePlus) . "&nbsp". anchor_popup('/recordType/view/', 'Create Record Inventory', $popUpParams) . br();
-			echo img($imagePlus) . "&nbsp". anchor_popup('/retentionSchedule/view/', 'Create Record Series', $retentionSchedulePopUp) . br();
+			echo img($imagePlus) . "&nbsp". anchor_popup('/retentionSchedule/view/', 'Create Record Group', $retentionSchedulePopUp) . br();
 			echo "</td>";
 			
 			echo "<td style='text-align:left;width:100px;'>";
 			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/recordTypeGlobalSearch', 'Search Record Inventory', $searchPopUpParams) . br();
-			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/retentionScheduleGlobalSearch', 'Search Record Series ', $searchPopUpParams) . br();
+			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/retentionScheduleGlobalSearch', 'Search Record Groups ', $searchPopUpParams) . br();
 			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/searchRecordTypes', 'Browse Record Inventory', $searchPopUpParams) . br();
-			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/searchRetentionSchedules', 'Browse Record Series', $searchPopUpParams) . br();
+			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/searchRetentionSchedules', 'Browse Record Groups', $searchPopUpParams) . br();
 			echo "</td></tr>";
 			
 			echo "<tr><th>Database</th><th>Administrative</th></tr>";
@@ -99,10 +99,9 @@
 			//echo img($imagePlus) . "&nbsp" . anchor_popup('/upkeep/addDocTypeForm', 'Create Document Types', $mediumPopUpParams) . br();
 			//echo img($imageFolder) . "&nbsp" . anchor_popup('/upkeep/editDocTypeForm', 'Edit Document Types', $mediumPopUpParams) . br(2);
 			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/searchRecordTypesDeleted', 'Browse Deleted Record Inventory', $searchPopUpParams) . br();
-			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/searchRetentionSchedulesDeleted', 'Browse Deleted Record Series', $searchPopUpParams) . br(2);
+			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/searchRetentionSchedulesDeleted', 'Browse Deleted Record Groups', $searchPopUpParams) . br(2);
 			
-			//echo "<img src='$imagePath/ffd40f_11x11_icon_close.gif' alt='Logout' border=0 />&nbsp;" . anchor('login/logout', 'Logout');
-			echo img($imageFolder) . "&nbsp" . anchor_popup('/upkeep/solrTruncateForm', 'Delete Public Search Index', $mediumPopUpParams) . br(); 
+			//echo "<img src='$imagePath/ffd40f_11x11_icon_close.gif' alt='Logout' border=0 />&nbsp;" . anchor('login/logout', 'Logout'); 
 			echo img($imageFolder) . "&nbsp" . anchor_popup('/retentionSchedule/indexRetentionSchedules', 'Run Database Index', $mediumPopUpParams) . br();
 			echo img($imageFolder) . "&nbsp" . anchor_popup('../solr/solrIndexer.php', 'Refresh Public Search Index', $mediumPopUpParams) . br(2);
 			echo img($imageDoc) . "&nbsp" . anchor_popup('/search/globalAuditSearch', 'Text Search - Audit', $searchPopUpParams) . br(2);

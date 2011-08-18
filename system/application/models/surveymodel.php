@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,11 +20,11 @@
  **/
 
 
-class SurveyModel extends CI_Model 
+class SurveyModel extends Model 
 {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
 		
  		$this->devEmail = $this->config->item('devEmail');
  		$this->uploadDir = $this->config->item('uploadDirectory');
@@ -372,7 +372,7 @@ class SurveyModel extends CI_Model
 						if (move_uploaded_file($_FILES[$values]['tmp_name'][$i], $uploadFile)) { 
 							$surveyQuestionUploads['response'] = $newFileName;
 						} else {
-							//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (could not move file to file system) contactID:' . $contactID); 
+							//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (could not move file to file system) contactID:' . $contactID); // TODO: fix this (get user name)
 							$surveyQuestionUploads['response'] = "File not uploaded";	
 						}
 						
@@ -398,14 +398,14 @@ class SurveyModel extends CI_Model
 						} else {
 							
 							if ($fileTypeOk !== TRUE) {
-								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (file type not supported) contactID:' . $contactID);
+								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (file type not supported) contactID:' . $contactID); // TODO: fix this (get user name)
 								echo "file type not supported";
 							} elseif ($fileSizeOk !== TRUE) {
-								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (file size too big) contactID:' . $contactID); 
+								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (file size too big) contactID:' . $contactID); // TODO: fix this (get user name)
 								echo "file size too big";
 							} else { 
 								// show error here
-								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (unknown reason) contactID:' . $contactID); 
+								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (unknown reason) contactID:' . $contactID); // TODO: fix this (get user name)
 								echo "an error occurred..file not uploaded";
 							}
 						}

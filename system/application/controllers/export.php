@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
  
- class Export extends CI_Controller {
+ class Export extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 	}
   
 	/**
@@ -127,66 +127,6 @@
 		} 
 	}
 	
-		/**
-	 * generates export file
-	 * 
-	 * @access public
-	 * @param $departmentID
-	 * @return void
-	 */
- 	public function transformText() {
- 				
- 		if ($this->uri->segment(3)) {
-			$keyword = $this->uri->segment(3);	
-			$format = $this->uri->segment(4);
-						
-			$results = $this->getRetentionScheduleKeywordIDs($keyword);
-			
-			$ids = $results['ids']; 
-			$getRetentionScheduleQuery = $results['rsQuery'];
-			$divDept = 999999;
-			
-			$filename = "retention_schedule";
-			$headers = $this->generateHeaders($getRetentionScheduleQuery, $divDept);
-			$line = $this->generateDataRows($getRetentionScheduleQuery, $ids);
-														
-			if ($format == "excel") {
-				$this->toExcel($headers, $line, $filename);
-			}
-			
-			if ($format == "pdf") {
-				$html = $headers . $line;
-				//$this->toPdf($headers, $line);
-    		
-    			$this->toPdf($html, $filename);
-			}
-			
-			if ($format == "csv") {
-				$this->toCsv($getRetentionScheduleQuery,$filename);
-			}
-			
-			if ($format == "xml") {
-				$xmlHeader = $this->generateXMLHeader();
-				$xmlFooter = $this->generateXMLFooter();
-				$xmlData = $this->generateXMLDataRows($getRetentionScheduleQuery,$ids);
-				$this->toXml($xmlHeader,$xmlData,$xmlFooter,$filename);
-			}
-			
-			if ($format == "html") {
-				$this->toHtml($headers, $line,$filename);
-			}
-			
-			if ($format == "public") {
-				$headers = $this->generatePublicHeaders($getRetentionScheduleQuery, $divDept);
-				$line = $this->generatePublicDataRows($getRetentionScheduleQuery, $ids);
-				$this->toExcel($headers, $line,$filename);
-			}
-						
-		} else {
-			echo "An error has occurred.";
-		} 	
-	}
-	
 	/**
 	 * generates Retention Schedule Data
 	 * 
@@ -218,64 +158,6 @@
 		
 		$this->load->model('LookUpTablesModel');
 		$divDept = $this->LookUpTablesModel->getDivision($departmentID);
-		
-		$results = array();
-		$results['ids'] = $ids;
-		$results['rsQuery'] = $getRetentionScheduleQuery; 
-		$results['divDept'] = $divDept;
-		
-		return $results;
-	}
-	
-	/**
-	 * generates Retention Schedule Data
-	 * 
-	 * @param $departmentID
-	 * @return $results
-	 */
-	private function getRetentionScheduleKeywordIDs($keyword) {
-		// get retention schedule ids
-		$this->db->select('retentionScheduleID');
-	 	$this->db->from('rm_retentionSchedule');
-	 	//Check for Search all with *
-	 	if($keyword != '*') {
-		 	$this->db->where('MATCH(
-		 						uuid,
-		 						recordCode,
-		 						recordName,
-		 						recordDescription,
-		 						recordCategory,
-		 						keywords,
-		 						retentionPeriod,
-		 						primaryAuthorityRetention,
-		 						retentionNotes,
-		 						retentionDecisions,
-		 						disposition,
-		 						primaryAuthority,
-		 						notes,
-		 						vitalRecord,
-		 						approvedByCounsel,
-		 						approvedByCounselDate) 
-		 						AGAINST ("*' . $keyword . '*" IN BOOLEAN MODE)');
-	 	}
-	 	$retentionScheduleIDs = $this->db->get();
-	 		
-	 	if ($retentionScheduleIDs->num_rows() > 0) {
-			// package id's in an array
-	 		$ids = array();
-			foreach ($retentionScheduleIDs->result() as $id) {
-				$ids[] = $id->retentionScheduleID;				
-			}	 		
-	 	}
-								
-	 	$this->db->select('retentionScheduleID, recordCode, recordName, recordCategory, recordDescription, keywords, retentionPeriod, primaryAuthorityRetention, relatedAuthorities, retentionDecisions, primaryAuthority, notes, vitalRecord, approvedByCounsel, approvedByCounselDate, officeOfPrimaryResponsibility, override, primaryOwnerOverride, disposition');
-	 	$this->db->from('rm_retentionSchedule');
-		$this->db->where_in('retentionScheduleID', $ids);
-		$this->db->order_by('recordCode', 'asc');
-		$getRetentionScheduleQuery = $this->db->get();	
-		
-		$this->load->model('LookUpTablesModel');
-		$divDept = $this->LookUpTablesModel->getDivision(999999);
 		
 		$results = array();
 		$results['ids'] = $ids;
@@ -480,7 +362,7 @@
 			if ((!isset($value['keywords'])) OR ($value['keywords'] == "")) {
 				$line .= "<td>&nbsp</td>";
 			} else {
-				$value[$i] = str_replace('"', '""', $value['keywords']);
+				$value[$i] = str_replace('"', '""', $value['retentionPeriod']);
 			    $line .= '<td valign="top">' . trim($value[$i]) . '</td>';	
 			}
 			

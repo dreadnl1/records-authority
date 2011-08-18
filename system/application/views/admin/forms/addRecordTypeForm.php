@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -190,7 +190,7 @@
 <!-- Question 7 -->			
 			<label for='recordStorage'>7.) Where is the record stored?</label><br />
 			<input name="recordStorage" type="radio" value="Physical storage in department" />&nbsp;&nbsp;Physical Storage in department<br />
-			<input name="recordStorage" type="radio" value="Physical storage in other building" id="toggleOtherDUBuilding" />&nbsp;&nbsp;Physical Storage in other building (enter other type)<br />
+			<input name="recordStorage" type="radio" value="Physical storage in other DU building" id="toggleOtherDUBuilding" />&nbsp;&nbsp;Physical Storage in other DU building (enter other type)<br />
 			
 			<div id="otherDUBuildingText">
 				<input name="otherDUBuildingText" type="text"/>
@@ -204,7 +204,7 @@
 			
 			<input name="recordStorage" type="radio" value="Banner" />&nbsp;&nbsp;Banner<br />
 			<input name="recordStorage" type="radio" value="Peak Digital"  />&nbsp;&nbsp;Peak Digital<br />
-			<input name="recordStorage" type="radio" value="Networked Computer/Server" />&nbsp;&nbsp;Networked Computer/Server<br />
+			<input name="recordStorage" type="radio" value="DU Networked Computer/Server" />&nbsp;&nbsp;DU Networked Computer/Server<br />
 			<input name="recordStorage" type="radio" value="Local HD"  />&nbsp;&nbsp;Local HD<br />
 			
 			<input name="recordStorage" type="radio" value="Other electronic system" id="toggleOtherElectronicSystem" />&nbsp;&nbsp;Other electronic system (enter other type)<br />
