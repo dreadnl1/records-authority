@@ -1,29 +1,26 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 ?>
 
-<?php 
-	$data['title'] = 'Department - Records Authority';
-	$this->load->view('includes/adminHeader', $data); 
-?>
+<?php $this->load->view('includes/adminHeader'); ?>
 
 <div id="tabs">
 	<ul>
@@ -36,7 +33,7 @@
 			<form name="divisions" method="post" action="<?php echo site_url();?>/upkeep/edit" />
 				<input name="getDept" type="hidden" value="1" />
 				<select id='divisions' name='divisionID' size='1' onChange="submit();" class='required'>
-					<option value=''>Select a Division to Retrieve Departments</option>
+					<option value=''>Select a Division to Retreive Departments</option>
 					<option value=''>-----------------</option>
 					<?php 
 						foreach ($divisions as $id => $divisions) {

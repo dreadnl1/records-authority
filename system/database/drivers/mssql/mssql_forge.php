@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 4.3.2 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @copyright	Copyright (c) 2006, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -60,7 +60,7 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 	 */
 	function _drop_table($table)
 	{
-		return "DROP TABLE ".$this->db->_escape_identifiers($table);
+		return "DROP TABLE ".$this->db->_escape_table($table);
 	}
 
 	// --------------------------------------------------------------------
@@ -79,13 +79,13 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 	function _create_table($table, $fields, $primary_keys, $keys, $if_not_exists)
 	{
 		$sql = 'CREATE TABLE ';
-
+		
 		if ($if_not_exists === TRUE)
 		{
 			$sql .= 'IF NOT EXISTS ';
 		}
-
-		$sql .= $this->db->_escape_identifiers($table)." (";
+		
+		$sql .= $this->db->_escape_table($table)." (";
 		$current_field_count = 0;
 
 		foreach ($fields as $field=>$attributes)
@@ -100,41 +100,41 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 			else
 			{
 				$attributes = array_change_key_case($attributes, CASE_UPPER);
-
+				
 				$sql .= "\n\t".$this->db->_protect_identifiers($field);
-
+				
 				$sql .=  ' '.$attributes['TYPE'];
-
+	
 				if (array_key_exists('CONSTRAINT', $attributes))
 				{
 					$sql .= '('.$attributes['CONSTRAINT'].')';
 				}
-
+	
 				if (array_key_exists('UNSIGNED', $attributes) && $attributes['UNSIGNED'] === TRUE)
 				{
 					$sql .= ' UNSIGNED';
 				}
-
+	
 				if (array_key_exists('DEFAULT', $attributes))
 				{
 					$sql .= ' DEFAULT \''.$attributes['DEFAULT'].'\'';
 				}
-
+	
 				if (array_key_exists('NULL', $attributes) && $attributes['NULL'] === TRUE)
 				{
 					$sql .= ' NULL';
 				}
 				else
 				{
-					$sql .= ' NOT NULL';
+					$sql .= ' NOT NULL';			
 				}
-
+	
 				if (array_key_exists('AUTO_INCREMENT', $attributes) && $attributes['AUTO_INCREMENT'] === TRUE)
 				{
 					$sql .= ' AUTO_INCREMENT';
 				}
 			}
-
+			
 			// don't add a comma on the end of the last field
 			if (++$current_field_count < count($fields))
 			{
@@ -147,24 +147,24 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 			$primary_keys = $this->db->_protect_identifiers($primary_keys);
 			$sql .= ",\n\tPRIMARY KEY (" . implode(', ', $primary_keys) . ")";
 		}
-
+		
 		if (is_array($keys) && count($keys) > 0)
 		{
 			foreach ($keys as $key)
 			{
 				if (is_array($key))
 				{
-					$key = $this->db->_protect_identifiers($key);
+					$key = $this->db->_protect_identifiers($key);	
 				}
 				else
 				{
 					$key = array($this->db->_protect_identifiers($key));
 				}
-
+				
 				$sql .= ",\n\tFOREIGN KEY (" . implode(', ', $key) . ")";
 			}
 		}
-
+		
 		$sql .= "\n)";
 
 		return $sql;
@@ -218,9 +218,9 @@ class CI_DB_mssql_forge extends CI_DB_forge {
 		{
 			$sql .= ' AFTER ' . $this->db->_protect_identifiers($after_field);
 		}
-
+		
 		return $sql;
-
+		
 	}
 
 	// --------------------------------------------------------------------

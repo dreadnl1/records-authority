@@ -2,11 +2,11 @@
 /**
  * Code Igniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 4.3.2 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @copyright	Copyright (c) 2006, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -24,9 +24,9 @@
  */
 class CI_DB_forge {
 
-	var $fields			= array();
+	var $fields		 	= array();
 	var $keys			= array();
-	var $primary_keys	= array();
+	var $primary_keys 	= array();
 	var $db_char_set	=	'';
 
 	/**
@@ -34,7 +34,7 @@ class CI_DB_forge {
 	 *
 	 * Grabs the CI super object instance so we can access it.
 	 *
-	 */
+	 */	
 	function CI_DB_forge()
 	{
 		// Assign the main database object to $this->db
@@ -55,12 +55,12 @@ class CI_DB_forge {
 	function create_database($db_name)
 	{
 		$sql = $this->_create_database($db_name);
-
+		
 		if (is_bool($sql))
 		{
 			return $sql;
 		}
-
+	
 		return $this->db->query($sql);
 	}
 
@@ -76,12 +76,12 @@ class CI_DB_forge {
 	function drop_database($db_name)
 	{
 		$sql = $this->_drop_database($db_name);
-
+		
 		if (is_bool($sql))
 		{
 			return $sql;
 		}
-
+	
 		return $this->db->query($sql);
 	}
 
@@ -97,21 +97,11 @@ class CI_DB_forge {
 	 */
 	function add_key($key = '', $primary = FALSE)
 	{
-		if (is_array($key))
-		{
-			foreach ($key as $one)
-			{
-				$this->add_key($one, $primary);
-			}
-
-			return;
-		}
-
 		if ($key == '')
 		{
 			show_error('Key information is required for that operation.');
 		}
-
+		
 		if ($primary === TRUE)
 		{
 			$this->primary_keys[] = $key;
@@ -137,7 +127,7 @@ class CI_DB_forge {
 		{
 			show_error('Field information is required.');
 		}
-
+		
 		if (is_string($field))
 		{
 			if ($field == 'id')
@@ -157,16 +147,16 @@ class CI_DB_forge {
 				{
 					show_error('Field information is required for that operation.');
 				}
-
+				
 				$this->fields[] = $field;
 			}
 		}
-
+		
 		if (is_array($field))
 		{
 			$this->fields = array_merge($this->fields, $field);
 		}
-
+		
 	}
 
 	// --------------------------------------------------------------------
@@ -179,14 +169,14 @@ class CI_DB_forge {
 	 * @return	bool
 	 */
 	function create_table($table = '', $if_not_exists = FALSE)
-	{
+	{	
 		if ($table == '')
 		{
 			show_error('A table name is required for that operation.');
 		}
-
+			
 		if (count($this->fields) == 0)
-		{
+		{	
 			show_error('Field information is required.');
 		}
 
@@ -208,12 +198,12 @@ class CI_DB_forge {
 	function drop_table($table_name)
 	{
 		$sql = $this->_drop_table($this->db->dbprefix.$table_name);
-
+		
 		if (is_bool($sql))
 		{
 			return $sql;
 		}
-
+	
 		return $this->db->query($sql);
 	}
 
@@ -233,7 +223,7 @@ class CI_DB_forge {
 		{
 			show_error('A table name is required for that operation.');
 		}
-
+			
 		$sql = $this->_rename_table($table_name, $new_table_name);
 		return $this->db->query($sql);
 	}
@@ -253,33 +243,22 @@ class CI_DB_forge {
 	{
 		if ($table == '')
 		{
-			show_error('A table name is required for that operation.');
+				show_error('A table name is required for that operation.');
 		}
 
 		// add field info into field array, but we can only do one at a time
-		// so we cycle through
+		// so only grab the first field in the event there are more then one
+		$this->add_field(array_slice($field, 0, 1));
 
-		foreach ($field as $k => $v)
-		{
-			$this->add_field(array($k => $field[$k]));
-
-			if (count($this->fields) == 0)
-			{
-				show_error('Field information is required.');
-			}
-
-			$sql = $this->_alter_table('ADD', $this->db->dbprefix.$table, $this->fields, $after_field);
-
-			$this->_reset();
-
-			if ($this->db->query($sql) === FALSE)
-			{
-				return FALSE;
-			}
+		if (count($this->fields) == 0)
+		{	
+			show_error('Field information is required.');
 		}
 
-		return TRUE;
+		$sql = $this->_alter_table('ADD', $this->db->dbprefix.$table, $this->fields, $after_field);
 
+		$this->_reset();
+		return $this->db->query($sql);
 	}
 
 	// --------------------------------------------------------------------
@@ -294,19 +273,19 @@ class CI_DB_forge {
 	 */
 	function drop_column($table = '', $column_name = '')
 	{
-
+	
 		if ($table == '')
 		{
-			show_error('A table name is required for that operation.');
+				show_error('A table name is required for that operation.');
 		}
 
 		if ($column_name == '')
 		{
-			show_error('A column name is required for that operation.');
+				show_error('A column name is required for that operation.');
 		}
 
 		$sql = $this->_alter_table('DROP', $this->db->dbprefix.$table, $column_name);
-
+	
 		return $this->db->query($sql);
 	}
 
@@ -323,40 +302,25 @@ class CI_DB_forge {
 	 */
 	function modify_column($table = '', $field = array())
 	{
+	
 		if ($table == '')
 		{
-			show_error('A table name is required for that operation.');
+				show_error('A table name is required for that operation.');
 		}
 
 		// add field info into field array, but we can only do one at a time
-		// so we cycle through
+		// so only grab the first field in the event there are more then one
+		$this->add_field(array_slice($field, 0, 1));
 
-		foreach ($field as $k => $v)
-		{
-			// If no name provided, use the current name
-			if ( ! isset($field[$k]['name']))
-			{
-				$field[$k]['name'] = $k;
-			}
-
-			$this->add_field(array($k => $field[$k]));
-
-			if (count($this->fields) == 0)
-			{
-				show_error('Field information is required.');
-			}
-
-			$sql = $this->_alter_table('CHANGE', $this->db->dbprefix.$table, $this->fields);
-
-			$this->_reset();
-
-			if ($this->db->query($sql) === FALSE)
-			{
-				return FALSE;
-			}
+		if (count($this->fields) == 0)
+		{	
+			show_error('Field information is required.');
 		}
 
-		return TRUE;
+		$sql = $this->_alter_table('CHANGE', $this->db->dbprefix.$table, $this->fields);
+
+		$this->_reset();
+		return $this->db->query($sql);
 	}
 
 	// --------------------------------------------------------------------
@@ -371,9 +335,9 @@ class CI_DB_forge {
 	 */
 	function _reset()
 	{
-		$this->fields		= array();
+		$this->fields 		= array();
 		$this->keys			= array();
-		$this->primary_keys	= array();
+		$this->primary_keys 	= array();
 	}
 
 }

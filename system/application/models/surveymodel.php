@@ -1,35 +1,32 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
 
-class SurveyModel extends CI_Model 
+class SurveyModel extends Model 
 {
 
 	public function __construct() {
- 		parent::__construct();
-		
- 		$this->devEmail = $this->config->item('devEmail');
- 		$this->uploadDir = $this->config->item('uploadDirectory');
-	}
-			
+ 		parent::Model();
+ 	}
+	
 	/**
     * invokes getSurveyNameQuery()
     *
@@ -61,7 +58,7 @@ class SurveyModel extends CI_Model
 			 }
 			 return $surveyName; 
 	 	} else {
-	 		return "No Surveys available";
+	 		return "database error";
 	 	}	
 	 }
 	 
@@ -84,28 +81,23 @@ class SurveyModel extends CI_Model
     * @return echo's JSON package containing departments / used by jQuery 
     */
 	 private function getDepartmentsQuery($divisionID) {
-	 	
 	 	$this->db->select('departmentID, departmentName');
-		$this->db->where('divisionID', $divisionID);
-		$this->db->from('rm_departments');
-		$query = $this->db->get();
-		$departments = array();
-		if ($query->num_rows() > 0) {		
-	
-			foreach ($query->result() as $results) {
-				if ($results->departmentName !== "All Departments") { // added f.r.  6.8.09 - stakeholder no longer wants all departments option
-					$departments[] = '{' . 'departmentID: ' . $results->departmentID . ', ' . 'departmentName: ' . '"' . $results->departmentName . '"' . '}';
-				}
+	 	$this->db->where('divisionID', $divisionID);
+	 	$this->db->from('rm_departments');
+	 	$query = $this->db->get();
+	 	$departments = array();
+	 	if ($query->num_rows() > 0) {		
+	 		foreach ($query->result() as $results) {
+				$departments[] = '{' . 'departmentID: ' . $results->departmentID . ', ' . 'departmentName: ' . '"' . $results->departmentName . '"' . '}';
 			}
 			
 			echo '[' . implode(',', $departments) . ']';
-				
-		} else {
-			//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: no departments found - getDepartmentsQuery()');
-			echo "no departments found";
-		}
+			
+	 	} else {
+	 		return "database error";
+	 	}	
 	 }
-		 
+	 
 	/**
     * invokes saveSurveyResponseQuery
     *
@@ -127,18 +119,17 @@ class SurveyModel extends CI_Model
 	private function saveSurveyResponsesQuery($_POST, $_FILES) {
 		
 		// pull department contact values from $_POST array and place into $departmentContact array 
-		$departmentContact = array('firstName'=>trim(strip_tags($_POST['firstName'])),
-								'lastName'=>trim(strip_tags($_POST['lastName'])),
-								'jobTitle'=>trim(strip_tags($_POST['jobTitle'])),
-								'departmentID'=>trim(strip_tags($_POST['departmentID'])),
-								'phoneNumber'=>trim(strip_tags($_POST['phoneNumber'])),
-								'emailAddress'=>trim(strip_tags($_POST['emailAddress'])),
-								'submitDate'=>trim(strip_tags($_POST['submitDate']))									
+		$departmentContact = array('firstName'=>$_POST['firstName'],
+								'lastName'=>$_POST['lastName'],
+								'jobTitle'=>$_POST['jobTitle'],
+								'departmentID'=>$_POST['departmentID'],
+								'phoneNumber'=>$_POST['phoneNumber'],
+								'emailAddress'=>$_POST['emailAddress']									
 								); 
 		// insert $departmentContact array into database 
 		$this->db->insert('rm_departmentContacts', $departmentContact);
 				
-		// pull newly created contactID from database.  It will be used to give the questions a contact.						
+		// pull newly created contactID from database.  It will be used to give the questions a contact...will be used by search methods						
 		$this->db->select_max('contactID');
 		$maxID = $this->db->get('rm_departmentContacts');						
 		if ($maxID->num_rows() > 0) {
@@ -146,8 +137,8 @@ class SurveyModel extends CI_Model
 			$contactID = $result->contactID;  						
 			
 			// surveyID will allow us to pull questions based on the survey they belong to.
-			$surveyID = trim(strip_tags($_POST['surveyID']));
-			$departmentID = trim(strip_tags($_POST['departmentID']));
+			$surveyID = $_POST['surveyID'];
+			$departmentID = $_POST['departmentID'];
 		
 			// inserts survey contacts into database
 			$surveyContact = array();
@@ -317,11 +308,9 @@ class SurveyModel extends CI_Model
 			$this->doUpload($_FILES, $contactID);
 					
 		} else {
-			//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: key not retrieved successfully. unable to save survey responses');
-			echo "database error: key not retrieved successfully. unable to save survey responses";
+			echo "database error";
 		}
 	} // closes method
-	
 	
 	/**
     * handles survey file uploads
@@ -332,7 +321,10 @@ class SurveyModel extends CI_Model
     * @return void 
     */
 	private function doUpload($_FILES, $contactID) {
-			
+		
+		// set upload directory path TODO: find better method to store path
+		$uploadDir = "/var/www/html/liaison/surveyFileUploads/";
+		
 		// package question types into array
 		$uploadValues = array('question', 'subQuestion', 'subChoiceQuestion');
 		
@@ -366,13 +358,12 @@ class SurveyModel extends CI_Model
 						$newFileName = $contactID . "_" . $questionNewFileName;
 						
 						// concatenate path and file name
-						$uploadFile = $this->uploadDir . basename($newFileName); 
+						$uploadFile = $uploadDir . basename($newFileName); 
 						
 						// save file to disk	
 						if (move_uploaded_file($_FILES[$values]['tmp_name'][$i], $uploadFile)) { 
 							$surveyQuestionUploads['response'] = $newFileName;
 						} else {
-							//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (could not move file to file system) contactID:' . $contactID); 
 							$surveyQuestionUploads['response'] = "File not uploaded";	
 						}
 						
@@ -398,14 +389,11 @@ class SurveyModel extends CI_Model
 						} else {
 							
 							if ($fileTypeOk !== TRUE) {
-								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (file type not supported) contactID:' . $contactID);
 								echo "file type not supported";
 							} elseif ($fileSizeOk !== TRUE) {
-								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (file size too big) contactID:' . $contactID); 
 								echo "file size too big";
 							} else { 
 								// show error here
-								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (unknown reason) contactID:' . $contactID); 
 								echo "an error occurred..file not uploaded";
 							}
 						}
@@ -424,7 +412,7 @@ class SurveyModel extends CI_Model
     */
 	private function checkFileSize($fileSize) {
 		
-		$maxFileSize = 25000000; 
+		$maxFileSize = 10000000; // ~ 10 mb
 		if ($fileSize != 0  AND  $fileSize > $maxFileSize) {
 			return FALSE;
 		} else {
@@ -444,19 +432,9 @@ class SurveyModel extends CI_Model
 		// extract file extension from filename
 		$fileExtension = str_replace(".", "", strrchr($lowerCaseFileName, "."));
 		
-		// get docTypes
-		$fileTypes = array();
-		$this->db->select('docType');
-	 	$this->db->from('rm_docTypes');
-	 	$docTypeQuery = $this->db->get();
-	 		 		 
-	 	if ($docTypeQuery->num_rows() > 0) {		
-	 		//place docType results into array 
-	 		foreach ($docTypeQuery->result() as $results) {
-			 	$fileTypes[] = $results->docType;
-			 }
-	 	}		
-	 					
+		// allowed file types..refactor to pull from database
+		$fileTypes = array('pdf', 'docx', 'doc', 'txt', 'gif', 'jpg', 'jpeg', 'vsd', 'xls', 'xlsx', 'ppt', 'pptx', 'vdx', 'tiff', 'tif');
+		
 		// check if filename extension is in extension list
 		if (in_array($fileExtension, $fileTypes, TRUE)) {
 			return TRUE;

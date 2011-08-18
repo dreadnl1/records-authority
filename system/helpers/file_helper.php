@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 4.3.2 or newer
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @copyright	Copyright (c) 2006, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -22,7 +22,7 @@
  * @subpackage	Helpers
  * @category	Helpers
  * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/helpers/file_helpers.html
+ * @link		http://codeigniter.com/user_guide/helpers/file_helper.html
  */
 
 // ------------------------------------------------------------------------
@@ -35,7 +35,7 @@
  * @access	public
  * @param	string	path to file
  * @return	string
- */
+ */	
 if ( ! function_exists('read_file'))
 {
 	function read_file($file)
@@ -44,19 +44,19 @@ if ( ! function_exists('read_file'))
 		{
 			return FALSE;
 		}
-
+	
 		if (function_exists('file_get_contents'))
 		{
-			return file_get_contents($file);
+			return file_get_contents($file);		
 		}
 
 		if ( ! $fp = @fopen($file, FOPEN_READ))
 		{
 			return FALSE;
 		}
-
+		
 		flock($fp, LOCK_SH);
-
+	
 		$data = '';
 		if (filesize($file) > 0)
 		{
@@ -69,7 +69,7 @@ if ( ! function_exists('read_file'))
 		return $data;
 	}
 }
-
+	
 // ------------------------------------------------------------------------
 
 /**
@@ -82,7 +82,7 @@ if ( ! function_exists('read_file'))
  * @param	string	path to file
  * @param	string	file data
  * @return	bool
- */
+ */	
 if ( ! function_exists('write_file'))
 {
 	function write_file($path, $data, $mode = FOPEN_WRITE_CREATE_DESTRUCTIVE)
@@ -91,16 +91,16 @@ if ( ! function_exists('write_file'))
 		{
 			return FALSE;
 		}
-
+		
 		flock($fp, LOCK_EX);
 		fwrite($fp, $data);
 		flock($fp, LOCK_UN);
-		fclose($fp);
+		fclose($fp);	
 
 		return TRUE;
 	}
 }
-
+	
 // ------------------------------------------------------------------------
 
 /**
@@ -115,45 +115,37 @@ if ( ! function_exists('write_file'))
  * @param	string	path to file
  * @param	bool	whether to delete any directories found in the path
  * @return	bool
- */
+ */	
 if ( ! function_exists('delete_files'))
 {
 	function delete_files($path, $del_dir = FALSE, $level = 0)
-	{
+	{	
 		// Trim the trailing slash
-		$path = rtrim($path, DIRECTORY_SEPARATOR);
-
+		$path = preg_replace("|^(.+?)/*$|", "\\1", $path);
+		
 		if ( ! $current_dir = @opendir($path))
-		{
-			return FALSE;
-		}
-
-		while (FALSE !== ($filename = @readdir($current_dir)))
+			return;
+	
+		while(FALSE !== ($filename = @readdir($current_dir)))
 		{
 			if ($filename != "." and $filename != "..")
 			{
-				if (is_dir($path.DIRECTORY_SEPARATOR.$filename))
+				if (is_dir($path.'/'.$filename))
 				{
-					// Ignore empty folders
-					if (substr($filename, 0, 1) != '.')
-					{
-						delete_files($path.DIRECTORY_SEPARATOR.$filename, $del_dir, $level + 1);
-					}
+					delete_files($path.'/'.$filename, $del_dir, $level + 1);
 				}
 				else
 				{
-					unlink($path.DIRECTORY_SEPARATOR.$filename);
+					unlink($path.'/'.$filename);
 				}
 			}
 		}
 		@closedir($current_dir);
-
+	
 		if ($del_dir == TRUE AND $level > 0)
 		{
-			return @rmdir($path);
+			@rmdir($path);
 		}
-
-		return TRUE;
 	}
 }
 
@@ -162,7 +154,7 @@ if ( ! function_exists('delete_files'))
 /**
  * Get Filenames
  *
- * Reads the specified directory and builds an array containing the filenames.
+ * Reads the specified directory and builds an array containing the filenames.  
  * Any sub-folders contained within the specified path are read as well.
  *
  * @access	public
@@ -170,13 +162,13 @@ if ( ! function_exists('delete_files'))
  * @param	bool	whether to include the path as part of the filename
  * @param	bool	internal variable to determine recursion status - do not use in calls
  * @return	array
- */
+ */	
 if ( ! function_exists('get_filenames'))
 {
 	function get_filenames($source_dir, $include_path = FALSE, $_recursion = FALSE)
 	{
 		static $_filedata = array();
-
+				
 		if ($fp = @opendir($source_dir))
 		{
 			// reset the array and make sure $source_dir has a trailing slash on the initial call
@@ -185,15 +177,16 @@ if ( ! function_exists('get_filenames'))
 				$_filedata = array();
 				$source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 			}
-
+			
 			while (FALSE !== ($file = readdir($fp)))
 			{
 				if (@is_dir($source_dir.$file) && strncmp($file, '.', 1) !== 0)
 				{
-					get_filenames($source_dir.$file.DIRECTORY_SEPARATOR, $include_path, TRUE);
+					 get_filenames($source_dir.$file.DIRECTORY_SEPARATOR, $include_path, TRUE);
 				}
 				elseif (strncmp($file, '.', 1) !== 0)
 				{
+			
 					$_filedata[] = ($include_path == TRUE) ? $source_dir.$file : $file;
 				}
 			}
@@ -211,24 +204,24 @@ if ( ! function_exists('get_filenames'))
 /**
  * Get Directory File Information
  *
- * Reads the specified directory and builds an array containing the filenames,
+ * Reads the specified directory and builds an array containing the filenames,  
  * filesize, dates, and permissions
  *
  * Any sub-folders contained within the specified path are read as well.
  *
  * @access	public
  * @param	string	path to source
- * @param	bool	Look only at the top level directory specified?
+ * @param	bool	whether to include the path as part of the filename
  * @param	bool	internal variable to determine recursion status - do not use in calls
  * @return	array
- */
+ */	
 if ( ! function_exists('get_dir_file_info'))
 {
-	function get_dir_file_info($source_dir, $top_level_only = TRUE, $_recursion = FALSE)
+	function get_dir_file_info($source_dir, $include_path = FALSE, $_recursion = FALSE)
 	{
-		static $_filedata = array();
+		$_filedata = array();
 		$relative_path = $source_dir;
-
+				
 		if ($fp = @opendir($source_dir))
 		{
 			// reset the array and make sure $source_dir has a trailing slash on the initial call
@@ -238,12 +231,11 @@ if ( ! function_exists('get_dir_file_info'))
 				$source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 			}
 
-			// foreach (scandir($source_dir, 1) as $file) // In addition to being PHP5+, scandir() is simply not as fast
 			while (FALSE !== ($file = readdir($fp)))
 			{
-				if (@is_dir($source_dir.$file) AND strncmp($file, '.', 1) !== 0 AND $top_level_only === FALSE)
+				if (@is_dir($source_dir.$file) && strncmp($file, '.', 1) !== 0)
 				{
-					get_dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, TRUE);
+					 get_dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $include_path, TRUE);
 				}
 				elseif (strncmp($file, '.', 1) !== 0)
 				{
@@ -251,7 +243,6 @@ if ( ! function_exists('get_dir_file_info'))
 					$_filedata[$file]['relative_path'] = $relative_path;
 				}
 			}
-
 			return $_filedata;
 		}
 		else
@@ -271,60 +262,60 @@ if ( ! function_exists('get_dir_file_info'))
 * Options are: name, server_path, size, date, readable, writable, executable, fileperms
 * Returns FALSE if the file cannot be found.
 *
-* @access	public
-* @param	string	path to file
-* @param	mixed	array or comma separated string of information returned
-* @return	array
-*/
+* @access    public
+* @param    string    path to file
+* @param    mixed    array or comma separated string of information returned
+* @return    array
+*/    
 if ( ! function_exists('get_file_info'))
 {
-	function get_file_info($file, $returned_values = array('name', 'server_path', 'size', 'date'))
-	{
+    function get_file_info($file, $returned_values = array('name', 'server_path', 'size', 'date'))
+    {
 
-		if ( ! file_exists($file))
-		{
-			return FALSE;
-		}
+        if ( ! file_exists($file))
+        {
+            return FALSE;
+        }
 
-		if (is_string($returned_values))
-		{
-			$returned_values = explode(',', $returned_values);
-		}
+        if (is_string($returned_values))
+        {
+            $returned_values = explode(',', $returned_values);
+        }
 
-		foreach ($returned_values as $key)
-		{
-			switch ($key)
-			{
-				case 'name':
-					$fileinfo['name'] = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
-					break;
-				case 'server_path':
-					$fileinfo['server_path'] = $file;
-					break;
-				case 'size':
-					$fileinfo['size'] = filesize($file);
-					break;
-				case 'date':
-					$fileinfo['date'] = filemtime($file);
-					break;
-				case 'readable':
-					$fileinfo['readable'] = is_readable($file);
-					break;
-				case 'writable':
-					// There are known problems using is_weritable on IIS.  It may not be reliable - consider fileperms()
-					$fileinfo['writable'] = is_writable($file);
-					break;
-				case 'executable':
-					$fileinfo['executable'] = is_executable($file);
-					break;
-				case 'fileperms':
-					$fileinfo['fileperms'] = fileperms($file);
-					break;
-			}
-		}
+        foreach ($returned_values as $key)
+        {
+            switch ($key)
+            {
+                case 'name':
+                    $fileinfo['name'] = substr(strrchr($file, '/'), 1);
+                    break;
+                case 'server_path':
+                    $fileinfo['server_path'] = $file;
+                    break;
+                case 'size':
+                    $fileinfo['size'] = filesize($file);
+                    break;
+                case 'date':
+                    $fileinfo['date'] = filectime($file);
+                    break;
+                case 'readable':
+                    $fileinfo['readable'] = is_readable($file);
+                    break;
+                case 'writable':
+                    // There are known problems using is_weritable on IIS.  It may not be reliable - consider fileperms()
+                    $fileinfo['writable'] = is_writable($file);
+                    break;
+                case 'executable':
+                    $fileinfo['executable'] = is_executable($file);
+                    break;
+                case 'fileperms':
+                    $fileinfo['fileperms'] = fileperms($file);
+                    break;
+            }
+        }
 
-		return $fileinfo;
-	}
+        return $fileinfo;
+    }
 }
 
 // --------------------------------------------------------------------
@@ -332,7 +323,7 @@ if ( ! function_exists('get_file_info'))
 /**
  * Get Mime by Extension
  *
- * Translates a file extension into a mime type based on config/mimes.php.
+ * Translates a file extension into a mime type based on config/mimes.php. 
  * Returns FALSE if it can't determine the type, or open the mime config file
  *
  * Note: this is NOT an accurate way of determining file mime types, and is here strictly as a convenience
@@ -341,27 +332,18 @@ if ( ! function_exists('get_file_info'))
  * @access	public
  * @param	string	path to file
  * @return	mixed
- */
+ */	
 if ( ! function_exists('get_mime_by_extension'))
 {
 	function get_mime_by_extension($file)
 	{
-		$extension = strtolower(substr(strrchr($file, '.'), 1));
-
+		$extension = substr(strrchr($file, '.'), 1);
+	
 		global $mimes;
-
+	
 		if ( ! is_array($mimes))
 		{
-			if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/mimes'.EXT))
-			{
-				include(APPPATH.'config/'.ENVIRONMENT.'/mimes'.EXT);
-			}
-			elseif (is_file(APPPATH.'config/mimes'.EXT))
-			{
-				include(APPPATH.'config/mimes'.EXT);
-			}
-
-			if ( ! is_array($mimes))
+			if ( ! require_once(APPPATH.'config/mimes.php'))
 			{
 				return FALSE;
 			}
@@ -397,11 +379,11 @@ if ( ! function_exists('get_mime_by_extension'))
  * @access	public
  * @param	int
  * @return	string
- */
+ */	
 if ( ! function_exists('symbolic_permissions'))
 {
 	function symbolic_permissions($perms)
-	{
+	{	
 		if (($perms & 0xC000) == 0xC000)
 		{
 			$symbolic = 's'; // Socket
@@ -450,7 +432,7 @@ if ( ! function_exists('symbolic_permissions'))
 		$symbolic .= (($perms & 0x0002) ? 'w' : '-');
 		$symbolic .= (($perms & 0x0001) ? (($perms & 0x0200) ? 't' : 'x' ) : (($perms & 0x0200) ? 'T' : '-'));
 
-		return $symbolic;
+		return $symbolic;		
 	}
 }
 
@@ -465,7 +447,7 @@ if ( ! function_exists('symbolic_permissions'))
  * @access	public
  * @param	int
  * @return	string
- */
+ */	
 if ( ! function_exists('octal_permissions'))
 {
 	function octal_permissions($perms)

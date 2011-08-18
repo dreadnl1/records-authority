@@ -76,10 +76,6 @@
 	color: #000;
 }
 
-.adminForm fieldset {
-	width: 30%;
-}
-
 .dashboard {
     padding: 0px 0px 0px 15px;
     font-family:Verdana, Arial, Helvetica, sans-serif;
@@ -129,91 +125,6 @@ label.error {
 }
 
 #otherText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#otherPhysicalText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showOtherPhysical {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideOtherPhysical {
-	display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#otherElectronicText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showOtherElectronic {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideOtherElectronic {
-	display: none;
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#otherDUBuildingText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showDUBuildingText {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideDUBuildingText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#otherOffsiteStorageText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showOffsiteStorageText {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideOffsiteStorageText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#otherElectronicSystemText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showElectronicSystemText {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideElectronicSystemText {
     display: none; 
     position: relative; 
     padding: 0px 0px 0px 20px;
@@ -318,13 +229,12 @@ th {
 
 td {
    padding: 4px; 
-   text-align: left;
+   text-align: center;
 }
 
 .oddtr {
 	background-color:#EBE7E6;
 }
-
 .eventr {
 	background-color:#F8F8F8;
 }
@@ -333,84 +243,4 @@ td {
 }
 .trclick {
 	background-color: #F5E384;
-}
-
-/* styles urls on search result headers (retention schedule) */
-th a:link {
-	color: #EBE7D7;
-}
-
-th a:visited {
-	color: #EBE7D7;
-}
-
-th a:active {
-	color: #EBE7D7;
-}
-
-#hideMe {
-	display: none; 
-}
-
-#sorting {
-	clear:both; 
-    background:url(../images/wait.gif) center top no-repeat; 
-    text-align:center;
-    padding:30px 0px 25px 0px;
-    font-size:12px;
-    font-family:Verdana, Arial, Helvetica, sans-serif;
-    display:none; 
-    height:auto;
-    position:absolute;
-    top: 170px;
-    left: 380px;
-}
-
-#loading {
-    display: none; 
-    position: relative; 
-}
-
-#checkBox {
-    display: none; 
-    position: relative; 
-}
-
-#loadingContainer {
-	height: 10px;	
-}
-
-#auContainer {
-	border: 1px solid #000;
-	overflow: auto;
-	padding: 5px 0px 0px 5px;
-	height: 75%;
-	width: 85%;
-	font-size: 10px;
-}
-	
-#associatedUnits {
-	/*border: 1px solid #000;*/
-	float: right;
-}
-
-#associatedUnitsResults {
-	padding: 0px 0px 0px 0px;
-	text-align: left;
-	float: left;
-}
-
-.deleteSpan {
-	text-align: right;
-	display: block;
-	padding: 0px 15px 0px 0px;
-	margin-top: -22px;
-}
-
-#approvedByCounselDate {
-	width: 100px;
-}
-
-.ui-accordion-sections {
-	font-size: 12px;
 }

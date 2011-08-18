@@ -1,5 +1,0 @@
-<Files ~ "\du.php">
-	order allow,deny
-	deny from all
-	allow from 130.253.
-</Files>

@@ -1,0 +1,16 @@
+Liaison Release Notes
+
+a.b.c Where a is Major version #, b is Minor version #, c is Bug fix #
+
+0.1.0 : working survey builder controller and model classes used to all users to build a survey and add questions to it.
+0.2.0 : AJAX applied to survey builder forms
+0.3.0 : working survey class used to render survey form
+0.4.0 : survey preview added / css template added
+0.5.0 : admin add/edit forms added
+0.6.0 : AJAX applied to admin forms
+0.7.0 : LDAP functionality added
+0.8.0 : edit survey forms added / add-edit forms for departments/divisions and record categories
+0.9.0 : division/department search - global search - full-text search(not working)
+0.9.1 : Survey Notes Form bug fixed  
+
+1.0.1 : edit survey questions/sub questions (in progress)

@@ -1,29 +1,29 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
 
-class DashboardModel extends CI_Model {
+class DashboardModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  	}
 	
 	/**
@@ -44,36 +44,22 @@ class DashboardModel extends CI_Model {
     * @return  $surveys
     */
 	 private function getAllSurveysQuery() {
-	 	$siteUrl = site_url();
 	 	$this->db->select('surveyID, surveyName, surveyDescription');
 	 	$this->db->from('rm_surveys');
-	 	$this->db->order_by('surveyName','asc');
 	 	$query = $this->db->get();
 	 	
 	 	$surveys = "";
 	 	if ($query->num_rows() > 0) {
 	 		foreach ($query->result() as $results) {
-	 			$surveys .= "<li id='$results->surveyID'><a href='#' onClick='return areYouSure($results->surveyID);'>[Delete]</a>&nbsp;&nbsp;&nbsp;&nbsp;" . anchor("dashboard/addSurveyQuestions/$results->surveyID", trim(strip_tags($results->surveyName))) . "</li><br />";	
+	 			$surveys .= "<li>" . anchor("dashboard/addSurveyQuestions/$results->surveyID", $results->surveyName) . "</li>";	
 	 		}
-	 		
-	 		// ajax
-	 		$surveys .= "<script type='text/javascript'>";
-			$surveys .= "function areYouSure(surveyID) { ";
-			$surveys .= "if (confirm('Are you sure you want to DELETE this Question?')) {";
-			$surveys .= "$.post('$siteUrl/dashboard/deleteSurvey/', {surveyID: surveyID, ajax: 'true'}, function(results){ ";
-			$surveys .= "$('#' + surveyID).html(results); ";
-			$surveys .= "}); "; // post
-			$surveys .= "} "; // end if
-			$surveys .= "} "; // js
-			$surveys .= "</script>";
-	 		
 	 		return $surveys;
 	 	} else {
 	 		$surveys = "No surveys found";
 	 		return $surveys;
 	 	}	
 	 }
-			 	 
+	
 	/**
     * invokes getSurveyResponsesQuery()
     *
@@ -103,61 +89,31 @@ class DashboardModel extends CI_Model {
 		if (!is_array($departmentContact)) {
 			return $departmentContact;
 		} else {
+			
 			$surveyContacts = $this->getSurveyContacts($departmentID);
 			$surveyResponses['departmentContact'] = $departmentContact;
-			$contactID = $departmentContact['contactID'];
-			
-			$contactNotes = $this->getContactNotes($contactID);
-			
-			if ($contactNotes !="") {
-				$surveyContacts[] = $contactNotes;
-			}
-						
 			$surveyResponses['surveyContacts'] = $surveyContacts;
-						
+			$contactID = $departmentContact['contactID'];	
 		}
 							
-		$responses = $this->getResponses($contactID, $departmentID);
+			$responses = $this->getResponses($contactID, $departmentID);
 		
-		if (!is_array($responses)) {
-			return $responses; 
-		} else {
-			$surveyResponses['responses'] = $responses;
-		}
-						
-		$surveyResponses = $this->createSurveyNotesForm($surveyResponses, $departmentID);	
-				
+			if (!is_array($responses)) {
+				return $responses; 
+			} else {
+				$surveyResponses['responses'] = $responses;
+			}
+		
+		
+			$surveyResponses = $this->createSurveyNotesForm($surveyResponses, $departmentID);	
+		
+		
 		return $surveyResponses;
 	}
-
+	 
 	/**
-    * gets contact general notes
+    * generates "survey notes form"
     *
-    * @access private
-    * @param $contactID
-    * @return $contactNotes
-    */
-	private function getContactNotes($contactID) {
-		$this->db->select('contactNotesID, contactNotes');
-	 	$this->db->from('rm_surveyContactNotes');
-	 	$this->db->where('contactID', $contactID);
-	 	$this->db->order_by('contactNotes');
-	 	$query = $this->db->get();
-	 	
-	 	$contactNotes = array();
-	 	if ($query->num_rows > 0) {
-	 		foreach ($query->result() as $notes) {
-	 			$contactNotes['contactNotesID'] = $notes->contactNotesID;
-	 			$contactNotes['contactNotes'] = $notes->contactNotes;			
-	 		}
-	 	
-	 	return $contactNotes;
-	 	}
-	}
-	
-	/**
-    * generates "survey notes form" 
-    * TODO: refactor
     * @access private
     * @param $surveyResponses
     * @return $surveyFormHtml
@@ -165,7 +121,7 @@ class DashboardModel extends CI_Model {
 	private function createSurveyNotesForm($surveyResponses, $departmentID) {
 		
 		if (!empty($surveyResponses) && is_array($surveyResponses)) { 
-				
+
 			$siteUrl = site_url();
 			$actionUrl = $siteUrl . '/dashboard/surveyNotesForm';
 		
@@ -175,11 +131,12 @@ class DashboardModel extends CI_Model {
 	 			$division = $surveyData['division'];
 	 			$department = $surveyData['department'];
 	 			
-	 			$surveyFormHtml .= "<h1 style='font-size:20px;'>" . trim(strip_tags($division)) . "<h1>";
-	 			$surveyFormHtml .= "<h2 style='font-size:15px;'>" . trim(strip_tags($department)) . "</h2>";
+	 			$surveyFormHtml .= "<h1>$division<h1>";
+	 			$surveyFormHtml .= "<h2>$department</h2>";
 	 			$surveyFormHtml .= "<br />";
 	 			$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 	 			$surveyFormHtml .= "<strong>Department Contact</strong>";
+	 			$surveyFormHtml .= "</div>";
 	 			$surveyFormHtml .= "<br />";
 	 			
 	 			foreach ($surveyData as $j => $contact) {
@@ -200,79 +157,57 @@ class DashboardModel extends CI_Model {
 			 				$surveyFormHtml .= "<strong>Email:</strong> ";
 			 			}
 			 			if ($j !== "contactID" && $j !== "division" && $j !== "department") {
-			 				$surveyFormHtml .= trim(strip_tags($contact)) . "<br /><br />";	
+			 				$surveyFormHtml .= $contact . "<br /><br />";	
 			 			}
 			 			if ($j == "contactID") {
-			 				$contact = trim(strip_tags($contact));
+			 				//$contactID = $contact;
 			 				$surveyFormHtml .= "<input name='contactID' type='hidden' value='$contact' />";
 			 			}	
 		 			}
 		 		
 		 		}
 	 		}
-				 			 			 		
+					
 			if ($i == "surveyContacts") {
 				
 				$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 				$surveyFormHtml .= "<strong>Survey Contacts</strong>";
-				
+				$surveyFormHtml .= "</div>";	
 				$surveyFormHtml .= "<br />";
 				
 				$surveyContacts = array();
 				$arraySize = count($surveyData);
-				$contactNoteTrigger = $arraySize - 1; // used to make sure the notes field only gets rendered at the end of the loop cycle
 				$f = 0;
 				while ($f < $arraySize) {
 					$value = $surveyData[$f];
 					if ($value == 'First Name') {
-						$surveyFormHtml .= "<strong>" . trim(strip_tags($value)) . ":</strong> ";
+						$surveyFormHtml .= "<strong>" . $value . ":</strong> ";
 					}
 					if ($value == 'Last Name') {
-						$surveyFormHtml .= "<strong>" . trim(strip_tags($value)) . ":</strong> ";
+						$surveyFormHtml .= "<strong>" . $value . ":</strong> ";
 					}
 					if ($value == 'Phone') {
-						$surveyFormHtml .= "<strong>" . trim(strip_tags($value)) . ":</strong>";
+						$surveyFormHtml .= "<strong>" . $value . ":</strong> ";
 					}
 					if ($value == 'Email') {
-						$surveyFormHtml .= "<strong>" . trim(strip_tags($value)) . ":</strong>";
+						$surveyFormHtml .= "<strong>" . $value . ":</strong> ";
 					}
 					if ($value == 'Notes') {
-						$surveyFormHtml .= "<strong>test" . trim(strip_tags($value)) . ":</strong>";
+						$surveyFormHtml .= "<strong>" . $value . ":</strong> ";
 					}
 					if ($value !== 'First Name' && $value!== 'Last Name' && $value !== 'Phone' && $value !== 'Email' && $value !== 'Notes') {
-						if (is_array($value)) {
-							$surveyFormHtml .= ""; // don't display Array
-						} else {
-							$surveyFormHtml .= trim(strip_tags($value)) . "<br /><br />"; 
-						}
-					}
-					if ($f == $contactNoteTrigger) {  
-						if (is_array($value)) {
-							$surveyFormHtml .= "<strong>Contact Notes:</strong><br />";
-							foreach ($value as $e => $contactNotes) {
-								if ($e == "contactNotesID") {
-									$surveyFormHtml .= "<input name='contactNotesID' type='hidden' value='$contactNotes' />";
-								}
-								if ($e == "contactNotes") {
-									$contactNotes = trim(strip_tags($contactNotes));
-									$surveyFormHtml .= "<textarea name='contactNotes' rows='3' cols='50' wrap='hard'>$contactNotes</textarea><br />";				
-								}
-							}
-						} else {
-							$surveyFormHtml .= "<strong>Contact Notes:</strong><br />";
-							$surveyFormHtml .= "<textarea name='contactNotes' rows='3' cols='50' wrap='hard'></textarea><br />";	
-						} 
-					}
-				++$f;
-				}	
-				$surveyFormHtml .= "</div>";			
-			}
+						$surveyFormHtml .= $value . "<br /><br />";
+					}	
+					++$f;
+					}		
+	
+			}		
 
 			$qCount = 1; // sets question count
 	 		if ($i == "responses") {
 	 			$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 	 			$surveyFormHtml .= "<strong>Survey Responses</strong>";
-	 			//$surveyFormHtml .= "</div>";
+	 			$surveyFormHtml .= "</div>";
 	 			 				 			
 	 			foreach ($surveyData as $count => $responseData) {
 	 			
@@ -290,52 +225,48 @@ class DashboardModel extends CI_Model {
 	 							// extract file extension from filename
 								$fileExtension = str_replace(".", "", strrchr($responses, "."));
 		
-								// TODO: allowed file types..refactor to pull from database
+								// allowed file types..refactor to pull from database
 								$fileTypes = array('pdf', 'docx', 'doc', 'txt', 'gif', 'jpg', 'jpeg', 'vsd', 'xls', 'xlsx', 'ppt', 'pptx');
 																																													
 								if ($k == "question") {
 									$surveyFormHtml .= "<hr /><br />"; 
 									$surveyFormHtml .= "<strong>$qCount .) Question:</strong><br />";
 	 								$qCount++; // increments question count by 1
-									$surveyFormHtml .= trim(strip_tags($responses)) . "<br /><br />";		 	
+									$surveyFormHtml .= $responses . "<br /><br />";		 	
 	 							}
 	 							if ($k == "subQuestion" && !empty($responseData['response'])) { 
 	 								$surveyFormHtml .= "<strong>Sub Question:</strong><br />";
-	 								$surveyFormHtml .= trim(strip_tags($responses)) . "<br /><br />";		
+	 								$surveyFormHtml .= $responses . "<br /><br />";		
 	 							}
 	 							if ($k == "subChoiceQuestion" && !empty($responseData['response'])) { 
 	 								$surveyFormHtml .= "<strong>Sub Choice Question:</strong><br />";
-	 								$surveyFormHtml .= trim(strip_tags($responses)) . "<br /><br />";		
+	 								$surveyFormHtml .= $responses . "<br /><br />";		
 	 							}	 								 							
 	 							if ($k == "response" && !empty($responseData['response'])) { 
 	 								 								
 	 								$surveyFormHtml .= "<strong>Response:</strong><br />";
-	 								// check if filename extension is in extension list TODO: refactor / don't need to check for file extentiosn
+	 								// check if filename extension is in extension list
 									if (in_array($fileExtension, $fileTypes, TRUE)) {
 										$siteURL = base_url();
-										$responses = trim(strip_tags($responses));
-										$controller = "index.php/dashboard/forceDownload/$responses";
+										$controller = "/surveyFileUploads/$responses";
 										$url = $siteURL . $controller;
-										$surveyFormHtml .= "<a href='$url' target='_blank'>$responses</a><br /><br />"; // triggers download	
+										$surveyFormHtml .= "<a href='$url' target='_blank'>$responses</a><br /><br />";	
 									} elseif ($responseData['response'] == "null") {
 										$surveyFormHtml .= "-<br /><br />";
 									} else {
-										$surveyFormHtml .= trim(strip_tags($responses)) . "<br /><br />";	
+										$surveyFormHtml .= $responses . "<br /><br />";	
 									}
 	 							} 
 	 								 							
 	 							// survey notes
 	 							if ($k == "surveyNotesID" && $responses !== "") {
-	 								$responses = trim(strip_tags($responses));
 	 								$surveyFormHtml .= "<input name='surveyNotesID[]' type='hidden' value='$responses' /><br />";
 	 							}
 		 						if ($k == "deptSurveyNotes") {
-		 							$responses = trim(strip_tags($responses));
 		 							$surveyFormHtml .= "(Department Answer)<br />";
 			 						$surveyFormHtml .= "<textarea name='deptSurveyNotes[]' rows='3' cols='50' wrap='hard'>$responses</textarea><br /><br />";
 		 						}
 		 						if ($k == "rmSurveyNotes") {
-		 							$responses = trim(strip_tags($responses));
 		 							$surveyFormHtml .= "(Records Management)<br />";
 		 							$surveyFormHtml .= "<textarea name='rmSurveyNotes[]' rows='3' cols='50' wrap='hard'>$responses</textarea><br /><br />";
 		 						}				
@@ -343,9 +274,8 @@ class DashboardModel extends CI_Model {
 	 					}
 	 				}
 	 			}
-	 			$surveyFormHtml .= "</div>";
 	 		} 	
-	 		$surveyFormHtml .= "</div>";
+	 		
 	 		$surveyFormHtml .= "<br /><br />"; 	
 
 	 		
@@ -394,7 +324,7 @@ class DashboardModel extends CI_Model {
 		$deptSurveyNotesArray = array();
 		$rmSurveyNotesArray = array();
 		
-		$this->db->select('*');
+		$this->db->select('surveyNotesID, contactID, questionID, deptSurveyNotes, rmSurveyNotes');
 		$this->db->from('rm_surveyNotes');
 		$this->db->where('departmentID', $departmentID);
 		$this->db->where('questionID', $questionID);
@@ -466,9 +396,7 @@ class DashboardModel extends CI_Model {
  						$surveyContacts[] = $surveyContactResults->contactResponse;
  					}	
  				} 				
- 			
  			}
- 			
  			return $surveyContacts;
  		}
 	}
@@ -551,8 +479,8 @@ class DashboardModel extends CI_Model {
 				$fieldType = $this->getFieldType($questionID);
 						
 				$questionResponsesArray['questionFieldType'] = $fieldType;
+				//$questionResponsesArray['questionID'] = $questionResponseResults->questionID;
 				$questionResponsesArray['question'] = $questionResponseResults->question;
-				
 				if ($questionResponseResults->response == "") {
 					$questionResponsesArray['response'] = "null";
 				} else {
@@ -663,8 +591,6 @@ class DashboardModel extends CI_Model {
 	private function saveNotesQuery($_POST) {
 		
 		$surveyNotes = array();
-		$surveyContactNotes = array();
-			
 		$arraySize = count($_POST['questionID']);
 		$i = 0;
 		while ($i < $arraySize) {
@@ -675,11 +601,7 @@ class DashboardModel extends CI_Model {
 			$surveyNotes['rmSurveyNotes'] = $_POST['rmSurveyNotes'][$i];
 			$this->db->insert('rm_surveyNotes', $surveyNotes);
 		++$i;
-		}
-		
-		$surveyContactNotes['contactID'] = $_POST['contactID'];
-		$surveyContactNotes['contactNotes'] = $_POST['contactNotes'];
-		$this->db->insert('rm_surveyContactNotes', $surveyContactNotes);
+		} 		
 	}
 
 	/**
@@ -703,16 +625,9 @@ class DashboardModel extends CI_Model {
 	private function updateNotesQuery($_POST) {
 		
 		$updatedSurveyNotes = array();
-		$updateSurveyContactNotes = array();
-		
-		$updateSurveyContactNotes['contactNotes'] = $_POST['contactNotes'];
-		$contactNotesID = $_POST['contactNotesID'];
-		$this->db->where('contactNotesID', $contactNotesID);
-		$this->db->update('rm_surveyContactNotes', $updateSurveyContactNotes);
-				
 		$arraySize = count($_POST['surveyNotesID']);
 		$i = 0;
-		while ($i < $arraySize) {	
+		while ($i < $arraySize) {
 			$updatedSurveyNotes['deptSurveyNotes'] = $_POST['deptSurveyNotes'][$i];
 			$updatedSurveyNotes['rmSurveyNotes'] = $_POST['rmSurveyNotes'][$i];
 			$surveyNotesID = $_POST['surveyNotesID'][$i];
@@ -1051,21 +966,19 @@ class DashboardModel extends CI_Model {
     * @return TRUE / FALSE
     */ 
 	private function authenticateQuery($_POST) {
-				
+		
+		// sanitize incomming data
+		$_POST = $this->input->xss_clean($_POST);
+		
 		$username = $_POST['uname'];
 		$passcode = $_POST['pcode'];
-		
-		// hash password TODO: build method to allow admin to reset password
-		$this->load->library('encrypt');
-		$passcodeHash = $this->encrypt->sha1($passcode);
-				
 		$this->db->select('username, passcode');
 	 	$this->db->from('rm_users');
 	 	$this->db->where('username', $username);
-	 	$this->db->where('passcode', $passcodeHash);
+	 	$this->db->where('passcode', $passcode);
  		$authQuery = $this->db->get();
  		
- 		if ($authQuery->num_rows == 1) {
+ 		if ($authQuery->num_rows > 0) {
  			return TRUE;
  		} else {
  			return FALSE;
@@ -1102,7 +1015,7 @@ class DashboardModel extends CI_Model {
 		}				
 	} 	
 	
-	/** TODO: refactor...
+	/**
     * invokes saveRecordTypeFormatAndLocationQuery()
     *
     * @access public

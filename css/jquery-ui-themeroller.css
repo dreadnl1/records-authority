@@ -11,6 +11,66 @@
  * body {font-size: 62.5%;}
 */
 
+
+
+/*UI accordion*/
+.ui-accordion {
+	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
+	font-family: Trebuchet MS, Arial, sans-serif;
+	font-size: 1.1em;
+	/*border-bottom: 1px solid #777777;*/
+}
+.ui-accordion-group {
+	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
+	border: 1px solid #777777;
+	border-bottom: none;
+}
+.ui-accordion-header {
+	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
+	cursor: pointer;
+	background: #444444 url(http://lib-marama.cair.du.edu/recordsManagement/images/444444_40x100_textures_02_glass_25.png) 0 50% repeat-x;
+}
+.ui-accordion-header a {
+	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
+	display: block;
+	font-size: 1em;
+	font-weight: bold;
+	text-decoration: none;
+	padding: .5em .5em .5em 1.7em;
+	color: #eeeeee;
+	background: url(http://lib-marama.cair.du.edu/recordsManagement/images/eeeeee_7x7_arrow_right.gif) .5em 50% no-repeat;
+}
+.ui-accordion-header a:hover {
+	background: url(http://lib-marama.cair.du.edu/recordsManagement/images/ffd40f_7x7_arrow_right.gif) .5em 50% no-repeat;
+	color: #ffffff;
+}
+.ui-accordion-header:hover {
+	background: #333333 url(http://lib-marama.cair.du.edu/recordsManagement/images/333333_40x100_textures_02_glass_25.png) 0 50% repeat-x;
+	color: #ffffff;
+}
+.selected .ui-accordion-header, .selected .ui-accordion-header:hover {
+	background: #a21111 url(images/a21111_40x100_textures_02_glass_35.png) 0 50% repeat-x;
+}
+.selected .ui-accordion-header a, .selected .ui-accordion-header a:hover {
+	color: #ffffff;
+	background: url(http://lib-marama.cair.du.edu/recordsManagement/images/ffffff_7x7_arrow_down.gif) .5em 50% no-repeat;
+}
+
+.ui-accordion-content {
+	padding: 1.5em 1.7em;	
+	background: #ffffff url(http://lib-marama.cair.du.edu/recordsManagement/images/ffffff_40x100_textures_01_flat_0.png) 0 0 repeat-x;
+	color: #222222;
+	font-size: 1em;
+	height: 725px;
+}
+
+.ui-accordion-sections {
+    padding: 3px 3px 3px 5px;	
+    background: #EAEAEA;
+    height: 15px;
+}
+
+
 /*UI tabs*/
 .ui-tabs-nav {
 	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
@@ -54,7 +114,7 @@
 	font-family: Trebuchet MS, Arial, sans-serif;
 	clear:left;
 	border: 1px solid #777777;
-	background: #ffffff;
+	background: #ffffff url(../images/ffffff_40x100_textures_01_flat_0.png) 0 0 repeat-x;
 	color: #222222;
 	padding: 1.5em 1.7em;	
 	font-size: 1.1em;
@@ -62,6 +122,56 @@
 .ui-tabs-hide {
 	display: none;/* for accessible hiding: position: absolute; left: -99999999px*/;
 }
+
+
+
+
+
+/*slider*/
+.ui-slider {
+	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
+	font-family: Trebuchet MS, Arial, sans-serif;
+	font-size: 1.1em;
+	background: #ffffff url(images/ffffff_40x100_textures_01_flat_0.png) 0 0 repeat-x;
+	border: 1px solid #dddddd;
+	height: .8em;
+	position: relative;
+}
+.ui-slider-handle {
+	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
+	position: absolute;
+	z-index: 2;
+	top: -3px;
+	width: 1.2em;
+	height: 1.2em;
+	background: #444444 url(images/444444_40x100_textures_02_glass_25.png) 0 50% repeat-x;
+	border: 1px solid #777777;
+}
+.ui-slider-handle:hover {
+	background: #333333 url(images/333333_40x100_textures_02_glass_25.png) 0 50% repeat-x;
+	border: 1px solid #444444;
+}
+.ui-slider-handle-active, .ui-slider-handle-active:hover {
+	background: #a21111 url(images/a21111_40x100_textures_02_glass_35.png) 0 50% repeat-x;
+	border: 1px solid #841515;
+}
+.ui-slider-range {
+	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
+	height: .8em;
+	background: #333333 url(images/333333_40x100_textures_02_glass_25.png) 0 50% repeat-x;
+	position: absolute;
+	border: 1px solid #777777;
+	border-left: 0;
+	border-right: 0;
+	top: -1px;
+	z-index: 1;
+	opacity:.7;
+	filter:Alpha(Opacity=70);
+}
+
+
+
+
 
 
 /*dialog*/
@@ -444,6 +554,145 @@ table.ui-datepicker .ui-datepicker-title-row td a {
 	opacity:.5;
 	filter:Alpha(Opacity=50);
 }
+
+
+
+
+
+
+/*UI Colorpicker */
+.ui-colorpicker {
+	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
+	font-family: Trebuchet MS, Arial, sans-serif;
+	font-size: 1.1em;
+	background: #ffffff url(images/ffffff_40x100_textures_01_flat_0.png) 0 0 repeat-x;
+	border: 4px solid #dddddd;
+	padding: 5px;
+	width: 360px;
+	position: relative;
+}
+.ui-colorpicker-color {
+	float: left;
+	width: 150px;
+	height: 150px;
+	margin-right: 15px;
+}
+.ui-colorpicker-color div { /* is this extra div needed? why not just .ui-colorpicker-color ? */
+	border: 1px solid #777777;
+	height: 150px;
+	background: url(images/_x_.);
+	position: relative;
+}
+.ui-colorpicker-color div div {/* shouldn't this have a class like ui-colorpicker-selector ? */
+	width: 11px;
+	height: 11px;
+	background: url(images/_x_.);
+	position: absolute;
+	border: 0;
+	margin: -5px 0 0 -5px;
+	float: none;
+}
+.ui-colorpicker-hue {
+	border: 1px solid #777777;
+	float: left;
+	width: 17px;
+	height: 150px;
+	background: url(images/_x_.);
+	position: relative;
+	margin-right: 15px;
+}
+.ui-colorpicker-hue div {
+	background:transparent url(images/_x_.); /*this image should be themerollable*/
+	height:9px;
+	left:-9px;
+	margin:-4px 0 0;
+	position:absolute;
+	width:35px;
+	cursor: ns-resize;
+}
+.ui-colorpicker-new-color, .ui-colorpicker-current-color {
+	float: left;
+	width: 6.5em;
+	height: 30px;
+	border: 1px solid #777777;
+	margin-right: 5px;
+}
+.ui-colorpicker-current-color {
+	margin-right: 0;
+}
+
+.ui-colorpicker-field, .ui-colorpicker-hex {
+	position: absolute;
+	width: 6em;
+}
+.ui-colorpicker-field label, .ui-colorpicker-field input,
+.ui-colorpicker-hex label, .ui-colorpicker-hex input {
+	font-size: 1em;
+	color: #ffffff;
+}
+.ui-colorpicker-field label, .ui-colorpicker-hex label {
+	width: 1em;
+	margin-right: .3em;
+}
+.ui-colorpicker-field input, .ui-colorpicker-hex input {
+	border: 1px solid #777777;
+	width: 4.6em;
+}
+.ui-colorpicker-hex {
+	left: 205px;
+	top: 134px;
+}
+.ui-colorpicker-rgb-r {
+	top: 52px;
+	left: 205px;
+}
+.ui-colorpicker-rgb-g {
+	top: 78px;
+	left: 205px;
+}
+.ui-colorpicker-rgb-b {
+	top: 105px;
+	left: 205px;
+}
+.ui-colorpicker-hsb-h {
+	top: 52px;
+	left: 290px;
+}
+.ui-colorpicker-hsb-s {
+	top: 78px;
+	left: 290px;
+}
+.ui-colorpicker-hsb-b {
+	top: 105px;
+	left: 290px;
+}
+
+.ui-colorpicker-field label {
+	font-weight: bold;
+}
+.ui-colorpicker-field span {
+	width: 7px;
+	background: url(images/eeeeee_11x11_icon_arrows_updown.gif) 50% 50% no-repeat;
+	right: 5px;
+	top: 0;
+	height: 20px;
+	position: absolute;
+}
+.ui-colorpicker-field span:hover {
+	background: url(images/ffd40f_11x11_icon_arrows_updown.gif) 50% 50% no-repeat;
+}
+
+.ui-colorpicker-submit {
+	right: 14px;
+	top: 134px;
+	position: absolute;
+}
+
+
+
+
+
+
 
 
 /*
