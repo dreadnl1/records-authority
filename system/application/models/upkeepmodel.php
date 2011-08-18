@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
 
 
-class UpkeepModel extends CI_Model {
+class UpkeepModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  	}
  	
  	/**
@@ -292,7 +292,7 @@ class UpkeepModel extends CI_Model {
 			 	$recordCategories[$results->recordCategoryID] = $results->recordCategory;
 			 }
 	 	}		
-	 	return $recordCategories;
+	 		return $recordCategories;
 	}
 	
 	/**
@@ -434,9 +434,9 @@ class UpkeepModel extends CI_Model {
 		$this->db->where('userID', $_POST['userID']);
 		$this->db->update('rm_users', $user);
 	}
-	
+
 	/**
-	 * invokes checkUserNameQuery()
+	 * invokes checkOldPasswordQuery()
 	 *
 	 *	@access public
 	 *	@return $check TRUE/FALSE
@@ -447,24 +447,28 @@ class UpkeepModel extends CI_Model {
 	}
 	
 	/**
-	 *	checks user name is taken
+	 *	checks old password is known 
 	 *	
 	 *	@access private
 	 *	@return boolean
 	 */
 	private function checkUserNameQuery($_POST) {
-		$username = $_POST['username'];
+		$username = $this->session->userdata('username');
+		$passcode = $_POST['oldcode'];
 		
-		$this->db->select('username');
+		$this->load->library('encrypt');
+		$passcodeHash = $this->encrypt->sha1($passcode);
+		
+		$this->db->select('username, passcode');
 	 	$this->db->from('rm_users');
 	 	$this->db->where('username', $username);
-
- 		$isTaken = $this->db->get();
+	 	$this->db->where('passcode', $passcodeHash);
+ 		$authQuery = $this->db->get();
  		
-	 	if ($isTaken->num_rows > 0) {
- 			return FALSE;
- 		} else {
+	 	if ($authQuery->num_rows == 1) {
  			return TRUE;
+ 		} else {
+ 			return FALSE;
  		}
 	}
 	

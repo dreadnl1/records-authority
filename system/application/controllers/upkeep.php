@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class Upkeep extends CI_Controller {
+class Upkeep extends Controller {
 	
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 	
 		// admin user must be loggedin in order to use dashboard methods
 		$this->load->model('SessionManager');
@@ -32,15 +32,6 @@ class Upkeep extends CI_Controller {
 		$this->imagePath = base_url() . "images/ffd40f_11x11_icon_close.gif";
 		
 	} 
-	/**
-    * displays division form 
-    *
-    * @access public
-    * @return void
-    */
-	public function solrTruncateForm() {
-		$this->load->view('admin/forms/solrTruncateForm');
-	}
 	
 	/**
     * displays division form 
@@ -71,8 +62,7 @@ class Upkeep extends CI_Controller {
     * @return void
     */
 	public function recordCategoryForm() {
-		$data['recordCategories'] = $this->UpkeepModel->getRecordCategories();
-		$this->load->view('admin/forms/addRecordCategoryForm', $data);
+		$this->load->view('admin/forms/addRecordCategoryForm');
 	}
 		
 	/**
@@ -173,8 +163,8 @@ class Upkeep extends CI_Controller {
 		if (isset($_POST['recordCategory'])) {
 			$this->UpkeepModel->saveRecordCategory($_POST);
 			$data['recordSaved'] = "Record Saved";
-			$data['recordCategories'] = $this->UpkeepModel->getRecordCategories();
-			$this->load->view('admin/forms/addRecordCategoryForm', $data);
+			$data['imagePath'] = $this->imagePath;
+			$this->load->view('admin/displays/recordSaved', $data);
 		}
 		if (isset($_POST['divisionName'])) {
 			$this->UpkeepModel->saveDivision($_POST);
@@ -195,18 +185,10 @@ class Upkeep extends CI_Controller {
 			$this->load->view('admin/forms/addDocTypeForm', $data);
 		}
 		if (isset($_POST['username'])) {
-			$usertest = $this->UpkeepModel->checkUserName($_POST);
-			if($usertest == TRUE) {
-				if($_POST['passcode'] == $_POST['passtest']) {
-					$this->UpkeepModel->saveUser($_POST);
-					$data['recordUpdated'] = "User Added";
-				} else {
-					$data['recordUpdated'] = "Passwords did not match.";
-				}
-			} else {
-				$data['recordUpdated'] = "User name is already in use.";
-			}
-			$this->load->view('admin/forms/addUserForm', $data);	
+			$this->UpkeepModel->saveUser($_POST);
+			$data['recordSaved'] = "User Added";
+			$data['imagePath'] = $this->imagePath;
+			$this->load->view('admin/displays/recordSaved', $data);
 		}
 	}
 
