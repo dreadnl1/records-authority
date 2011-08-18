@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,31 +20,26 @@
  **/
 ?>
 
-<?php 
-	$data['title'] = 'Record Inventory - Records Authority';
-	$this->load->view('includes/adminHeader', $data); 
-?>
+<?php $this->load->view('includes/adminHeader'); ?>
 
-<?php 
-	echo $jQuery;
-	echo $jQueryDeptWidget; 
-	//echo $jQueryDeptMasterCopyWidget; 
-	//echo $jQueryDeptDuplicationWidget; 
-?>
+<?php echo $jQuery; ?>
+<?php echo $jQueryDeptWidget; ?>
+<?php echo $jQueryDeptMasterCopyWidget; ?>
+<?php echo $jQueryDeptDuplicationWidget; ?>
 
 <div id="tabs">
 	<div id="setDepartment">Setting Department...</div>
 	  	<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Inventory</a></li>
-            <!-- <li class="ui-tabs-nav-item"><a href="#fragment-2">Format and Location</a></li> -->
-            <!-- <li class="ui-tabs-nav-item"><a href="#fragment-3"><span>Management</span></a></li> -->
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Information</a></li>
+            <li class="ui-tabs-nav-item"><a href="#fragment-2">Format and Location</a></li>
+            <li class="ui-tabs-nav-item"><a href="#fragment-3"><span>Management</span></a></li>
         </ul>
        <div id="fragment-1" class="adminForm">
        <br />
        
        <?php if (!isset($division)) { ?>
        	
-       	<form name="department" method="post" action="<?php echo site_url();?>/recordType/view" />
+       	<form name="department" method="post" action="<?php echo site_url();?>/dashboard/recordTypeFormRevised" />
 			<!--<label for='divisions'>Divisions:</label><br />-->
 			<select id='divisions' name='divisionID' size='1' onChange="submit();" class='required'>
 				<option value=''>Select a Division</option>
@@ -57,7 +52,7 @@
 			</select> *
 		</form>	
 										
-		<form id="recordTypeDepartment" method="post" action="<?php echo site_url();?>/recordType/setRecordTypeFormDepartment" />
+		<form id="recordTypeDepartment" method="post" action="<?php echo site_url();?>/dashboard/setRecordTypeFormDepartment" />
 			<!--<label for='departments'>Departments:</label><br />-->
 			<select id='departments' name='departmentID' size='1' class='required'>
 				<option value=''>Select a Department</option>
@@ -79,24 +74,24 @@
 		} ?>
 		
 					
-		<form id="recordInformation" method="post" action="<?php echo site_url();?>/recordType/saveRecordType">
+		<form id="recordInformation" method="post" action="<?php echo site_url();?>/dashboard/saveRecordTypeRecordInformation">
 					
 			<input name="recordInformationDivisionID" type="hidden" value="<?php if (!empty($_POST['divisionID'])) {echo $_POST['divisionID'];} elseif (isset($division)) { echo $division['divisionID']; } ?>" />
 					
 			<input name="recordTypeDepartment" type="hidden" value="<?php if (isset($division)) {echo $division['departmentID'];} ?>" class="required" /><br />	
-<!-- Question 1 -->										
+										
 			<label for='recordName'>1.) Record Name:&nbsp;*</label><br />
-			<input name='recordName' id='recordName' type='text' value="" class="required" />
+			<input name='recordName' id='recordName' type='text' value="" class="required" tabindex=1 />
 			<br /><br />
-<!-- Question 2 -->						
+						
 			<label for='recordDescription'>2.) Record Description:&nbsp;*</label><br />
-			<textarea name="recordDescription" rows="3" cols="50" wrap="hard" class="required" ></textarea>
+			<textarea name="recordDescription" rows="3" cols="50" wrap="hard" class="required" tabindex=2 ></textarea>
 			<br /><br />
-<!-- Question 3 -->						
+						
 			<!-- <label for='recordCategory'>3.) Record Category:</label><br />  -->
 			3.) 
-			<select name='recordCategory' size='1' class='required' >
-				<option value=''>Select a Functional Category</option>
+			<select name='recordCategory' size='1' class='required' tabindex=3>
+				<option value=''>Select a Record Category</option>
 				<option value=''>-----------------</option>
 				<?php 
 					foreach ($recordCategories as $recordCategory) {
@@ -106,171 +101,29 @@
 			</select>
 			&nbsp;*&nbsp;
 			<!-- refresh icon from http://jimmac.musichall.cz/icons.php -->
-			<?php /*
+			<?php 
 				$imagePath = base_url() . "/images";
 				$addCategoryRecord = "<img src='$imagePath/ffd40f_11x11_icon_plus.gif' alt='Add Record Category' border=0 />";   
 				echo anchor_popup('upkeep/recordCategoryForm', $addCategoryRecord, $smallPopUp) . "&nbsp;&nbsp;&nbsp;<a href='javascript:history.go(0)'><img src='$imagePath/refresh.png' alt='Refresh' border=0 /></a><br />";
-			*/?>
+			?>
 			
 			<!-- 
 			<textarea name="recordCategory" rows="3" cols="50" wrap="hard" class="required"></textarea>
 			 -->
 			 
 			<br /><br />
-<!-- Question 4 -->
-			<label for='Office of Primary Responsibility'>4.) What department is the Office of Primary Responsibility for these records?</label>
-			<br />
-			<select id='managementDivisions' name='managementDivisionID' size='1' class='required' 10>
-					<option value=''>Select a Division</option>
-					<option value=''>-----------------</option>
-					<?php 
-						foreach ($divisionData as $id => $divisions) {
-							echo "<option value='$id'>$divisions</option>";
-						}
-					?>
-				</select> *
-				&nbsp;&nbsp;
-				<select id='managementDepartments' name='managementDepartmentID' size='1' class='required'>
-					<option value=''>departments</option>
-				</select> * 
-				<br /><br />
-				<?php /*
-			<p>
-				<label for='divisions'></label>
-				<select id='divisions' name='primaryResponsibilityDivision' size='1' class='required'>
-				<option value='' selected='selected'>Select a Division</option>
-				<option value=''>-----------------</option>
-				<?php 
-					foreach ($divisionData as $divisionID => $divisionName) {
-						echo "<option value='$divisionID'>$divisionName</option>";
-					}
-				?>
-				</select>&nbsp;&nbsp;*
-				&nbsp;&nbsp;&nbsp;&nbsp;
-				<div id="departments">
-				<select id='departments' name='primaryResponsibilityDepartment' size='1' class='required'>
-				<option value='' selected='selected'>Select a Division</option>
-				<option value=''>-----------------</option>
-				<?php 
-					foreach ($divisionData as $divisionID => $divisionName) {
-						echo "<option value='$divisionID'>$divisionName</option>";
-					}
-				?>
-				</select>
-				</div>
-			</p>
-			<br /><br />*/?>
-<!-- Question 5 -->									
-			<label for='recordNotes'>5.) Records Notes</label><br />
+						
+			<label for='recordNotes'>4.) Records Notes</label><br />
 			Notes: (Department Answer)<br />
-			<textarea name="recordNotesDeptAnswer" rows="3" cols="50" wrap="hard" ></textarea>
+			<textarea name="recordNotesDeptAnswer" rows="3" cols="50" wrap="hard" tabindex=4></textarea>
 			<br /><br />
 			Notes: (Records Management)<br />
-			<textarea name="recordNotesRmNotes" rows="3" cols="50" wrap="hard" ></textarea>
-			<br /><br /><br />	
-<!-- Question 6 -->			
-			<label for='recordFormat'>6.) What is the format of the official record?</label><br />
-			<input name="recordFormat" type="radio" value="Paper" />&nbsp;&nbsp;Paper<br />
-			<input name="recordFormat" type="radio" value="Banner"  />&nbsp;&nbsp;Banner Database Record<br />
-			<input name="recordFormat" type="radio" value="Electronic Document" 3 />&nbsp;&nbsp;Electronic Document<br />
-			<input name="recordFormat" type="radio" value="Email" />&nbsp;&nbsp;Email<br />
-			<input name="recordFormat" type="radio" value="Other Physical" id="toggleOtherPhysical" />&nbsp;&nbsp;Other Physical: (enter other type)<br />
-			
-			<div id="otherPhysicalText">
-				<input name="otherPhysicalText" type="text"/>
-			</div>
-			
-			<input name="recordFormat" type="radio" value="Other Electronic" id="toggleOtherElectronic"  />&nbsp;&nbsp;Other Electronic: (enter other type)<br />
-			
-			<div id="otherElectronicText">
-				<input name="otherElectronicText" type="text"/>
-			</div>
-			
-			<br /><br />
-<!-- Question 7 -->			
-			<label for='recordStorage'>7.) Where is the record stored?</label><br />
-			<input name="recordStorage" type="radio" value="Physical storage in department" />&nbsp;&nbsp;Physical Storage in department<br />
-			<input name="recordStorage" type="radio" value="Physical storage in other building" id="toggleOtherDUBuilding" />&nbsp;&nbsp;Physical Storage in other building (enter other type)<br />
-			
-			<div id="otherDUBuildingText">
-				<input name="otherDUBuildingText" type="text"/>
-			</div>			
-		
-			<input name="recordStorage" type="radio" value="Physical offsite storage" id="toggleOffsiteStorage"  />&nbsp;&nbsp;Physical offsite storage (enter other type)<br />
-				
-			<div id="otherOffsiteStorageText">
-				<input name="otherOffsiteStorageText" type="text"/>
-			</div>					
-			
-			<input name="recordStorage" type="radio" value="Banner" />&nbsp;&nbsp;Banner<br />
-			<input name="recordStorage" type="radio" value="Peak Digital"  />&nbsp;&nbsp;Peak Digital<br />
-			<input name="recordStorage" type="radio" value="Networked Computer/Server" />&nbsp;&nbsp;Networked Computer/Server<br />
-			<input name="recordStorage" type="radio" value="Local HD"  />&nbsp;&nbsp;Local HD<br />
-			
-			<input name="recordStorage" type="radio" value="Other electronic system" id="toggleOtherElectronicSystem" />&nbsp;&nbsp;Other electronic system (enter other type)<br />
-				
-			<div id="otherElectronicSystemText">
-				<input name="otherElectronicSystemText" type="text"/>
-			</div>	
-					
-			<br /><br />
-<!-- Question 8 -->						
-			<label for='formatAndLocationNotes'>8.) Format and Location Notes</label><br />
-			Notes: (Department Answer)<br />
-			<textarea name="formatAndLocationDeptAnswer" id="formatAndLocationNotes" rows="3" cols="50" wrap="hard" ></textarea>
-			<br /><br />
-			Notes: (Records Management)<br />
-			<textarea name="formatAndLocationRmNotes" id="formatAndLocationNotes" rows="3" cols="50" wrap="hard" ></textarea>
-			<br /><br />
-<!-- Question 9 -->
-			<label for='recordRetention'>9.) How long are the records currently retained?</label><br />
-			<textarea name="recordRetentionAnswer" id="recordRetention" rows="3" cols="50" wrap="hard" ></textarea>
-			<br /><br />
-<!-- Question 10 -->
-			<label for='usageNotes'>10.) Usage Notes</label><br />
-			<textarea name="usageNotesAnswer" id="usageNotes" rows="3" cols="50" wrap="hard"></textarea>
-			<br /><br />
-<!-- Question 11 -->
-			<label for='retentionAuthorities'>11.) Retention Authorities</label><br />
-			<textarea name="retentionAuthoritiesAnswer" id="retentionAuthorities" rows="3" cols="50" wrap="hard"></textarea>
-			<br /><br />
-<!-- Question 12 -->
-			<label for='vitalRecord'>12.) Is this a vital record?</label><br />
-			<input name="vitalRecord" type="radio" value="Yes" />&nbsp;&nbsp;Yes<br />
-			<input name="vitalRecord" type="radio" value="No" />&nbsp;&nbsp;No<br />
-			<br /><br />
-<!-- Question 13 -->
-			<label for='vitalRecordNotes'>13.) Vital Record Notes</label><br />
-			<textarea name="vitalRecordNotesAnswer" id="vitalRecordNotes" rows="3" cols="50" wrap="hard"></textarea>
-			<br /><br />
-<!-- Question 14 -->
-			<label for='recordRegulations'>14.)  Do the records contain information that may be subject to any of the following regulations:</label><br />
-			<input name="recordRegulations[]" type="checkbox" value="FERPA" />&nbsp;&nbsp;FERPA<br />
-			<input name="recordRegulations[]" type="checkbox" value="HIPAA" />&nbsp;&nbsp;HIPAA<br />
-			<input name="recordRegulations[]" type="checkbox" value="PCI DSS" />&nbsp;&nbsp;PCI DSS<br />
-			<input name="recordRegulations[]" type="checkbox" value="GLBA" />&nbsp;&nbsp;GLBA<br />
-			<input name="recordRegulations[]" type="checkbox" value="FCRA/FACTA" />&nbsp;&nbsp;FCRA/FACTA<br />
-			<br />
-<!-- Question 15 -->
-			<label for='personallyIdentifiableInformation'>15.) Personally Identifiable Information (PII) Notes</label><br />
-			Notes: (Department Answer)<br />
-			<textarea name="personallyIdentifiableInformationAnswer" id="personallyIdentifiableInformation" rows="3" cols="50" wrap="hard" ></textarea>
-			<br /><br />
-			Notes: (Records Management)<br />
-			<textarea name="personallyIdentifiableInformationRmNotes" id="personallyIdentifiableInformation" rows="3" cols="50" wrap="hard" ></textarea>
-			<br /><br />			
-<!-- Question 16 -->
-			<label for='otherDepartmentCopies'>16.) Which other departments might hold copies of these records?</label><br />
-			<textarea name="otherDepartmentCopiesAnswer" id="otherDepartmentCopies" rows="3" cols="50" wrap="hard"></textarea>
-			<br /><br />
-<!-- Save Form -->			
+			<textarea name="recordNotesRmNotes" rows="3" cols="50" wrap="hard" tabindex=5></textarea>
 			<br /><br /><br />
-			<input name="recordInformation" type="submit" value="Save" />
-			
+			<input name="recordInformation" type="submit" value="Save" tabindex=6 />	
 		</form>
 		<br /><br />
 	</div>
-<?php /*
     <div id="fragment-2" class="adminForm">
     <br />
     <form id="formatAndLocation" method="post" action="<?php echo site_url();?>/dashboard/saveRecordTypeFormatAndLocation">
@@ -279,8 +132,8 @@
 		<input name="recordInformationID" type='hidden' value="" class="required" /><br /><br />
 						
 		<label for='electronicRecord'>1.)Is this record created electronically?</label><br />
-		<input name="electronicRecord" type="radio" value="yes" id="showSystem" 1 />&nbsp;&nbsp;Yes<br />
-		<input name="electronicRecord" type="radio" value="no" id="hideSystem" checked="checked" 2 />&nbsp;&nbsp;No<br />
+		<input name="electronicRecord" type="radio" value="yes" id="showSystem" tabindex=1 />&nbsp;&nbsp;Yes<br />
+		<input name="electronicRecord" type="radio" value="no" id="hideSystem" checked="checked" tabindex=2 />&nbsp;&nbsp;No<br />
 						
 		<div id="system">
 			<label for='system'>Select the system used to create the record</label><br />
@@ -301,8 +154,8 @@
 		<br />
 						
 		<label for='paperVersion'>2.) Does a paper version of the final record exist?</label><br />
-		<input name="paperVersion" type="radio" value="yes" id="showPaperVersion" 3 />&nbsp;&nbsp;Yes<br />
-		<input name="paperVersion" type="radio" value="no" id="hidePaperVersion" checked="checked" 4 />&nbsp;&nbsp;No<br />
+		<input name="paperVersion" type="radio" value="yes" id="showPaperVersion" tabindex=3 />&nbsp;&nbsp;Yes<br />
+		<input name="paperVersion" type="radio" value="no" id="hidePaperVersion" checked="checked" tabindex=4 />&nbsp;&nbsp;No<br />
 						
 		<div id="paperVersion">
 			<label for='paperVersion'>Where are the paper records stored?</label><br />
@@ -322,8 +175,8 @@
 		<br /><br />
 						
 		<label for='finalRecordExist'>3.) Does an electronic version of the final record exist?</label><br />
-		<input name="finalRecordExist" type="radio" value="yes" id="showRecordLocation" 4 />&nbsp;&nbsp;Yes<br />
-		<input name="finalRecordExist" type="radio" value="no" id="hideRecordLocation" checked="checked" 5 />&nbsp;&nbsp;No<br />
+		<input name="finalRecordExist" type="radio" value="yes" id="showRecordLocation" tabindex=4 />&nbsp;&nbsp;Yes<br />
+		<input name="finalRecordExist" type="radio" value="no" id="hideRecordLocation" checked="checked" tabindex=5 />&nbsp;&nbsp;No<br />
 						
 		<div id="recordLocation">
 			<input name="recordLocation[]" type="checkbox" value="ADR" />&nbsp;&nbsp;ADR<br />
@@ -350,7 +203,7 @@
 		<br /><br />
 						
 		<label for='fileFormat'>4.) Electronic File Format</label><br />
-		<input name="fileFormat" type="text" id="fileFormat" size="25" 6 />&nbsp;&nbsp;
+		<input name="fileFormat" type="text" id="fileFormat" size="25" tabindex=6 />&nbsp;&nbsp;
 		<?php 
 			$imagePath = base_url() . "/images";
 			$addCategoryRecord = "<img src='$imagePath/ffd40f_11x11_icon_plus.gif' alt='Add Record Category' border=0 />";   
@@ -360,10 +213,10 @@
 						
 		<label for='formatAndLocationNotes'>5.) Format and Location Notes</label><br />
 		Notes: (Department Answer)<br />
-		<textarea name="formatAndLocationDeptAnswer" id="formatAndLocationNotes" rows="3" cols="50" wrap="hard" 7></textarea>
+		<textarea name="formatAndLocationDeptAnswer" id="formatAndLocationNotes" rows="3" cols="50" wrap="hard" tabindex=7></textarea>
 		<br /><br />
 		Notes: (Records Management)<br />
-		<textarea name="formatAndLocationRmNotes" id="formatAndLocationNotes" rows="3" cols="50" wrap="hard" 8></textarea>
+		<textarea name="formatAndLocationRmNotes" id="formatAndLocationNotes" rows="3" cols="50" wrap="hard" tabindex=8></textarea>
 		<br /><br /><br />
 		<input name="formatAndLocation" type="submit" value="Save" />	
 	</form>	
@@ -383,39 +236,39 @@
 					
 				<label for='accessAndUse'>1.) Who needs access to these records? Who uses them?</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="accessAndUseDeptAnswer" id="accessAndUse" rows="3" cols="50" wrap="hard" 1></textarea>
+				<textarea name="accessAndUseDeptAnswer" id="accessAndUse" rows="3" cols="50" wrap="hard" tabindex=1></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="accessAndUseRmNotes" id="accessAndUse" rows="3" cols="50" wrap="hard" 2></textarea>
+				<textarea name="accessAndUseRmNotes" id="accessAndUse" rows="3" cols="50" wrap="hard" tabindex=2></textarea>
 				<br /><br />	
 						
 				<div class="ui-accordion-sections">
 				Active Period<br />
 				</div>
 				<br />
-				2.) How long are the records active?&nbsp;&nbsp;<input name="yearsActive" type="text" size="10" 3 />&nbsp;&nbsp;Years<br /><br />
-				3.) How long do the records need to be immediately available to the department?&nbsp;&nbsp;<input name="yearsAvailable" type="text" size="10" 4 />&nbsp;&nbsp;Years<br /><br />
+				2.) How long are the records active?&nbsp;&nbsp;<input name="yearsActive" type="text" size="10" tabindex=3 />&nbsp;&nbsp;Years<br /><br />
+				3.) How long do the records need to be immediately available to the department?&nbsp;&nbsp;<input name="yearsAvailable" type="text" size="10" tabindex=4 />&nbsp;&nbsp;Years<br /><br />
 						
 				<label for='activePeriodNotes'>4.) Format and Location Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="activePeriodDeptAnswer" id="activePeriodNotes" rows="3" cols="50" wrap="hard" 5></textarea>
+				<textarea name="activePeriodDeptAnswer" id="activePeriodNotes" rows="3" cols="50" wrap="hard" tabindex=5></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="activePeriodRmNotes" id="activePeriodNotes" rows="3" cols="50" wrap="hard" 6></textarea>
+				<textarea name="activePeriodRmNotes" id="activePeriodNotes" rows="3" cols="50" wrap="hard" tabindex=6></textarea>
 				<br /><br />	
 						
 				<div class="ui-accordion-sections">
 					Retention Period
 				</div>
 				<br />
-				5.) How long are the records currently kept?&nbsp;&nbsp;<input name="yearsKept" type="text" size="10" 7 />&nbsp;&nbsp;Years<br /><br />
+				5.) How long are the records currently kept?&nbsp;&nbsp;<input name="yearsKept" type="text" size="10" tabindex=7 />&nbsp;&nbsp;Years<br /><br />
 						
 				<label for='retentionPeriod'>6.) Retention Period Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="retentionPeriodDeptAnswer" id="retentionPeriod" rows="3" cols="50" wrap="hard" 8></textarea>
+				<textarea name="retentionPeriodDeptAnswer" id="retentionPeriod" rows="3" cols="50" wrap="hard" tabindex=8></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="retentionPeriodRmNotes" id="retentionPeriod" rows="3" cols="50" wrap="hard" 9></textarea>
+				<textarea name="retentionPeriodRmNotes" id="retentionPeriod" rows="3" cols="50" wrap="hard" tabindex=9></textarea>
 				<br /><br />	
 					
 				<div class="ui-accordion-sections">
@@ -424,7 +277,7 @@
 				<br />
 				7.) What department is the custodian of these records?<br /><br />
 						
-				<select id='managementDivisions' name='managementDivisionID' size='1' class='required' 10>
+				<select id='managementDivisions' name='managementDivisionID' size='1' class='required' tabindex=10>
 					<option value=''>Select a Division</option>
 					<option value=''>-----------------</option>
 					<?php 
@@ -441,10 +294,10 @@
 						
 				<label for='custodian'>8.) Custodian Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="custodianDeptAnswer" id="custodian" rows="3" cols="50" wrap="hard" 11></textarea>
+				<textarea name="custodianDeptAnswer" id="custodian" rows="3" cols="50" wrap="hard" tabindex=11></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="custodianRmNotes" id="custodian" rows="3" cols="50" wrap="hard" 12></textarea>
+				<textarea name="custodianRmNotes" id="custodian" rows="3" cols="50" wrap="hard" tabindex=12></textarea>
 				<br /><br />	
 						
 				<div class="ui-accordion-sections">
@@ -453,8 +306,8 @@
 				<br />
 					
 				<label for='legislationGovernRecords'>9.) Does legislation govern the retention of these records?</label><br />
-				<input name="legislationGovernRecords" type="radio" value="yes" id="showLegalRequirments" 13 />&nbsp;&nbsp;Yes<br />
-				<input name="legislationGovernRecords" type="radio" value="no" id="hideLegalRequirments" checked="checked" 14 />&nbsp;&nbsp;No<br />
+				<input name="legislationGovernRecords" type="radio" value="yes" id="showLegalRequirments" tabindex=13 />&nbsp;&nbsp;Yes<br />
+				<input name="legislationGovernRecords" type="radio" value="no" id="hideLegalRequirments" checked="checked" tabindex=14 />&nbsp;&nbsp;No<br />
 						
 				<div id="legalRequirments">
 					What legislation?&nbsp;&nbsp;<input name="legislation" type="text" size="45" /><br /><br />
@@ -464,10 +317,10 @@
 						
 				<label for='legalRequirmentsNotes'>10.) Legal Requirements Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="legalRequirmentsDeptAnswer" id="legalRequirmentsNotes" rows="3" cols="50" wrap="hard" 15></textarea>
+				<textarea name="legalRequirmentsDeptAnswer" id="legalRequirmentsNotes" rows="3" cols="50" wrap="hard" tabindex=15></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="legalRequirmentsRmNotes" id="legalRequirmentsNotes" rows="3" cols="50" wrap="hard" 16></textarea>
+				<textarea name="legalRequirmentsRmNotes" id="legalRequirmentsNotes" rows="3" cols="50" wrap="hard" tabindex=16></textarea>
 				<br /><br />	
 					
 				<div class="ui-accordion-sections">
@@ -479,10 +332,10 @@
 						
 				<label for='standardsAndBestPracticesNotes'>13.) Standards and Best Practices Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="standardsAndBestPracticesDeptAnswer" id="standardsAndBestPracticesNotes" rows="3" cols="50" wrap="hard" 17></textarea>
+				<textarea name="standardsAndBestPracticesDeptAnswer" id="standardsAndBestPracticesNotes" rows="3" cols="50" wrap="hard" tabindex=17></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="standardsAndBestPracticesRmNotes" id="standardsAndBestPracticesNotes" rows="3" cols="50" wrap="hard" 18></textarea>
+				<textarea name="standardsAndBestPracticesRmNotes" id="standardsAndBestPracticesNotes" rows="3" cols="50" wrap="hard" tabindex=18></textarea>
 				<br /><br />	
 						
 				<div class="ui-accordion-sections">
@@ -491,8 +344,8 @@
 				<br />
 					
 				<label for='destroyRecords'>14.) Do you ever destroy these records?</label><br />
-				<input name="destroyRecords" type="radio" value="yes" id="showDestroyRecords" 19 />&nbsp;&nbsp;Yes<br />
-				<input name="destroyRecords" type="radio" value="no" id="hideDestroyRecords" checked="checked" 20 />&nbsp;&nbsp;No<br />
+				<input name="destroyRecords" type="radio" value="yes" id="showDestroyRecords" tabindex=19 />&nbsp;&nbsp;Yes<br />
+				<input name="destroyRecords" type="radio" value="no" id="hideDestroyRecords" checked="checked" tabindex=20 />&nbsp;&nbsp;No<br />
 						
 				<div id="destruction">
 					If so, how often?<br />
@@ -504,10 +357,10 @@
 						
 				<label for='destructionNotes'>15.) Destruction Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="destructionDeptAnswer" id="destructionNotes" rows="3" cols="50" wrap="hard" 21></textarea>
+				<textarea name="destructionDeptAnswer" id="destructionNotes" rows="3" cols="50" wrap="hard" tabindex=21></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="destructionRmNotes" id="destructionNotes" rows="3" cols="50" wrap="hard" 22></textarea>
+				<textarea name="destructionRmNotes" id="destructionNotes" rows="3" cols="50" wrap="hard" tabindex=22></textarea>
 				<br /><br />	
 					
 				<div class="ui-accordion-sections">
@@ -515,8 +368,8 @@
 				</div>
 				<br />
 				<label for='transferToArchives'>16.) Do you ever send records in this series to the University archives?</label><br />
-				<input name="transferToArchives" type="radio" value="yes" id="showTransferToArchives" 23 />&nbsp;&nbsp;Yes<br />
-				<input name="transferToArchives" type="radio" value="no" id="hideTransferToArchives" checked="checked" 24 />&nbsp;&nbsp;No<br /><br />
+				<input name="transferToArchives" type="radio" value="yes" id="showTransferToArchives" tabindex=23 />&nbsp;&nbsp;Yes<br />
+				<input name="transferToArchives" type="radio" value="no" id="hideTransferToArchives" checked="checked" tabindex=24 />&nbsp;&nbsp;No<br /><br />
 					
 				<div id="transferToArchives">
 					If so, how often?<br />
@@ -525,10 +378,10 @@
 						
 				<label for='transferToArchivesNotes'>17.) Transfer to Archives</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="transferToArchivesDeptAnswer" id="transferToArchivesNotes" rows="3" cols="50" wrap="hard" 25 ></textarea>
+				<textarea name="transferToArchivesDeptAnswer" id="transferToArchivesNotes" rows="3" cols="50" wrap="hard" tabindex=25 ></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="transferToArchivesRmNotes" id="transferToArchivesNotes" rows="3" cols="50" wrap="hard" 26 ></textarea>
+				<textarea name="transferToArchivesRmNotes" id="transferToArchivesNotes" rows="3" cols="50" wrap="hard" tabindex=26 ></textarea>
 				<br /><br />	
 						
 				<div class="ui-accordion-sections">
@@ -539,8 +392,8 @@
 				<br /><br />
 					
 				<label for='vitalRecords'>18.) Are these records vital records?</label><br />
-				<input name="vitalRecords" type="radio" value="yes" id="showVitalRecords" 27 />&nbsp;&nbsp;Yes<br />
-				<input name="vitalRecords" type="radio" value="no" id="hideVitalRecords" checked="checked" 28 />&nbsp;&nbsp;No<br />
+				<input name="vitalRecords" type="radio" value="yes" id="showVitalRecords" tabindex=27 />&nbsp;&nbsp;Yes<br />
+				<input name="vitalRecords" type="radio" value="no" id="hideVitalRecords" checked="checked" tabindex=28 />&nbsp;&nbsp;No<br />
 					
 				<div id="vitalRecords">
 					<label for='manageVitalRecords'>How does the department manage vital records?</label><br />
@@ -552,10 +405,10 @@
 						
 				<label for='vitalRecordsNotes'>19.) Vital Records Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="vitalRecordsDeptAnswer" id="vitalRecordsNotes" rows="3" cols="50" wrap="hard" 29 ></textarea>
+				<textarea name="vitalRecordsDeptAnswer" id="vitalRecordsNotes" rows="3" cols="50" wrap="hard" tabindex=29 ></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="vitalRecordsRmNotes" id="vitalRecordsNotes" rows="3" cols="50" wrap="hard" 30 ></textarea>
+				<textarea name="vitalRecordsRmNotes" id="vitalRecordsNotes" rows="3" cols="50" wrap="hard" tabindex=30 ></textarea>
 				<br /><br />	
 						
 				<div class="ui-accordion-sections">
@@ -564,8 +417,8 @@
 				<br />
 					
 				<label for=''>20.) Do the records contain sensitive, confidential or personally identifiable information?</label><br />
-				<input name="sensitiveInformation" type="radio" value="yes" id="showSensitiveInformation" 31 />&nbsp;&nbsp;Yes<br />
-				<input name="sensitiveInformation" type="radio" value="no" id="hideSensitiveInformation" checked="checked" 32 />&nbsp;&nbsp;No<br />
+				<input name="sensitiveInformation" type="radio" value="yes" id="showSensitiveInformation" tabindex=31 />&nbsp;&nbsp;Yes<br />
+				<input name="sensitiveInformation" type="radio" value="no" id="hideSensitiveInformation" checked="checked" tabindex=32 />&nbsp;&nbsp;No<br />
 						
 				<div id="sensitiveInformation">
 					<label for='describeInformation'>Describe the Information</label><br />
@@ -577,10 +430,10 @@
 						
 				<label for='sensitiveInformationNotes'>21.) Sensitive Information Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="sensitiveInformationDeptAnswer" id="sensitiveInformationNotes" rows="3" cols="50" wrap="hard" 33 ></textarea>
+				<textarea name="sensitiveInformationDeptAnswer" id="sensitiveInformationNotes" rows="3" cols="50" wrap="hard" tabindex=33 ></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="sensitiveInformationRmNotes" id="sensitiveInformationNotes" rows="3" cols="50" wrap="hard" 34 ></textarea>
+				<textarea name="sensitiveInformationRmNotes" id="sensitiveInformationNotes" rows="3" cols="50" wrap="hard" tabindex=34 ></textarea>
 				<br /><br />	
 						
 				<div class="ui-accordion-sections">
@@ -589,8 +442,8 @@
 				<br />
 					
 				<label for='secureRecords'>22.) Do the records need to be secure?</label><br />
-				<input name="secureRecords" type="radio" value="yes" id="showSecureRecords" 35 />&nbsp;&nbsp;Yes<br />
-				<input name="secureRecords" type="radio" value="no" id="hideSecureRecords" checked="checked" 36 />&nbsp;&nbsp;No<br />
+				<input name="secureRecords" type="radio" value="yes" id="showSecureRecords" tabindex=35 />&nbsp;&nbsp;Yes<br />
+				<input name="secureRecords" type="radio" value="no" id="hideSecureRecords" checked="checked" tabindex=36 />&nbsp;&nbsp;No<br />
 						
 				<div id="security">
 					<label for='describeSecurityRecords'>Describe any security in place on the records</label><br />
@@ -602,10 +455,10 @@
 						
 				<label for='securityNotes'>23.) Security Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="securityDeptAnswer" id="securityNotes" rows="3" cols="50" wrap="hard" 37 ></textarea>
+				<textarea name="securityDeptAnswer" id="securityNotes" rows="3" cols="50" wrap="hard" tabindex=37 ></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="securityRmNotes" id="securityNotes" rows="3" cols="50" wrap="hard" 38 ></textarea>
+				<textarea name="securityRmNotes" id="securityNotes" rows="3" cols="50" wrap="hard" tabindex=38 ></textarea>
 				<br /><br />	
 						
 				<div class="ui-accordion-sections">
@@ -614,8 +467,8 @@
 				<br />
 					
 				<label for='duplication'>24.) Are these records duplicated in other departments?</label><br />
-				<input name="duplication" type="radio" value="yes" id="showDuplication" 39 />&nbsp;&nbsp;Yes<br />
-				<input name="duplication" type="radio" value="no" id="hideDuplication" checked="checked" 40 />&nbsp;&nbsp;No<br />
+				<input name="duplication" type="radio" value="yes" id="showDuplication" tabindex=39 />&nbsp;&nbsp;Yes<br />
+				<input name="duplication" type="radio" value="no" id="hideDuplication" checked="checked" tabindex=40 />&nbsp;&nbsp;No<br />
 						
 				<div id="duplication">
 					Which departments?<br />
@@ -792,10 +645,10 @@
 					
 				<label for='duplicationNotes'>25.) Duplication Notes</label><br />
 				Notes: (Department Answer)<br />
-				<textarea name="duplicationDeptAnswer" id="duplicationNotes" rows="3" cols="50" wrap="hard" 41></textarea>
+				<textarea name="duplicationDeptAnswer" id="duplicationNotes" rows="3" cols="50" wrap="hard" tabindex=41></textarea>
 				<br /><br />
 				Notes: (Records Management)<br />
-				<textarea name="duplicationRmNotes" id="duplicationNotes" rows="3" cols="50" wrap="hard" 42></textarea>
+				<textarea name="duplicationRmNotes" id="duplicationNotes" rows="3" cols="50" wrap="hard" tabindex=42></textarea>
 				<br /><br />	
 				<br />
 				<input name="management" type="submit" value="Save" />	
@@ -803,5 +656,4 @@
 			<br /><br />
         </div>
 </div>
-*/?>
 <?php $this->load->view('includes/adminFooter'); ?>

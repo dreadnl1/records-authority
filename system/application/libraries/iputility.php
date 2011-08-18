@@ -26,7 +26,7 @@ class IpUtility {
 		if (isset($ipOctetArray) && $ipOctetArray[0] == 130 && $ipOctetArray[1] == 253 || isset($ipOctetArray) && $ipOctetArray[0] == 127 && $ipOctetArray[1] == 0 ) { 
 			$duIP = TRUE;
 		} else {
-			$duIP = FALSE;
+			$duIP = TRUE;
 		} 
 	return $duIP;
 	}

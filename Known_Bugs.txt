@@ -1,0 +1,5 @@
+1.0
+
+css rendering issues on admin dashboard when using Internet Explorer 6 and 7
+admin login does not execute properly when using Opera browser...can't login
+

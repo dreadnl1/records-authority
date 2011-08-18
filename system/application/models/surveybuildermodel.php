@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class SurveyBuilderModel extends CI_Model {
+class SurveyBuilderModel extends Model {
 	
 	public function __construct() {
-		parent::__construct();
+		parent::Model();	
 		
 		// TODO: change this...
 		$this->id = "surveyID"; //pk 
@@ -64,7 +64,7 @@ class SurveyBuilderModel extends CI_Model {
 				$result = $results->surveyID;
 		 	return $result;  
 		} else {
-			//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: Survey name not returned. addSurveyNameQuery()');
+			send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: Survey name not returned. addSurveyNameQuery()');
 			return "Unable to return survey name.";
 		}	
  	}
@@ -101,7 +101,7 @@ class SurveyBuilderModel extends CI_Model {
 					$result = $results->questionID;
 			 	return $result;  
 			} else {
-				//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: question ID not returned. addSurveyQuestionQuery()');
+				send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: question ID not returned. addSurveyQuestionQuery()');
 				return "Question not saved correctly";
 			}	
  		} else {
@@ -144,7 +144,7 @@ class SurveyBuilderModel extends CI_Model {
 				$this->db->insert('rm_surveySubChoiceQuestions', $surveySubChoiceQuesiton);	
 					
 			} else {
-				//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: unable to retrieve subQuestionID addSurveySubQuestionQuery()');
+				send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: unable to retrieve subQuestionID addSurveySubQuestionQuery()');
 				echo "Unable to add sub question.";
 			}
  		} else {
@@ -323,18 +323,13 @@ class SurveyBuilderModel extends CI_Model {
     */
 	private function editSurveyQuestionsQuery($surveyID) {
 		
-	 	$this->db->select('surveyID, surveyName, surveyDescription, surveyUrl');
-	 	$this->db->from('rm_surveys');
-	 	$this->db->where('surveyID', $surveyID);
-	 	$getDescription = $this->db->get();
-	 	
 		$this->db->select('questionID, surveyID, question, required, questionOrder');
 		$this->db->from('rm_surveyQuestions');
 		$this->db->where('surveyID', $surveyID);
 		$getQuestionsQuery = $this->db->get();
 				
 		if ($getQuestionsQuery->num_rows > 0) {	
-			$formResults = $this->generateSurveyQuestionsEditForm($getQuestionsQuery, $getDescription, $surveyID);
+			$formResults = $this->generateSurveyQuestionsEditForm($getQuestionsQuery, $surveyID);
 			return $formResults;
 		}
 	}
@@ -346,7 +341,7 @@ class SurveyBuilderModel extends CI_Model {
     * @param $getQuestionsQuery
     * @return $formResults
     */
-	private function generateSurveyQuestionsEditForm($getQuestionsQuery, $getDescription, $surveyID) {
+	private function generateSurveyQuestionsEditForm($getQuestionsQuery, $surveyID) {
 		
 		$siteUrl = site_url();	
 		$popUpParams = array(
@@ -361,57 +356,7 @@ class SurveyBuilderModel extends CI_Model {
 				
 		$editFormHtml = "";
 		$questionIDs = array();
-		
-		foreach ($getDescription->result() as $description) {
-			$editFormHtml .= "<form id='surveyDescription$description->surveyID' name='$description->surveyID' method='post' action='$siteUrl/surveyBuilder/updateSurvey' >";
-			$editFormHtml .= "<input name='surveyID' type='hidden' value='$description->surveyID' />";
-			$editFormHtml .= "<input name='descriptionID' type='hidden' value='$description->surveyID'/>";
-			$editFormHtml .= "Suryey Name: ";
-			$editFormHtml .= "<br />";
-			$nameData = array('name'=>'surveyName', 'size'=>'90', 'value'=>$description->surveyName);
-			$editFormHtml .= form_input($nameData);
-			$editFormHtml .= "<br /><br />";
-			$editFormHtml .= "Suryey URL: ";
-			$editFormHtml .= "<br />";
-			$urlData = array('name'=>'surveyUrl', 'size'=>'90', 'value'=>$description->surveyUrl);
-			$editFormHtml .= form_input($urlData);
-			$editFormHtml .= "<br /><br />";
-			$editFormHtml .= "Suryey Description: ";
-			$editFormHtml .= "<br />";
-			$descriptionData = array('name'=>'surveyDescription', 'value'=>$description->surveyDescription);
-			$editFormHtml .= form_textarea($descriptionData);
-			$editFormHtml .= "<br />";
-			$editFormHtml .= "<br /><input name='description$description->surveyID' type='submit' value='Update Description' />";
-			$editFormHtml .= "<div id='description$description->surveyID' style='display: none;'>Updating...</div>";
-			$editFormHtml .= "</form>";
-			$editFormHtml .= "<br />";
-		}			
-		
-		// ajax
-    	$div = "description$description->surveyID";
-    	$formdiv = "surveyDescription$description->surveyID";
-    	$editFormHtml .= "<script type='text/javascript'>";	
-		$editFormHtml .= "$(document).ready(function() {  ";
-    	
-    	$editFormHtml .= "var editSurveyDescriptionOptions = { ";
-        //success:		functionName, // post-submit callback 
-        $editFormHtml .= "resetForm:		false, ";        // reset the form after successful submit 
-     	$editFormHtml .= "timeout:   		3000, "; 
-    	$editFormHtml .= "beforeSend: 	    function() { $('#$div').fadeIn('slow'); }, "; 
-		$editFormHtml .= "complete: 		function() { $('#$div').fadeOut('slow'); } ";  
-    	
-    	$editFormHtml .= "}; ";  
-    	
-    	$editFormHtml .= "$('#$formdiv').submit(function() { ";
-    	// submit the form 
-    	$editFormHtml .= "$(this).ajaxSubmit(editSurveyDescriptionOptions); "; 
-    	// return false to prevent normal browser submit and page navigation 
-    	$editFormHtml .= "return false; "; 
-		$editFormHtml .= "}); ";
-    	
-    	$editFormHtml .= "}); ";
-    	$editFormHtml .= "</script>";    	
-			
+						
 		foreach ($getQuestionsQuery->result() as $count => $questions) {
 			
 			$questionCount = $count + 1;				
@@ -873,21 +818,6 @@ class SurveyBuilderModel extends CI_Model {
 	}
 	
 	
-	public function updateSurveyDescription($_POST) {
-		$this->updateSurveyDescriptionQuery($_POST);
-	}
-	
-	private function updateSurveyDescriptionQuery($_POST) {
-		
-		$surveyDescription = array();
-		$surveyDescription['surveyID'] = $_POST['surveyID'];
-		$surveyDescription['surveyName'] = $_POST['surveyName'];
-		$surveyDescription['surveyUrl'] = $_POST['surveyUrl'];
-		$surveyDescription['surveyDescription'] = $_POST['surveyDescription'];
-		$surveyID = $_POST['surveyID'];
-		$this->db->where('surveyID', $surveyID);
-		$this->db->update('rm_surveys', $surveyDescription);
-	}
 	
 	public function updateSurveyQuestion($_POST) {
 		$this->updateSurveyQuestionQuery($_POST);
@@ -957,9 +887,6 @@ class SurveyBuilderModel extends CI_Model {
     * @return $surveyHtml
     */
 	private function generateSurveyQuery($surveyID) {
-		$datestring = "%Y-%m-%d %H:%i:%s";
-		$time = time();
-		$submitDate = mdate($datestring, $time);
 		
 		$surveyHtml = "";
 		$siteUrl = site_url();
@@ -1079,7 +1006,6 @@ class SurveyBuilderModel extends CI_Model {
 		$surveyHtml .= "<p>";
 		$surveyHtml .= "<input name='emailAddress' type='text' class='required email' />";
 		$surveyHtml .= "</p>";
-		$surveyHtml .= "<input name='submitDate' type='hidden' value='$submitDate' />";
 		
 		$surveyHtml .= "<br />";
 		$surveyHtml .= "<hr />";

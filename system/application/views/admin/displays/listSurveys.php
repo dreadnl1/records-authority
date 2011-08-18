@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
  * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
@@ -20,10 +20,7 @@
  **/
 ?>
  
-<?php 
-	$data['title'] = 'List Surveys - Records Authority';
-	$this->load->view('includes/adminHeader', $data); 
-?>
+<?php $this->load->view('includes/adminHeader'); ?>
 
   <div id="tabs">
 	<ul>

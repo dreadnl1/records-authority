@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,20 +20,15 @@
  **/
 ?>
 
-<?php 
-	$data['title'] = 'Record Inventory Global Search - Records Authority';
-	$this->load->view('includes/adminHeader', $data); 
-?>
+<?php $this->load->view('includes/adminHeader'); ?>
 	<div id="tabs">
 		<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Global Record Inventory Search</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Global Record Type Search</a></li>
         </ul>
        	
 		<div id="fragment-1" class="adminForm">
-		
         <br/><br />
-        enter * to search all<br />
-			<form id="searchGlobalRecordTypes" method="post" action="<?php echo site_url();?>/search/globalRecordTypeSearch">
+			<form id="searchGlobalRecordTypes" method="post" action="<?php echo site_url();?>/search/globalSearch">
         		<input name="keyword" type="text" size="50" class="required" />
         		<input name="searchGlobalRecordTypes" type="submit" value="Search" /><br/><br />
         	</form>

@@ -6,7 +6,7 @@
 // 
 // Try to connect to the named server, port, and url
 // 
-$solr = new Apache_Solr_Service( '127.0.0.1', '8080', '/solr' );
+$solr = new Apache_Solr_Service( '127.0.0.1', '8983', '/solr' );
   
 if ( ! $solr->ping() ) {
 	echo 'Solr service not responding.';
@@ -18,7 +18,7 @@ if ( ! $solr->ping() ) {
 // query database
 // place results into array
 //
-mysql_connect("localhost", "webapp", "w3bapp*^f3rnand0") 
+mysql_connect("localhost", "root", "Wdb2604") 
  	or die(mysql_error());
  	
 
@@ -26,7 +26,7 @@ mysql_select_db("recordsManagementDB")
   	or die(mysql_error());
   
 
-$recordTypeQuery = mysql_query("SELECT retentionScheduleID, recordName, recordDescription, recordCategory, keywords, retentionPeriod, retentionNotes, disposition, officeOfPrimaryResponsibility, approvedByCounselDate, recordCode FROM rm_fullTextSearch") 
+$recordTypeQuery = mysql_query("SELECT retentionScheduleID, recordName, recordCategory, officeOfPrimaryResponsibility, disposition, retentionPeriod, recordDescription FROM rm_fullTextSearch") 
   	or die(mysql_error());
   	
 $solrData = array();
@@ -40,8 +40,6 @@ while($dbData = mysql_fetch_assoc($recordTypeQuery)) {
 	  		$recordsArray[$col] = $value;
 	  	} elseif ($col == 'recordCategory') {
 	  		$recordsArray[$col] = $value;
-	  	} elseif ($col == 'keywords') {
-	  		$recordsArray[$col] = $value;
 	  	} elseif ($col == 'officeOfPrimaryResponsibility') {
 	  		$recordsArray[$col] = $value;
 	  	} elseif ($col == 'disposition') {
@@ -50,11 +48,7 @@ while($dbData = mysql_fetch_assoc($recordTypeQuery)) {
 	  		$recordsArray[$col] = $value;
 	  	} elseif ($col == 'recordDescription') {
 	  		$recordsArray[$col] = $value;
-	  	} elseif ($col == 'approvedByCounselDate') {
-	  		$recordsArray[$col] = $value;
-	  	} elseif ($col == 'recordCode') {
-	  		$recordsArray[$col] = $value;
-	  	}
+	  	} 
   	}
   	 	  	
  	// place record set into 'records' array

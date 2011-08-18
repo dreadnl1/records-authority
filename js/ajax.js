@@ -74,14 +74,14 @@ $(document).ready(function() {
 		complete: 		function(){$("#setDepartment").fadeOut();} 
     }; 
 	
-	var recordTypeOptions = { 
-        //success:		setRecordInformationid, // post-submit callback 
+	var recordTypeRecordInformationOptions = { 
+        success:		setRecordInformationid, // post-submit callback 
         resetForm:		false,        // reset the form after successful submit 
         timeout:   		3000, 
 		beforeSend: 	saveRecordInformation, // changes submit button text   
 		complete: 		recordInformationSaved // disables submit button
     }; 
-/*			
+			
 	var recordTypeFormatAndLocationOptions = { 
         //success:		recordTypeDepartmentResponse, // post-submit callback 
         resetForm:		false,        // reset the form after successful submit 
@@ -97,16 +97,8 @@ $(document).ready(function() {
 		beforeSend: 	saveManagement,  // changes submit button text 
 		complete: 		managementSaved // disables submit button
     }; 
-*/	
+	
 	// update Record Type Form
-	var updateRecordTypeEditFormOptions = { 
-	        //success:		recordTypeDepartmentResponse, // post-submit callback 
-	        resetForm:		false,        // reset the form after successful submit 
-	        timeout:   		3000, 
-			beforeSend: 	updateRecordInformation, // changes submit button text  
-			complete: 		recordInformationUpdated  // disables submit button
-	}; 
-	/*
 	var updateRecordTypeRecordInformationOptions = { 
         //success:		recordTypeDepartmentResponse, // post-submit callback 
         resetForm:		false,        // reset the form after successful submit 
@@ -123,31 +115,23 @@ $(document).ready(function() {
 		complete: 		formatAndLocationUpdated //  disables submit button
     }; 
     
-    var updateRecordTypeManagementOptions = { 
+     var updateRecordTypeManagementOptions = { 
         //success:		recordTypeDepartmentResponse, // post-submit callback 
         resetForm:		false,        // reset the form after successful submit 
      	timeout:   		3000, 
 	    beforeSend: 	updateManagement, // changes submit button text
 		complete: 		managementUpdated // disables submit button
     }; 
-	*/
+	
 	// search form
 	var searchRecordTypesOptions = { 
         success:		displayRecordTypeSearchResults, // post-submit callback 
         resetForm:		false,        // reset the form after successful submit 
      	timeout:   		3000, 
-	    beforeSend: 	searchRecordTypesBegins, // changes submit button text
-		complete: 		searchRecordTypesEnds 
+	    beforeSend: 	searchBegins, // changes submit button text
+		complete: 		searchEnds 
     }; 
     
-	var searchRecordTypesDeletedOptions = { 
-	        success:		displayRecordTypeDeletedSearchResults, // post-submit callback 
-	        resetForm:		false,        // reset the form after successful submit 
-	     	timeout:   		3000, 
-		    beforeSend: 	searchDeletedBegins, // changes submit button text
-			complete: 		searchDeletedEnds 
-	}; 
-	
     var searchGlobalRecordTypesOptions = { 
         success:		displayGlobalRecordTypeSearchResults, // post-submit callback 
         resetForm:		false,        // reset the form after successful submit 
@@ -156,36 +140,12 @@ $(document).ready(function() {
 		complete: 		globalSearchEnds 
     }; 
     
-    var searchGlobalRetentionScheduleOptions = {
-   		success:	displayGlobalRetentionScheduleSearchResults,
-   		resetForm:	false,
-   		timeout:	3000,
-    	beforeSend:	globalRetentionScheduleSearchBegins,
-    	complete:	globalRetentionScheduleSearchEnds
-    };
-    
     var searchRetentionSchedulesOptions = { 
         success:		displayRetentionScheduleSearchResults, // post-submit callback 
         resetForm:		false,        // reset the form after successful submit 
      	timeout:   		3000, 
 	    beforeSend: 	retentionScheduleSearchBegins, // changes submit button text
 		complete: 		retentionScheduleSearchEnds 
-    }; 
-    
-    var searchRetentionSchedulesDeletedOptions = { 
-            success:		displayRetentionScheduleDeletedSearchResults, // post-submit callback 
-            resetForm:		false,        // reset the form after successful submit 
-         	timeout:   		3000, 
-    	    beforeSend: 	retentionScheduleDeletedSearchBegins, // changes submit button text
-    		complete: 		retentionScheduleDeletedSearchEnds 
-    }; 
-    
-    var searchSurveysOptions = { 
-            success:		displaySurveySearchResults, // post-submit callback 
-            resetForm:		false,        // reset the form after successful submit 
-         	timeout:   		3000, 
-    	    beforeSend: 	surveySearchBegins, // changes submit button text
-    		complete: 		surveySearchEnds 
     }; 
     
 //-----------------------------------------------------------------//
@@ -280,7 +240,7 @@ $(document).ready(function() {
 						});
 							
 	// Record type form
-	var validateRecordTypeFormOptions = $("#recordTypeDepartment").validate({
+	var validateRecordTypeForm = $("#recordTypeDepartment").validate({
 									rules: {
 										departmentID: "required"	
 									},
@@ -292,7 +252,7 @@ $(document).ready(function() {
 								}
 							});	
 							
-	var validateRecordTypeForm = $("#recordInformation").validate({
+	var validateRecordInformationRecordTypeForm = $("#recordInformation").validate({
 									rules: {
 										recordTypeDepartment: "required",
 										recordName: "required",
@@ -307,7 +267,7 @@ $(document).ready(function() {
 										recordCategory: "required"
 									},
 									submitHandler: function(recordInformation) {
-									$(recordInformation).ajaxSubmit(recordTypeOptions); 
+									$(recordInformation).ajaxSubmit(recordTypeRecordInformationOptions); 
 								}
 							});	
 							
@@ -353,7 +313,7 @@ $(document).ready(function() {
 										recordCategory: "required"
 									},
 									submitHandler: function(updateRecordInformation) {
-									$(updateRecordInformation).ajaxSubmit(updateRecordTypeEditFormOptions); 
+									$(updateRecordInformation).ajaxSubmit(updateRecordTypeRecordInformationOptions); 
 								}
 							});	
     
@@ -393,18 +353,6 @@ $(document).ready(function() {
 									$(searchRecordTypes).ajaxSubmit(searchRecordTypesOptions); 
 								}
 							});
-	
-	var validateSearchRecordTypesDeleted = $("#searchRecordTypesDeleted").validate({
-									rules: {
-										departmentID: "required"
-									},
-									messages: {
-										departmentID: "Please select a department"	
-									},		
-									submitHandler: function(searchRecordTypesDeleted) {
-										$(searchRecordTypesDeleted).ajaxSubmit(searchRecordTypesDeletedOptions); 
-								}
-							});
 							
 	var validateSearchGlobalRecordTypes = $("#searchGlobalRecordTypes").validate({
 									rules: {
@@ -417,18 +365,6 @@ $(document).ready(function() {
 									$(searchGlobalRecordTypes).ajaxSubmit(searchGlobalRecordTypesOptions); 
 								}
 							});
-	
-	var validateSearchGlobalRetentionSchedule = $("#searchGlobalRetentionSchedule").validate({
-								rules: {
-									keyword: "required"
-								},
-								messages: {
-									keyword: "Please enter a search term"	
-								},		
-								submitHandler: function(searchGlobalRetentionSchedule) {
-								$(searchGlobalRetentionSchedule).ajaxSubmit(searchGlobalRetentionScheduleOptions); 
-							}
-						});
 							
 	var validateSearchRetentionSchedules = $("#searchRetentionSchedules").validate({
 									rules: {
@@ -439,30 +375,6 @@ $(document).ready(function() {
 									},		
 									submitHandler: function(searchRetentionSchedules) {
 									$(searchRetentionSchedules).ajaxSubmit(searchRetentionSchedulesOptions); 
-								}
-							});
-	
-	var validateSearchRetentionSchedulesDeleted = $("#searchRetentionSchedulesDeleted").validate({
-									rules: {
-										departmentID: "required"
-									},
-									messages: {
-										departmentID: "Please select a department"	
-									},		
-									submitHandler: function(searchRetentionSchedulesDeleted) {
-									$(searchRetentionSchedulesDeleted).ajaxSubmit(searchRetentionSchedulesDeletedOptions); 
-								}
-							});
-	
-	var validateSearchSurveys = $("#searchSurveys").validate({
-									rules: {
-										departmentID: "required"
-									},
-									messages: {
-										departmentID: "Please select a department"	
-									},		
-									submitHandler: function(searchSurveys) {
-									$(searchSurveys).ajaxSubmit(searchSurveysOptions); 
 								}
 							});
 //-----------------------------------------------------------------//
@@ -511,8 +423,8 @@ function recordTypeDepartmentResponse(responseText, statusText)  {
 	//add returned value to hidden form field if the response is not null
 	if (responseText !== ' ') {
 		document.forms['recordInformation'].recordTypeDepartment.value = responseText;
-		//document.forms['formatAndLocation'].recordTypeDepartment.value = responseText;
-		//document.forms['management'].recordTypeDepartment.value = responseText;
+		document.forms['formatAndLocation'].recordTypeDepartment.value = responseText;
+		document.forms['management'].recordTypeDepartment.value = responseText;
 	}
 } 
 
@@ -531,33 +443,14 @@ function displayRecordTypeSearchResults(responseText, statusText) {
 	 $("#recordTypeSearchResults").html(responseText); // injects html into div
 }
 
-function displayRecordTypeDeletedSearchResults(responseText, statusText) {
-	 $("#recordTypeDeletedSearchResults").html(responseText); // injects html into div
-}
-
 // post-submit callback...injects search results into div
 function displayGlobalRecordTypeSearchResults(responseText, statusText) {
 	 $("#globalRecordTypeSearchResults").html(responseText); // injects html into div
 }
 
 // post-submit callback...injects search results into div
-function displayGlobalRetentionScheduleSearchResults(responseText, statusText) {
-	$("#globalRetentionScheduleSearchResults").html(responseText); // injects html into div
-}
-
-// post-submit callback...injects search results into div
 function displayRetentionScheduleSearchResults(responseText, statusText) {
 	$("#retentionScheduleSearchResults").html(responseText); // injects html into div
-}
-
-//post-submit callback...injects search results into div
-function displayRetentionScheduleDeletedSearchResults(responseText, statusText) {
-	$("#retentionScheduleDeletedSearchResults").html(responseText); // injects html into div
-}
-
-//post-submit callback...injects search results into div
-function displaySurveySearchResults(responseText, statusText) {
-	$("#surveySearchResults").html(responseText); // injects html into div
 }
 
 // post-submit callback sets recordInformationID value
@@ -589,7 +482,7 @@ function recordInformationSaved() {
 	document.forms['recordInformation'].recordInformation.value = "Record Saved";
 	document.forms['recordInformation'].recordInformation.disabled = true;
 }
-/*
+
 // changes submit button text on recordTypeForm
 function saveFormatAndLocation() {
 	document.forms['formatAndLocation'].formatAndLocation.value = "Saving...";
@@ -611,7 +504,7 @@ function managementSaved() {
 	document.forms['management'].management.value = "Record Saved";
 	document.forms['management'].management.disabled = true;
 }
-*/
+
 function updateRecordInformation() {
 	document.forms['updateRecordInformation'].updateRecordInformation.value = "Updating...";
 }
@@ -619,7 +512,7 @@ function updateRecordInformation() {
 function recordInformationUpdated() {
 	document.forms['updateRecordInformation'].updateRecordInformation.value = "Record Updated";
 }
-/*
+
 function updateFormatAndLocation() {
 	document.forms['updateFormatAndLocation'].updateFormatAndLocation.value = "Updating...";
 }
@@ -635,22 +528,14 @@ function updateManagement() {
 function managementUpdated() {
 	document.forms['updateManagement'].updateManagement.value = "Record Updated";
 }
-*/
+
 // Search
-function searchRecordTypesBegins() {
+function searchBegins() {
 	document.forms['searchRecordTypes'].searchRecordTypes.value = "Retrieving Records...";
 }
 
-function searchRecordTypesEnds() {
+function searchEnds() {
 	document.forms['searchRecordTypes'].searchRecordTypes.value = "Get Department Record Types";
-}
-
-function searchDeletedBegins() {
-	document.forms['searchRecordTypesDeleted'].searchRecordTypesDeleted.value = "Retrieving Deleted Records...";
-}
-
-function searchDeletedEnds() {
-	document.forms['searchRecordTypesDeleted'].searchRecordTypesDeleted.value = "Get Deleted Department Record Types";
 }
 
 function globalSearchBegins() {
@@ -661,36 +546,12 @@ function globalSearchEnds() {
 	document.forms['searchGlobalRecordTypes'].searchGlobalRecordTypes.value = "Search";
 }
 
-function globalRetentionScheduleSearchBegins() {
-	document.forms['searchGlobalRetentionSchedule'].searchGlobalRetentionSchedule.value = "Retrieving Records...";
-}
-
-function globalRetentionScheduleSearchEnds() {
-	document.forms['searchGlobalRetentionSchedule'].searchGlobalRetentionSchedule.value = "Search";
-}
-
 function retentionScheduleSearchBegins() {
 	document.forms['searchRetentionSchedules'].searchRetentionSchedules.value = "Retrieving Records...";
 }
 
 function retentionScheduleSearchEnds() {
 	document.forms['searchRetentionSchedules'].searchRetentionSchedules.value = "Get Retention Schedules";
-}
-
-function retentionScheduleDeletedSearchBegins() {
-	document.forms['searchRetentionSchedulesDeleted'].searchRetentionSchedulesDeleted.value = "Retrieving Deleted Records...";
-}
-
-function retentionScheduleDeletedSearchEnds() {
-	document.forms['searchRetentionSchedulesDeleted'].searchRetentionSchedulesDeleted.value = "Get Deleted Retention Schedules";
-}
-
-function surveySearchBegins() {
-	document.forms['searchSurveys'].searchSurveys.value = "Retrieving Surveys...";
-}
-
-function surveySearchEnds() {
-	document.forms['searchSurveys'].searchSurveys.value = "Get Surveys";
 }
 
 //-----------------------------------------------------------------//
@@ -707,57 +568,21 @@ $('#system').hide('fast');
 $('#toggleOther').click(function () { 
 $('#otherText').toggle('fast'); 
 }); 
-
-$('#toggleOtherPhysical').click(function () { 
-$('#otherPhysicalText').toggle('fast'); 
-});
-
-$('#showOtherPhysical').click(function () { 
-$('#otherPhysicalText').show('fast'); 
-});
-
-$('#hideOtherPhysical').click(function () { 
-$('#otherPhysicalText').hide('fast'); 
-});
-
-$('#toggleOtherElectronic').click(function () { 
-$('#otherElectronicText').toggle('fast'); 
-}); 
-
-$('#showOtherElectronic').click(function () { 
-$('#otherElectronicText').show('fast'); 
-}); 
-
-$('#hideOtherElectronic').click(function () { 
-$('#otherElectronicText').hide('fast'); 
-}); 
 		
-$('#toggleOtherDUBuilding').click(function () { 
-$('#otherDUBuildingText').toggle('fast'); 
-});
-
-$('#toggleOffsiteStorage').click(function () { 
-$('#otherOffsiteStorageText').toggle('fast'); 
-});
-
-$('#toggleOtherElectronicSystem').click(function () { 
-$('#otherElectronicSystemText').toggle('fast'); 
-});
-
-$('#toggleOtherBuilding').click(function () { 
-$('#otherBuildingText').toggle('fast'); 
-}); 
-			
-$('#toggleOtherStorage').click(function () { 
-$('#otherStorageText').toggle('fast'); 
-});
-	
 $('#showPaperVersion').click(function () { 
 $('#paperVersion').show('fast'); 
 }); 
 		
 $('#hidePaperVersion').click(function () { 
 $('#paperVersion').hide('fast'); 
+}); 
+		
+$('#toggleOtherBuilding').click(function () { 
+$('#otherBuildingText').toggle('fast'); 
+}); 
+		
+$('#toggleOtherStorage').click(function () { 
+$('#otherStorageText').toggle('fast'); 
 }); 
 		
 $('#showRecordLocation').click(function () { 
@@ -832,7 +657,23 @@ $('#hideDuplication').click(function () {
 $('#duplication').hide('fast'); 
 }); 
 
+// auto suggest used on file format text field in recordTypeForm
+$('#fileFormat').autocomplete('/recordsAuthority/index.php/dashboard/autoSuggest_docTypes');	
+// auto suggest used on retentionPeriod field in addRetentionScheduleForm
+$('#retentionPeriod').autocomplete('/recordsAuthority/index.php/retentionSchedule/autoSuggest_retentionPeriods');
+// auto suggest used on primary authority fields in addRetentionScheduleForm
+$('#primaryAuthority').autocomplete('/recordsAuthority/index.php/retentionSchedule/autoSuggest_primaryAuthorities');		
+// auto suggest used on primary authority retention field in addRetentionScheduleForm
+$('#primaryAuthorityRetention').autocomplete('/recordsAuthority/index.php/retentionSchedule/autoSuggest_primaryAuthorityRetentions');
+// auto suggest used on related authority fields in addRetentionScheduleForm
+$('.relatedAuthority').autocomplete('/recordsAuthority/index.php/retentionSchedule/autoSuggest_relatedAuthorities');	
+// auto suggest used on Minimum Required Retention field in addRetentionScheduleForm
+$('.relatedAuthorityRetention').autocomplete('/recordsAuthority/index.php/retentionSchedule/autoSuggest_relatedAuthorityRetention');
+
 // validates fields in retention schedule form
 $("#retentionSchedule").validate();
+
+// auto suggest used on editRecordTypeForm
+$('#recordName').autocomplete('/recordsAuthority/index.php/retentionSchedule/autoSuggest_recordName');
 
 });  // closes document

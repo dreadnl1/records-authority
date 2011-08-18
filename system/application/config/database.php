@@ -37,9 +37,9 @@
 $active_group = "default";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "localhost";
-$db['default']['username'] = "webapp";
-$db['default']['password'] = "w3bapp*^f3rnand0";
+$db['default']['hostname'] = "127.0.0.1";
+$db['default']['username'] = "root";
+$db['default']['password'] = "Wdb2604";
 $db['default']['database'] = "recordsManagementDB";
 $db['default']['dbdriver'] = "mysqli";
 $db['default']['dbprefix'] = "";

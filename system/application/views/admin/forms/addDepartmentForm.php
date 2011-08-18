@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
  * Author fernando.reyes@du.edu
  * 
  * This file is part of Liaison.
@@ -20,10 +20,7 @@
  **/
 ?>
 
-<?php 
-	$data['title'] = 'Department - Records Authority';
-	$this->load->view('includes/adminHeader', $data); 
-?>
+<?php $this->load->view('includes/adminHeader'); ?>
 
 <div id="tabs">
 	<ul>
@@ -35,7 +32,7 @@
 		
 			<form name="addDivision" method="post" action="<?php echo site_url();?>/upkeep/save">
 				<select id='divisions' name='divisionID' size='1'>
-					<option value=''>Select the Division you would like to add a Department to</option>
+					<option value=''>Select the Division you would like add a Department to</option>
 					<option value=''>-----------------</option>
 					<?php 
 						foreach ($divisions as $id => $divisions) {

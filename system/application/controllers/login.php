@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
  
  
- class login extends CI_Controller {
+ class login extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 	} 
 	
 	/**
@@ -37,12 +37,12 @@
 	}
 	
 	/**
-	 * authenticates users using LDAP database
+	 * authenticates users
 	 * 
 	 * @access public 
 	 * @return void
 	 */
-	public function authenticateLDAP() {
+	public function authenticate() {
  		 		 				
  		//authenticate the user
 		if (!empty($_POST["uname"]) && !empty($_POST["pcode"])) {
@@ -72,32 +72,6 @@
 			$this->load->view("public/forms/surveyLoginForm");
 		}
  	} 
-
-	/**
-	 * authenticates users not using LDAP
-	 * 
-	 * @access public 
-	 * @return void
-	 */ 	
-  	public function authenticate() {
- 		// authenticate access to admin screen
- 		$auth = $this->DashboardModel->authenticate($_POST);
- 		 		
- 		if ($auth) {
- 			// set session here
- 			$this->load->library('session');
-			$this->session->set_userdata('isLoggedIn', TRUE);
- 			$url = site_url() . "/surveyBuilder/generateSurvey/1/publish";		
-			$data['refresh'] = header("Refresh: 0; url=$url"); // TODO: not functional in Opera browser
-			$data['message'] = "<p><strong>Authenticating...</strong></p>";
-			$this->load->view('includes/redirect', $data);	
- 		} else {
- 			$data['uname'] = trim(strip_tags($_POST['uname']));
- 			$data['pcode'] = trim(strip_tags($_POST['pcode']));
- 			$data['error'] = "Please Try Again.";
- 			$this->load->view("public/forms/surveyLoginForm", $data);		
- 		}
- 	}
  	
  	/**
  	 * loads dashboard login screen
@@ -118,16 +92,11 @@
  	public function authdashboard() {
  		// authenticate access to admin screen
  		$auth = $this->DashboardModel->authenticate($_POST);
- 		
- 		$now = time();
- 		$date = unix_to_human($now, TRUE, 'us');
-		
+ 		 		
  		if ($auth) {
  			// set session here
  			$this->load->library('session');
 			$this->session->set_userdata('isAdminLoggedIn', TRUE);
-			$this->session->set_userdata('username', $_POST['uname']);
-			$this->session->set_userdata('loginTime', $date);
  			$url = site_url() . "/dashboard";		
 			$data['refresh'] = header("Refresh: 0; url=$url"); // TODO: not functional in Opera browser
 			$data['message'] = "<p><strong>Authenticating...</strong></p>";

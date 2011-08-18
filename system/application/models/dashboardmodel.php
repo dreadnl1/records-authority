@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
 
 
-class DashboardModel extends CI_Model {
+class DashboardModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  	}
 	
 	/**
@@ -47,7 +47,6 @@ class DashboardModel extends CI_Model {
 	 	$siteUrl = site_url();
 	 	$this->db->select('surveyID, surveyName, surveyDescription');
 	 	$this->db->from('rm_surveys');
-	 	$this->db->order_by('surveyName','asc');
 	 	$query = $this->db->get();
 	 	
 	 	$surveys = "";
@@ -141,7 +140,6 @@ class DashboardModel extends CI_Model {
 		$this->db->select('contactNotesID, contactNotes');
 	 	$this->db->from('rm_surveyContactNotes');
 	 	$this->db->where('contactID', $contactID);
-	 	$this->db->order_by('contactNotes');
 	 	$query = $this->db->get();
 	 	
 	 	$contactNotes = array();
@@ -175,11 +173,12 @@ class DashboardModel extends CI_Model {
 	 			$division = $surveyData['division'];
 	 			$department = $surveyData['department'];
 	 			
-	 			$surveyFormHtml .= "<h1 style='font-size:20px;'>" . trim(strip_tags($division)) . "<h1>";
-	 			$surveyFormHtml .= "<h2 style='font-size:15px;'>" . trim(strip_tags($department)) . "</h2>";
+	 			$surveyFormHtml .= "<h1>" . trim(strip_tags($division)) . "<h1>";
+	 			$surveyFormHtml .= "<h2>" . trim(strip_tags($department)) . "</h2>";
 	 			$surveyFormHtml .= "<br />";
 	 			$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 	 			$surveyFormHtml .= "<strong>Department Contact</strong>";
+	 			$surveyFormHtml .= "</div>";
 	 			$surveyFormHtml .= "<br />";
 	 			
 	 			foreach ($surveyData as $j => $contact) {
@@ -215,7 +214,7 @@ class DashboardModel extends CI_Model {
 				
 				$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 				$surveyFormHtml .= "<strong>Survey Contacts</strong>";
-				
+				$surveyFormHtml .= "</div>";	
 				$surveyFormHtml .= "<br />";
 				
 				$surveyContacts = array();
@@ -264,15 +263,14 @@ class DashboardModel extends CI_Model {
 						} 
 					}
 				++$f;
-				}	
-				$surveyFormHtml .= "</div>";			
+				}			
 			}
 
 			$qCount = 1; // sets question count
 	 		if ($i == "responses") {
 	 			$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 	 			$surveyFormHtml .= "<strong>Survey Responses</strong>";
-	 			//$surveyFormHtml .= "</div>";
+	 			$surveyFormHtml .= "</div>";
 	 			 				 			
 	 			foreach ($surveyData as $count => $responseData) {
 	 			
@@ -343,9 +341,8 @@ class DashboardModel extends CI_Model {
 	 					}
 	 				}
 	 			}
-	 			$surveyFormHtml .= "</div>";
 	 		} 	
-	 		$surveyFormHtml .= "</div>";
+	 		
 	 		$surveyFormHtml .= "<br /><br />"; 	
 
 	 		
@@ -394,7 +391,7 @@ class DashboardModel extends CI_Model {
 		$deptSurveyNotesArray = array();
 		$rmSurveyNotesArray = array();
 		
-		$this->db->select('*');
+		$this->db->select('surveyNotesID, contactID, questionID, deptSurveyNotes, rmSurveyNotes');
 		$this->db->from('rm_surveyNotes');
 		$this->db->where('departmentID', $departmentID);
 		$this->db->where('questionID', $questionID);
@@ -1058,7 +1055,7 @@ class DashboardModel extends CI_Model {
 		// hash password TODO: build method to allow admin to reset password
 		$this->load->library('encrypt');
 		$passcodeHash = $this->encrypt->sha1($passcode);
-				
+						
 		$this->db->select('username, passcode');
 	 	$this->db->from('rm_users');
 	 	$this->db->where('username', $username);

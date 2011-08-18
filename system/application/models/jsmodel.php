@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
  
  
- class JsModel extends CI_Model {
+ class JsModel extends Model {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Model();
 	} 
 	
 	// TODO: refactor...use only one pop up method - passing width and height as arguments
@@ -104,32 +104,6 @@
 		return $popUpParams;
 	}
 	
-	/**
-    * generates a shadowbox
-    *
-    * @access public
-    * @return $popUpParams
-    */
-	public function shadowboxPopUp() {
-		$popUpParams = array(
-						'rel' => 'shadowbox;player=iframe;width=1200;height=800'
-					);
-		return $popUpParams;
-	}
-	
-  	/**
-    * generates a small shadowbox
-    *
-    * @access public
-    * @return $popUpParams
-    */
-	public function shadowboxMediumPopUp() {
-		$popUpParams = array(
-						'rel' => 'shadowbox;player=iframe;width=700;height=270'
-					);
-		return $popUpParams;
-	}
-	
  	/**
     * generates a javaScript pop up for retention schedule form
     *
@@ -138,8 +112,8 @@
     */
 	public function retentionSchedulePopUp() {
 		$popUpParams = array(
-						'width' => '800',
-						'height' => '800',
+						'width' => '950',
+						'height' => '1000',
 						'scrollbars' => 'yes',
              			'status'     => 'yes',
              			'resizable'  => 'yes',
@@ -222,6 +196,9 @@
 		
 		return $checkDeptScript;
  	}
+	
+	
+	
 	
 	/**
     * retrieves dispositions (JSON) 
@@ -337,18 +314,6 @@
 		return $sortByScript;
  	}
  	
-  	public function sortByWidgetRecordTypeJs($siteUrl) {
- 		$sortByScript = "";
-		$sortByScript .= "<script type='text/javascript'>";
-		$sortByScript .= "function sort(departmentID, divisionID, sortBy) { ";
-		$sortByScript .= "$.post('$siteUrl/search/getRecordTypes',{departmentID: departmentID, divisionID: divisionID, sortBy: sortBy ajax: 'true'}, function(results){ ";
-		$sortByScript .= "$('#recordTypeSearchResults').html(results); ";
-		$sortByScript .= "}); "; // post
-		$sortByScript .= "} "; // js
-		$sortByScript .= "</script>";
-		
-		return $sortByScript;
- 	}
  	
  	
 	/**

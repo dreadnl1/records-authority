@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,11 +20,11 @@
  **/
 
 
-class LookUpTablesModel extends CI_Model 
+class LookUpTablesModel extends Model 
 {
 
 	public function __contstruct() {
- 		parent::__construct();
+ 		parent::Model();
  		
  		$this->devEmail = $this->config->item('devEmail');
  	}
@@ -60,7 +60,7 @@ class LookUpTablesModel extends CI_Model
 	 	}		
 	 		return $fieldTypes;
 	 }
-
+	 
 	/**
     * invokes createDivisionDropDownQuery()
     * 
@@ -83,7 +83,6 @@ class LookUpTablesModel extends CI_Model
 		$divisions = array();
 	 	$this->db->select('divisionID, divisionName');
 	 	$this->db->from('rm_divisions');
-	 	$this->db->order_by('divisionName', 'asc');
 	 	$query = $this->db->get();
 	 		 		 
 	 	if ($query->num_rows() > 0) {		
@@ -123,7 +122,6 @@ class LookUpTablesModel extends CI_Model
 		$divisions = array();
 	 	$this->db->select('divisionID, divisionName');
 	 	$this->db->from('rm_divisions');
-	 	$this->db->order_by('divisionName', 'asc');
 	 	$query = $this->db->get();
 	 		 		 
 	 	if ($query->num_rows() > 0) {		
@@ -157,10 +155,8 @@ class LookUpTablesModel extends CI_Model
     */
 	 private function setDepartmentsQuery($divisionID) {
 	 	$this->db->select('departmentID, departmentName');
-	 	$this->db->from('rm_departments');
-	 	$this->db->order_by('departmentName', 'asc');
 	 	$this->db->where('divisionID', $divisionID);
-	
+	 	$this->db->from('rm_departments');
 	 	$query = $this->db->get();
 	 	$departments = array();
 	 	if ($query->num_rows() > 0) {		
@@ -174,7 +170,7 @@ class LookUpTablesModel extends CI_Model
 			 return $departments;
 			
 	 	} else {
-	 		//send_email('devEmail', 'RecordsAuthority_Error', 'database error: no departments found - setDepartmentsQuery()');
+	 		send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: no departments found - setDepartmentsQuery()');
 	 		return "No records found";
 	 	}	
 	 }
@@ -203,10 +199,7 @@ class LookUpTablesModel extends CI_Model
 	private function getDivisionQuery($departmentID) {
 		$this->db->select('divisionID, departmentName');
 		$this->db->from('rm_departments');
-		$this->db->order_by('departmentName', 'asc');
-		if($departmentID != 999999) {
-			$this->db->where('departmentID', $departmentID);
-		}
+		$this->db->where('departmentID', $departmentID);
 		$divisionIdQuery = $this->db->get();
 		
 		$divDeptArray = array();
@@ -218,9 +211,7 @@ class LookUpTablesModel extends CI_Model
 			
 			$this->db->select('divisionName');
 			$this->db->from('rm_divisions');
-			$this->db->order_by('divisionName', 'asc');
 			$this->db->where('divisionID', $divDeptArray['divisionID']);
-			
 			$divisionNameQuery = $this->db->get();
 			
 			if ($divisionNameQuery->num_rows > 0) {
@@ -255,9 +246,7 @@ class LookUpTablesModel extends CI_Model
 	private function getDepartmentQuery($departmentID) {
 		$this->db->select('departmentName');
 		$this->db->from('rm_departments');
-		$this->db->order_by('departmentName', 'asc');
 		$this->db->where('departmentID', $departmentID);
-		
 		$departmentQuery = $this->db->get();
 		
 		if ($departmentQuery->num_rows() > 0) {
@@ -300,7 +289,7 @@ class LookUpTablesModel extends CI_Model
 			 return $recordCategories;
 			
 	 	} else {
-	 		//send_email('devEmail', 'RecordsAuthority_Error', 'database error: no record categories found - getRecordCategoriesQuery()');
+	 		send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: no record categories found - getRecordCategoriesQuery()');
 	 		return "no record categories found";
 	 	}	
 	}
@@ -325,9 +314,7 @@ class LookUpTablesModel extends CI_Model
 	private function getDivisionNameQuery($divisionID) {
 		$this->db->select('divisionID, divisionName');
 	 	$this->db->from('rm_divisions');
-	 	$this->db->order_by('divisionName', 'asc');
 	 	$this->db->where('divisionID', $divisionID);
-	 	
 	 	$query = $this->db->get();
 	 			 
 	 	if ($query->num_rows() > 0) {		
@@ -356,7 +343,6 @@ class LookUpTablesModel extends CI_Model
 	 */
 	private function getAssociatedUnitsQuery($_POST) {
 		if (isset($_POST['divisionID'])) {
-			//NEW RETENTION MODE
 			$divisionID = $_POST['divisionID'];	
 			$departments = $this->setDepartments($divisionID);
 			$divisionName = $this->getDivisionName($divisionID);
@@ -386,7 +372,6 @@ class LookUpTablesModel extends CI_Model
 			////
 		
 		} elseif (isset($_POST['departmentID']) && !isset($_POST['retentionScheduleID']) && !isset($_POST['associatedUnitsID'])) {
-			//INSERT MODE
 			$departmentID = $_POST['departmentID'];
 			if (isset($_POST['primaryRep'])) {
 				$primaryRep = $_POST['primaryRep'];
@@ -452,7 +437,7 @@ class LookUpTablesModel extends CI_Model
 				// render check boxes
 				$associatedUnits = $this->loadCheckedAssociatedUnits($divisionID, $uuid);
 			}
-		} /*EDIT MODE*/ elseif (!isset($_POST['associatedUnitsID']) && isset($_POST['retentionScheduleID']) && isset($_POST['departmentID'])) { // checks department
+		} elseif (!isset($_POST['associatedUnitsID']) && isset($_POST['retentionScheduleID']) && isset($_POST['departmentID'])) { // checks department
 			$retentionScheduleID = $_POST['retentionScheduleID'];	
 			$departmentID = $_POST['departmentID'];
 			$this->saveCheckedDepartmentEdit($retentionScheduleID, $departmentID);

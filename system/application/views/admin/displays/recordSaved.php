@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
  * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
@@ -20,4 +20,4 @@
  **/
 ?>
 
-<?php echo "$recordSaved&nbsp;&nbsp;<a href='' onClick='window.close()'><img src='$imagePath' alt='Close Window' border=0 /></a>";	?>
+<?php echo "Record Saved&nbsp;&nbsp;<a href='' onClick='window.close()'><img src='$imagePath' alt='Close Window' border=0 /></a>";	?>

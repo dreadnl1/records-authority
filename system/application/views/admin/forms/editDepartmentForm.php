@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,7 @@
  **/
 ?>
 
-<?php 
-	$data['title'] = 'Department - Records Authority';
-	$this->load->view('includes/adminHeader', $data); 
-?>
+<?php $this->load->view('includes/adminHeader'); ?>
 
 <div id="tabs">
 	<ul>
@@ -36,7 +33,7 @@
 			<form name="divisions" method="post" action="<?php echo site_url();?>/upkeep/edit" />
 				<input name="getDept" type="hidden" value="1" />
 				<select id='divisions' name='divisionID' size='1' onChange="submit();" class='required'>
-					<option value=''>Select a Division to Retrieve Departments</option>
+					<option value=''>Select a Division to Retreive Departments</option>
 					<option value=''>-----------------</option>
 					<?php 
 						foreach ($divisions as $id => $divisions) {

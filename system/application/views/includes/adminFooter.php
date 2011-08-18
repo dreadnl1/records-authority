@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -21,34 +21,8 @@
 ?>
 
 <div id="adminFooter">
-<?php
-	$baseUrl = base_url();
-	if(isset($timestamp))
-	{
-		echo "Form Created: ";
-		echo $timestamp;
-		echo br();
-	}
-	
-	if(isset($updateTimestamp))
-	{ 	
-		echo "Form Updated: ";
-		echo $updateTimestamp;
-		echo br();
-	}
-	$user = $this->session->userdata('username');
-	$loginTime = $this->session->userdata('loginTime')
-?>
-<p>Records Authority ver. <a href="<?php echo $baseUrl?>RecordsAuthority_Release_Notes.txt">2.0.0</a> | <?php echo $this->benchmark->elapsed_time();?>
-<br />University of Denver--Penrose Library--University Records Management Program
-<br />User: <?php echo $user;?>
-<br />Login Time: <?php echo $loginTime;?>
-<div align="right">
-	<a href="http://www.du.edu/bfa/records/" target="_blank">
-	<img src="<?php echo base_url();?>images/rmLogo.jpg" height="112" width="282" border="0" alt="logo" />
-	</a>
+<p>Records Authority ver. 1.0 | <?php echo $this->benchmark->elapsed_time();?><br />University of Denver--Penrose Library--University Records Management Program</p>
 </div>
-</p>
-</div>
+
 </body>
 </html>
