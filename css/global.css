@@ -121,9 +121,9 @@ body.unbranded #global-inside-header h1 a {background:none; text-indent:0; font-
 	color: #990000;
 	border-bottom: 1px solid;
 	height: 13px;
-	font-size: 11px;
+	font-size: 10px;
 	margin-bottom: 2px;
-	text-indent: 0px;
+	text-indent: -3px;
 }
 
 .buttonLink:hover {

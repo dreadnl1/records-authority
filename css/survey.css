@@ -113,14 +113,14 @@ hr {
 #masthead {
 	width: 960px;
 	background: #fff;
-	height: 80px;
+	height: 160px;
 	float: left;
 }
 #masthead .header {
 	float: left;
 	background: #fff url("../images/header.jpg") no-repeat center bottom;
 	width: 960px;
-	height: 80px;
+	height: 160px;
 	cursor: hand;
 }
 

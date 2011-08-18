@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -84,7 +84,7 @@
 				$departmentID = $_POST['departmentID']; 
 				$url = "recordType/view/" . $departmentID;
 				echo "<div class='adminForm'>";
-				echo anchor_popup($url, 'Create Record Inventory', $popUpParams) . "</div><br />";
+				echo anchor_popup($url, 'Create Record Type', $popUpParams) . "</div><br />";
 			}
 		?>
  

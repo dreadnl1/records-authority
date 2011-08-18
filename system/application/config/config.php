@@ -11,7 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "https://recordsmanagement.du.edu/recordsAuthority/";
+$config['base_url']	= "https://lib-devrecmgmt.cair.du.edu/recordsAuthority/";
 
 /*
 |--------------------------------------------------------------------------
@@ -186,7 +186,7 @@ $config['function_trigger'] = 'm';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 1;
+$config['log_threshold'] = 4;
 
 /*
 |--------------------------------------------------------------------------
@@ -343,7 +343,7 @@ $config['uploadDirectory'] = '/var/www/html/recordsAuthority/surveyFileUploads/'
 |  sets development email
 |
 */
-$config['devEmail'] = 'records@du.edu';
+$config['devEmail'] = 'evan.blount@library.du.edu';
 
 
 /*
@@ -354,7 +354,7 @@ $config['devEmail'] = 'records@du.edu';
 |  sets production email
 |
 */
-$config['prodEmail'] = 'records@du.edu';
+$config['prodEmail'] = 'records-mgmt@du.edu';
 
 /*
 |--------------------------------------------------------------------------
