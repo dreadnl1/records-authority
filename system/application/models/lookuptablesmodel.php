@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,11 +20,11 @@
  **/
 
 
-class LookUpTablesModel extends CI_Model 
+class LookUpTablesModel extends Model 
 {
 
 	public function __contstruct() {
- 		parent::__construct();
+ 		parent::Model();
  		
  		$this->devEmail = $this->config->item('devEmail');
  	}
@@ -60,7 +60,7 @@ class LookUpTablesModel extends CI_Model
 	 	}		
 	 		return $fieldTypes;
 	 }
-
+	 
 	/**
     * invokes createDivisionDropDownQuery()
     * 
@@ -174,7 +174,7 @@ class LookUpTablesModel extends CI_Model
 			 return $departments;
 			
 	 	} else {
-	 		//send_email('devEmail', 'RecordsAuthority_Error', 'database error: no departments found - setDepartmentsQuery()');
+	 		send_email('devEmail', 'RecordsAuthority_Error', 'database error: no departments found - setDepartmentsQuery()');
 	 		return "No records found";
 	 	}	
 	 }
@@ -300,7 +300,7 @@ class LookUpTablesModel extends CI_Model
 			 return $recordCategories;
 			
 	 	} else {
-	 		//send_email('devEmail', 'RecordsAuthority_Error', 'database error: no record categories found - getRecordCategoriesQuery()');
+	 		send_email('devEmail', 'RecordsAuthority_Error', 'database error: no record categories found - getRecordCategoriesQuery()');
 	 		return "no record categories found";
 	 	}	
 	}

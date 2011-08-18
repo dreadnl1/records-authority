@@ -133,7 +133,6 @@ a.b.c Where a is Major version #, b is Minor version #, c is Bug fix #
 	  	: 	Keywords added and searchable
 	  	: 	Terminology changes public
 	  	:	Public display changes
-	  	:	Updated contact information in the Survey
 		
 1.1.4 	
 		: 	Export excel spreadsheet to public
@@ -160,26 +159,3 @@ a.b.c Where a is Major version #, b is Minor version #, c is Bug fix #
 		:	Auditing Search
 		:	Updating Record Group will update the date if it is equal to the previous date received
 		:	Stripped out old non-functional related authorities code
-		
-1.2.3
-		:	Included Jetty/Solr in the SVN directory
-		:	Improved the Functional Category Public search to reflect changes made to the Full Text search
-		:	Used reusable CSS calls to ajax to avoid further confusion through out the project in the Functional Category search
-		:	Swapped Survey Notes to Browse Surveys
-		:	Fixed a bug in the retention period display public side
-		
-1.2.4
-		:	Shortened the masthead
-		:	Changes to functional category search to search multiple categories at once
-		:	Added links back to different parts of the site to ease navigation
-		:	Added the override primary owner function
-		:	Improvements to the import and upload pages to be more specific on csv format
-		:	Added MoReq2 XML export
-		
-2.0.0	
-		:	Upgraded from codeigniter 1.7.2 to 2.0.0 which has some much needed bug fixes and will help future developers from being so far behind
-		:	Added dashboard link from public by clicking the version number
-		:	Added Export functionality to Text Search
-		:	Changed Record Group to Record Series from partner consensus
-		:	Added link back to dashboard from public search by clicking the version number on the bottom
-		

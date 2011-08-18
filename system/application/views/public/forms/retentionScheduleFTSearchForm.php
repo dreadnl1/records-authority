@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -74,9 +74,7 @@
 						<h3 id="title">About the Schedule</h3>
 						<?php
 							echo anchor_popup('http://www.du.edu/bfa/records/retention_sched.html', 'Retention Schedule FAQ', $searchPopUp);
-							echo br();
-							echo "<a href='$siteUrl'>Records Authority Survey</a>";
-							echo br(3);
+							echo br(4);
 							//echo "<span class='question'>";
 							//echo anchor_popup('http://www.du.edu/media/forms/recordsmanagement/contact_us2.html', 'Have a question?', $searchPopUp);
 							//echo "</span>";
@@ -85,7 +83,7 @@
 						<h3 id="title"><br />Browse the Schedule</h3>
 						<a href="<?php echo site_url();?>/du/retentionSchedules/recordCategory">Browse by Functional Category</a>
 						<br />
-						<a href="<?php echo site_url();?>/du/retentionSchedules/browseByDepartment">Browse by Department</a>
+						<!-- <a href="<?php echo site_url();?>/du/retentionSchedules/browseByDepartment">Browse by Department</a> -->
 						<br /><br /><br />
 						<?php
 							echo "<span class='question'>";
