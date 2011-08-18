@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -18,8 +18,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
-ini_set('display_errors',1);
-error_reporting(E_ALL|E_STRICT);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -29,19 +27,15 @@ error_reporting(E_ALL|E_STRICT);
    <meta name="robots" content="noindex nofollow" />
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <meta http-equiv="EXPIRES" content="Mon, 22 Jul 2015 11:12:01 GMT" />
-   <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
 	<!-- GLOBAL CSS and Javascript -->
 	    <link href="<?php echo base_url();?>css/global.css" rel="stylesheet" type="text/css" media="screen" />
 	   	<script src="<?php echo base_url();?>js/title.js" type="text/javascript"></script>
 		<link href="<?php echo base_url();?>images/favicon.ico" rel="Shortcut Icon" type="image/x-icon" />
-		<link rel="stylesheet" href="<?php echo base_url();?>js/shadowbox/shadowbox.css" type="text/css" />
 	<!-- Template CSS -->
     	<link href="<?php echo base_url();?>css/style.css" rel="stylesheet" type="text/css" media="screen" /> 
 		<script src="<?php echo base_url();?>js/jquery-1.2.6.min.js" type="text/javascript"></script>
 		<script src="<?php echo base_url();?>js/jquery.validate.pack.js" type="text/javascript"></script>
 		<script src="<?php echo base_url();?>js/ieSucks.js" type="text/javascript"></script>
-		<script src="<?php echo base_url();?>js/shadowbox/shadowbox.js" type="text/javascript"></script>
-		<script type="text/javascript">Shadowbox.init();</script>
 		<script type="text/javascript">
 			// places the cursor on the username field of the login form / validates required fields
 			$(document).ready(function() {
@@ -58,7 +52,6 @@ error_reporting(E_ALL|E_STRICT);
 				});
 			});
 		</script>
-		<?php header('P3P: CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');  ?>
 		<title>University of Denver | Records Management</title>
     <!--To set the title to your webpage, edit this line above-->
 	<!--[if IE]>
@@ -69,18 +62,19 @@ error_reporting(E_ALL|E_STRICT);
 				}
 		</style>
 	<![EndIf]-->
+	
 	<script type="text/javascript">
-
+	
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-19605537-1']);
 	  _gaq.push(['_trackPageview']);
-
+	
 	  (function() {
 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
-
+	
 	</script>
 </head>
 <!--end header section-->
@@ -92,7 +86,6 @@ error_reporting(E_ALL|E_STRICT);
 <div id="main-wrapper">
 <!-- global-header -->
 <!--please do not edit the standard global header on all du pages-->
-<?php /*
 	<div id="global-header">
 		<div id="global-inside-header">
 		    <h1><a href="http://www.du.edu/" title="University of Denver">University of Denver</a></h1>
@@ -123,10 +116,9 @@ error_reporting(E_ALL|E_STRICT);
 			</ul>
 		</div>
 	</div>
-	*/ ?>
 <!-- end global-header -->
 
 <div id="inner-wrapper">
 <div id="content-wrapper">
-	<div id="masthead"><a href="http://www.du.edu/bfa/records/"><div class="header"></div></a></div>
+	<div id="masthead"><a href="http://library.du.edu/site/about/urmp/urmp.php"><div class="header"></div></a></div>
 	<div class="bottom-border"></div>
