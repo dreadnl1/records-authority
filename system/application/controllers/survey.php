@@ -1,28 +1,28 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class Survey extends CI_Controller {
+class Survey extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		$this->devEmail = $this->config->item('devEmail');
 		$this->prodEmail = $this->config->item('prodEmail');
@@ -48,7 +48,7 @@ class Survey extends CI_Controller {
 		$checkDepartmentQuery = $this->db->get_where('rm_departmentContacts', array('departmentID'=>$_POST['departmentID']));
 		
 		if ($checkDepartmentQuery->num_rows() > 0) {
-			echo "Your department has already submitted a survey. Please contact the Records Management Department at 303-871-3662 or email records-mgmt@du.edu";
+			echo "Your department has already submitted a survey. Please contact the Records Management Department at 303-871-3334 or email records-mgmt@du.edu";
 		} else {
 			$this->SurveyModel->saveSurveyResponses($_POST, $_FILES);
 			$this->sendEmail($_POST);
@@ -121,11 +121,7 @@ class Survey extends CI_Controller {
     * @return model returns JSON package containing departments  
     */
 	public function getDepartments() {
-		if (!empty($_POST['divisionID']) && $_POST['divisionID'] == 999999) {
-			$departments = array();
-			$departments[] = '{' . 'departmentID: ' . $_POST['divisionID'] . ', ' . 'departmentName: ' . '"' . 'Display All' . '"' . '}';
-			echo '[' . implode(',', $departments) . ']';
-		} elseif (!empty($_POST['divisionID'])) {
+		if (!empty($_POST['divisionID'])) {
 			$divisionID = $_POST['divisionID'];
 			$this->SurveyModel->getDepartments($divisionID);
 		} else {

@@ -1,28 +1,28 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class SurveyBuilder extends CI_Controller {
+class SurveyBuilder extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 	} 
 	
 	/**
@@ -203,12 +203,6 @@ class SurveyBuilder extends CI_Controller {
 		}		
 	}
 	
-	/**
-	 * edits survey questions
-	 * 
-	 * @access public
-	 * @return $formHtml
-	 */
 	public function editSurveyQuestions() {
 		
 		$this->load->model('JsModel');
@@ -219,43 +213,21 @@ class SurveyBuilder extends CI_Controller {
 		echo $formHtml; // results pulled into view via jQuery AJAX
 	} 
 	
-	/**
-	 * edits survey sub questions
-	 * 
-	 * @access public
-	 * @return $formHtml
-	 */
 	public function editSurveySubQuestions() {
+					
 		$questionID = $this->uri->segment(3, 0);
 		$formHtml = $this->SurveyBuilderModel->editSurveySubQuestions($questionID);
 		echo $formHtml; // results pulled into view via jQuery AJAX
 	}
 	
-	/**
-	 * edits sub choice questions
-	 * 
-	 * @access public
-	 * @return $formHtml
-	 */
 	public function editSurveySubChoiceQuestions() {
 		$subQuestionID = $this->uri->segment(3, 0);
 		$formHtml = $this->SurveyBuilderModel->editSurveySubChoiceQuestions($subQuestionID);
 		echo $formHtml; // results pulled into view via jQuery AJAX
 	}
 	
-	/**
-	 * updates survey
-	 * 
-	 * @access public
-	 * @return void
-	 */
 	public function updateSurvey() {
-		
-		// updates survey description
-		if (isset($_POST['surveyID']) && isset($_POST['descriptionID'])) {
-			$this->SurveyBuilderModel->updateSurveyDescription($_POST);
-		}	
-				
+					
 		// updates survey question
 		if (isset($_POST['questionID']) && !isset($_POST['subQuestionID'])) {
 			$this->SurveyBuilderModel->updateSurveyQuestion($_POST);
@@ -269,45 +241,6 @@ class SurveyBuilder extends CI_Controller {
 		// updates survey sub choice question
 		if (isset($_POST['subChoiceQuestionID'])) {
 			$this->SurveyBuilderModel->updateSurveySubChoiceQuestion($_POST);
-		}
-	}
-	
-	/** 
-	 * deletes survey question 
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function deleteSurveyQuestion() {
-		if ($_POST['questionID']) {
-			$questionID = trim($_POST['questionID']);
-			$this->SurveyBuilderModel->deleteSurveyQuestion($questionID);
-		}
-	}
-	
-	/**
-	 * deletes survey sub question
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function deleteSurveySubQuestion() {
-		if ($_POST['subQuestionID']) {
-			$subQuestionID = trim($_POST['subQuestionID']);
-			$this->SurveyBuilderModel->deleteSurveySubQuestion($subQuestionID);	
-		}
-	}
-	
-	/**
-	 * deletes survey sub choice question
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function deleteSurveySubChoiceQuestion() {
-		if ($_POST['subChoiceQuestionID']) {
-			$subChoiceQuestionID = trim($_POST['subChoiceQuestionID']);
-			$this->SurveyBuilderModel->deleteSurveySubChoiceQuestion($subChoiceQuestionID);	
 		}
 	}
 }

@@ -9,6 +9,8 @@
 // removed close by pressing Esc key text from window per requirments
 // hard coded University Records Management Program to prevent thick box from using the title attribute in the urls
 
+var tb_pathToImage = "/liaison/images/loadingAnimation.gif";
+
 /*!!!!!!!!!!!!!!!!! edit below this line at your own risk !!!!!!!!!!!!!!!!!!!!!!!*/
 
 //on page load call tb_init

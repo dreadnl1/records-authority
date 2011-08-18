@@ -1,7 +1,7 @@
 $(function() {
 	//  Developed by Roshan Bhattarai 
 	//  Visit http://roshanbh.com.np for this script and more.
-	//  This notice MUST stay intact for legal use 
+	//  This notice MUST stay intact for legal use <- lame...
 	//these two line adds the color to each different row
 	$("#searchResultsTable tr:even").addClass("eventr");;
 	$("#searchResultsTable tr:odd").addClass("oddtr");;

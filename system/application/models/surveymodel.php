@@ -1,30 +1,30 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
 
-class SurveyModel extends CI_Model 
+class SurveyModel extends Model 
 {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
 		
  		$this->devEmail = $this->config->item('devEmail');
  		$this->uploadDir = $this->config->item('uploadDirectory');
@@ -101,7 +101,7 @@ class SurveyModel extends CI_Model
 			echo '[' . implode(',', $departments) . ']';
 				
 		} else {
-			//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: no departments found - getDepartmentsQuery()');
+			send_email($this->devEmail, 'Liaison_Error', 'database error: no departments found - getDepartmentsQuery()');
 			echo "no departments found";
 		}
 	 }
@@ -132,8 +132,7 @@ class SurveyModel extends CI_Model
 								'jobTitle'=>trim(strip_tags($_POST['jobTitle'])),
 								'departmentID'=>trim(strip_tags($_POST['departmentID'])),
 								'phoneNumber'=>trim(strip_tags($_POST['phoneNumber'])),
-								'emailAddress'=>trim(strip_tags($_POST['emailAddress'])),
-								'submitDate'=>trim(strip_tags($_POST['submitDate']))									
+								'emailAddress'=>trim(strip_tags($_POST['emailAddress']))									
 								); 
 		// insert $departmentContact array into database 
 		$this->db->insert('rm_departmentContacts', $departmentContact);
@@ -317,8 +316,7 @@ class SurveyModel extends CI_Model
 			$this->doUpload($_FILES, $contactID);
 					
 		} else {
-			//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: key not retrieved successfully. unable to save survey responses');
-			echo "database error: key not retrieved successfully. unable to save survey responses";
+			send_email($this->devEmail, 'Liaison_Error', 'database error: key not retrieved successfully. unable to save survey responses');
 		}
 	} // closes method
 	
@@ -372,7 +370,7 @@ class SurveyModel extends CI_Model
 						if (move_uploaded_file($_FILES[$values]['tmp_name'][$i], $uploadFile)) { 
 							$surveyQuestionUploads['response'] = $newFileName;
 						} else {
-							//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (could not move file to file system) contactID:' . $contactID); 
+							send_email($this->devEmail, 'Liaison_Error', 'Upload Failed: (could not move file to file system) contactID:' . $contactID); // TODO: fix this (get user name)
 							$surveyQuestionUploads['response'] = "File not uploaded";	
 						}
 						
@@ -398,15 +396,15 @@ class SurveyModel extends CI_Model
 						} else {
 							
 							if ($fileTypeOk !== TRUE) {
-								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (file type not supported) contactID:' . $contactID);
-								echo "file type not supported";
+								send_email($this->devEmail, 'Liaison_Error', 'Upload Failed: (file type not supported) contactID:' . $contactID); // TODO: fix this (get user name)
+								//echo "file type not supported";
 							} elseif ($fileSizeOk !== TRUE) {
-								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (file size too big) contactID:' . $contactID); 
-								echo "file size too big";
+								send_email($this->devEmail, 'Liaison_Error', 'Upload Failed: (file size too big) contactID:' . $contactID); // TODO: fix this (get user name)
+								//echo "file size too big";
 							} else { 
 								// show error here
-								//send_email($this->devEmail, 'RecordsAuthority_Error', 'Upload Failed: (unknown reason) contactID:' . $contactID); 
-								echo "an error occurred..file not uploaded";
+								send_email($this->devEmail, 'Liaison_Error', 'Upload Failed: (unknown reason) contactID:' . $contactID); // TODO: fix this (get user name)
+								//echo "an error occurred..file not uploaded";
 							}
 						}
 					}

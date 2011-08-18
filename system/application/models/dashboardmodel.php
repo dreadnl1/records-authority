@@ -1,29 +1,29 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
 
-class DashboardModel extends CI_Model {
+class DashboardModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  	}
 	
 	/**
@@ -44,36 +44,22 @@ class DashboardModel extends CI_Model {
     * @return  $surveys
     */
 	 private function getAllSurveysQuery() {
-	 	$siteUrl = site_url();
 	 	$this->db->select('surveyID, surveyName, surveyDescription');
 	 	$this->db->from('rm_surveys');
-	 	$this->db->order_by('surveyName','asc');
 	 	$query = $this->db->get();
 	 	
 	 	$surveys = "";
 	 	if ($query->num_rows() > 0) {
 	 		foreach ($query->result() as $results) {
-	 			$surveys .= "<li id='$results->surveyID'><a href='#' onClick='return areYouSure($results->surveyID);'>[Delete]</a>&nbsp;&nbsp;&nbsp;&nbsp;" . anchor("dashboard/addSurveyQuestions/$results->surveyID", trim(strip_tags($results->surveyName))) . "</li><br />";	
+	 			$surveys .= "<li>" . anchor("dashboard/addSurveyQuestions/$results->surveyID", trim(strip_tags($results->surveyName))) . "</li>";	
 	 		}
-	 		
-	 		// ajax
-	 		$surveys .= "<script type='text/javascript'>";
-			$surveys .= "function areYouSure(surveyID) { ";
-			$surveys .= "if (confirm('Are you sure you want to DELETE this Question?')) {";
-			$surveys .= "$.post('$siteUrl/dashboard/deleteSurvey/', {surveyID: surveyID, ajax: 'true'}, function(results){ ";
-			$surveys .= "$('#' + surveyID).html(results); ";
-			$surveys .= "}); "; // post
-			$surveys .= "} "; // end if
-			$surveys .= "} "; // js
-			$surveys .= "</script>";
-	 		
 	 		return $surveys;
 	 	} else {
 	 		$surveys = "No surveys found";
 	 		return $surveys;
 	 	}	
 	 }
-			 	 
+	
 	/**
     * invokes getSurveyResponsesQuery()
     *
@@ -141,7 +127,6 @@ class DashboardModel extends CI_Model {
 		$this->db->select('contactNotesID, contactNotes');
 	 	$this->db->from('rm_surveyContactNotes');
 	 	$this->db->where('contactID', $contactID);
-	 	$this->db->order_by('contactNotes');
 	 	$query = $this->db->get();
 	 	
 	 	$contactNotes = array();
@@ -175,11 +160,12 @@ class DashboardModel extends CI_Model {
 	 			$division = $surveyData['division'];
 	 			$department = $surveyData['department'];
 	 			
-	 			$surveyFormHtml .= "<h1 style='font-size:20px;'>" . trim(strip_tags($division)) . "<h1>";
-	 			$surveyFormHtml .= "<h2 style='font-size:15px;'>" . trim(strip_tags($department)) . "</h2>";
+	 			$surveyFormHtml .= "<h1>" . trim(strip_tags($division)) . "<h1>";
+	 			$surveyFormHtml .= "<h2>" . trim(strip_tags($department)) . "</h2>";
 	 			$surveyFormHtml .= "<br />";
 	 			$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 	 			$surveyFormHtml .= "<strong>Department Contact</strong>";
+	 			$surveyFormHtml .= "</div>";
 	 			$surveyFormHtml .= "<br />";
 	 			
 	 			foreach ($surveyData as $j => $contact) {
@@ -215,7 +201,7 @@ class DashboardModel extends CI_Model {
 				
 				$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 				$surveyFormHtml .= "<strong>Survey Contacts</strong>";
-				
+				$surveyFormHtml .= "</div>";	
 				$surveyFormHtml .= "<br />";
 				
 				$surveyContacts = array();
@@ -264,15 +250,14 @@ class DashboardModel extends CI_Model {
 						} 
 					}
 				++$f;
-				}	
-				$surveyFormHtml .= "</div>";			
+				}			
 			}
 
 			$qCount = 1; // sets question count
 	 		if ($i == "responses") {
 	 			$surveyFormHtml .= "<div class='ui-accordion-sections'>";
 	 			$surveyFormHtml .= "<strong>Survey Responses</strong>";
-	 			//$surveyFormHtml .= "</div>";
+	 			$surveyFormHtml .= "</div>";
 	 			 				 			
 	 			foreach ($surveyData as $count => $responseData) {
 	 			
@@ -343,9 +328,8 @@ class DashboardModel extends CI_Model {
 	 					}
 	 				}
 	 			}
-	 			$surveyFormHtml .= "</div>";
 	 		} 	
-	 		$surveyFormHtml .= "</div>";
+	 		
 	 		$surveyFormHtml .= "<br /><br />"; 	
 
 	 		
@@ -394,7 +378,7 @@ class DashboardModel extends CI_Model {
 		$deptSurveyNotesArray = array();
 		$rmSurveyNotesArray = array();
 		
-		$this->db->select('*');
+		$this->db->select('surveyNotesID, contactID, questionID, deptSurveyNotes, rmSurveyNotes');
 		$this->db->from('rm_surveyNotes');
 		$this->db->where('departmentID', $departmentID);
 		$this->db->where('questionID', $questionID);
@@ -1058,7 +1042,7 @@ class DashboardModel extends CI_Model {
 		// hash password TODO: build method to allow admin to reset password
 		$this->load->library('encrypt');
 		$passcodeHash = $this->encrypt->sha1($passcode);
-				
+						
 		$this->db->select('username, passcode');
 	 	$this->db->from('rm_users');
 	 	$this->db->where('username', $username);
@@ -1102,7 +1086,7 @@ class DashboardModel extends CI_Model {
 		}				
 	} 	
 	
-	/** TODO: refactor...
+	/**
     * invokes saveRecordTypeFormatAndLocationQuery()
     *
     * @access public

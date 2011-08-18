@@ -134,91 +134,6 @@ label.error {
     padding: 0px 0px 0px 20px;
 }
 
-#otherPhysicalText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showOtherPhysical {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideOtherPhysical {
-	display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#otherElectronicText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showOtherElectronic {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideOtherElectronic {
-	display: none;
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#otherDUBuildingText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showDUBuildingText {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideDUBuildingText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#otherOffsiteStorageText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showOffsiteStorageText {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideOffsiteStorageText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#otherElectronicSystemText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#showElectronicSystemText {
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
-#hideElectronicSystemText {
-    display: none; 
-    position: relative; 
-    padding: 0px 0px 0px 20px;
-}
-
 #paperVersion {
     display: none; 
     position: relative; 
@@ -318,7 +233,7 @@ th {
 
 td {
    padding: 4px; 
-   text-align: left;
+   text-align: center;
 }
 
 .oddtr {
@@ -398,19 +313,4 @@ th a:active {
 	padding: 0px 0px 0px 0px;
 	text-align: left;
 	float: left;
-}
-
-.deleteSpan {
-	text-align: right;
-	display: block;
-	padding: 0px 15px 0px 0px;
-	margin-top: -22px;
-}
-
-#approvedByCounselDate {
-	width: 100px;
-}
-
-.ui-accordion-sections {
-	font-size: 12px;
 }

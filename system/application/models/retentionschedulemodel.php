@@ -1,29 +1,29 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
 
-class RetentionScheduleModel extends CI_Model {
+class RetentionScheduleModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  				
  		$this->devEmail = $this->config->item('devEmail');
  	}
@@ -46,8 +46,8 @@ class RetentionScheduleModel extends CI_Model {
 	 * @return $recordInformation
 	 */
  	private function getRecordInformationQuery($recordInformationID) {
- 		$this->db->select('recordInformationID, recordName, recordDescription, recordCategory, managementDivisionID, managementDepartmentID, vitalRecord');
-	 	$this->db->from('rm_recordType');
+ 		$this->db->select('recordInformationID, recordName, recordDescription, recordCategory');
+	 	$this->db->from('rm_recordTypeRecordInformation');
 	 	$this->db->where('recordInformationID', $recordInformationID);
  		$recordInformationQuery = $this->db->get();
  		$recordInformation = array();
@@ -56,72 +56,14 @@ class RetentionScheduleModel extends CI_Model {
 				$recordInformation['recordInformationID'] = $recordInformationResults->recordInformationID;
 				$recordInformation['recordName'] = $recordInformationResults->recordName;
 				$recordInformation['recordDescription'] = $recordInformationResults->recordDescription;
-				$recordInformation['recordCategory'] = $recordInformationResults->recordCategory;
-				$recordInformation['managementDivisionID'] = $recordInformationResults->managementDivisionID;
-				$recordInformation['managementDepartmentID'] = $recordInformationResults->managementDepartmentID;
-				$recordInformation['vitalRecord'] = $recordInformationResults->vitalRecord;
+				$recordInformation['recordCategory'] = $recordInformationResults->recordCategory;				
 			}
 			return $recordInformation;	
 		} else {
-			//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: unable to pull record information into retention schedule form - getRecordInformationQuery()');
+			send_email($this->devEmail, 'Liaison_Error', 'database error: unable to pull record information into retention schedule form - getRecordInformationQuery()');
 			$recordInformation = "Unable to render retention schedule form.";
 			return $recordInformation;
 		}
- 	}
- 	
- 	/** 
- 	 * invokes getRetentionInformationKeywordQuery();
-	 * 
-	 * @param $keyword 
-	 * @return $retentionInformation
-	 */
- 	public function getRetentionInformationKeyword($keyword) {
- 		$retentionInformation = $this->getRetentionInformationKeywordQuery($keyword);
- 		return $retentionInformation;
- 	}
- 	
- 	 /**
-	 * gets retention information based on keyword
-	 * 
-	 * @param $keyword 
-	 * @return $retentionInformation
-	 */
- 	private function getRetentionInformationKeywordQuery($keyword) {
- 		$this->db->select('	retentionScheduleID, 
- 							recordCode,
- 							recordName,
- 							recordCategory,
- 							recordDescription,
- 							keywords,
- 							officeOfPrimaryResponsibility,
- 							primaryOwnerOverride,
- 							uuid,
- 							approvedByCounsel');
-	 	$this->db->from('rm_retentionSchedule');
-	 	//Check for Search all with *
-	 	if($keyword != '*') {
-		 	$this->db->where('MATCH(
-		 						uuid,
-		 						recordCode,
-		 						recordName,
-		 						recordDescription,
-		 						recordCategory,
-		 						keywords,
-		 						retentionPeriod,
-		 						primaryAuthorityRetention,
-		 						retentionNotes,
-		 						retentionDecisions,
-		 						disposition,
-		 						primaryAuthority,
-		 						primaryOwnerOverride,
-		 						notes,
-		 						approvedByCounsel,
-		 						approvedByCounselDate) 
-		 						AGAINST ("*' . $keyword . '*" IN BOOLEAN MODE)');
-	 	}
-	 	$this->db->order_by('recordName','asc');
-	 	$retentionInformation = $this->db->get();
-	 	return $retentionInformation;
  	}
  	
  	/** 
@@ -140,21 +82,18 @@ class RetentionScheduleModel extends CI_Model {
 	 * @return $dispositions
 	 */
  	private function getDispostionsQuery() {
- 		$this->db->select('dispositionID, dispositionLong');
+ 		$this->db->select('dispositionID, dispositionShort');
  		$this->db->from('rm_disposition');
  		$dispositionQuery = $this->db->get();
  		$dispositions = array();
- 		$dispositionsLong = array();
- 		$dispositionsDescription = array();
  		 		
  		if ($dispositionQuery->num_rows > 0) {
  			foreach ($dispositionQuery->result() as $disposition) {
- 				$dispositions[$disposition->dispositionID] = $disposition->dispositionLong;
+ 				$dispositions[$disposition->dispositionID] = $disposition->dispositionShort;
  			}
  			return $dispositions;
  		} else {
- 			//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: unable to pull dispositions from database - getDispositionsQuery()');
- 			echo "database error: unable to pull dispositions from database - getDispositionsQuery()";
+ 			send_email($this->devEmail, 'Liaison_Error', 'database error: unable to pull dispositions from database - getDispositionsQuery()');
  		}
  	}
  	
@@ -223,28 +162,21 @@ class RetentionScheduleModel extends CI_Model {
 	 */
 	private function saveRetentionScheduleQuery($_POST) {
 		$retentionSchedule = array();
-		$retentionSchedule['recordCode'] = trim(strip_tags($this->input->post('recordCode')));
 		$retentionSchedule['recordName'] = trim(strip_tags($this->input->post('recordName')));
 		$retentionSchedule['recordDescription'] = trim(strip_tags($this->input->post('recordDescription')));
 		$retentionSchedule['recordCategory'] = trim(strip_tags($this->input->post('recordCategory')));
-		$retentionSchedule['keywords'] = trim(strip_tags($this->input->post('keywords')));
 		$retentionSchedule['retentionPeriod'] = trim(strip_tags($this->input->post('retentionPeriod')));
 		$retentionSchedule['primaryAuthorityRetention'] = trim(strip_tags($this->input->post('primaryAuthorityRetention')));
-		//$retentionSchedule['retentionNotes'] = trim(strip_tags($this->input->post('retentionNotes')));
+		$retentionSchedule['retentionNotes'] = trim(strip_tags($this->input->post('retentionNotes')));
 		$retentionSchedule['retentionDecisions'] = trim(strip_tags($this->input->post('retentionDecisions')));
 		$retentionSchedule['disposition'] = trim(strip_tags($this->input->post('disposition')));
 		$retentionSchedule['primaryAuthority'] = trim(strip_tags($this->input->post('primaryAuthority')));
 		
 		// get department
 		$retentionSchedule['officeOfPrimaryResponsibility'] = trim(strip_tags($this->input->post('departmentID')));
-		$retentionSchedule['override'] = trim(strip_tags($this->input->post('override')));
-		$retentionSchedule['primaryOwnerOverride'] = trim(strip_tags($this->input->post('primaryOwnerOverride')));
-		$retentionSchedule['relatedAuthorities'] = trim(strip_tags($this->input->post('relatedAuthorities')));
 		$retentionSchedule['notes'] = trim(strip_tags($this->input->post('notes')));
 		$retentionSchedule['vitalRecord'] = trim(strip_tags($this->input->post('vitalRecord')));
 		$retentionSchedule['approvedByCounsel'] = trim(strip_tags($this->input->post('approvedByCounsel')));
-		$retentionSchedule['approvedByCounselDate'] = trim(strip_tags($this->input->post('approvedByCounselDate')));
-		$retentionSchedule['updateUser'] = $this->session->userdata('username');
 		
 		// generate record uuid
 		$uuid = $this->createUUID();
@@ -265,9 +197,8 @@ class RetentionScheduleModel extends CI_Model {
 			$retentionScheduleID = $result->retentionScheduleID;  		
 			
 			// indexes retention schedule
-			//$this->indexRetentionSchedules($retentionScheduleID);
-			//Old commented section
-			/*
+			$this->indexRetentionSchedules($retentionScheduleID);
+			
 			if (!empty($_POST['relatedAuthorities'])) {
 				$i = 0; // set loop variable
 				$relatedAuthority = array();
@@ -309,8 +240,8 @@ class RetentionScheduleModel extends CI_Model {
 						$i = 0; // reset loop variable
 					}
 				}
-			} //old commented section
-			*/
+			} 
+			
 			// save associated units (departments)
 			if ($this->session->userdata('uuid')) { // if uuid is in session, then save associated units
 				$uuid = $this->session->userdata('uuid'); // grab uuid from session
@@ -372,33 +303,18 @@ class RetentionScheduleModel extends CI_Model {
 		if ($retentionScheduleQuery->num_rows > 0) {
  			foreach ($retentionScheduleQuery->result() as $results) {
  				$retentionSchedule['retentionScheduleID'] = $retentionScheduleID;
- 				$retentionSchedule['uuid'] = $results->uuid;
- 				$retentionSchedule['recordCode'] = $results->recordCode; 
+ 				$retentionSchedule['uuid'] = $results->uuid; 
  				$retentionSchedule['recordName'] = $results->recordName;
  				$retentionSchedule['recordDescription'] = $results->recordDescription;
  				$retentionSchedule['recordCategory'] = $results->recordCategory;
- 				$retentionSchedule['keywords'] = $results->keywords;
  				$retentionSchedule['retentionPeriod'] = $results->retentionPeriod;
  				$retentionSchedule['primaryAuthorityRetention'] = $results->primaryAuthorityRetention;
- 				//$retentionSchedule['retentionNotes'] = $results->retentionNotes;
+ 				$retentionSchedule['retentionNotes'] = $results->retentionNotes;
  				$retentionSchedule['retentionDecisions'] = $results->retentionDecisions;
  				$retentionSchedule['disposition'] = $results->disposition;
- 				
-  				/*if($results->disposition == "D") {
-					$retentionSchedule['disposition'] = "Destroy";
- 				} elseif ($results->disposition == "R") {
- 					$retentionSchedule['disposition'] = "Recycle";
- 				} elseif ($results->disposition == "P") {
- 					$retentionSchedule['disposition'] = "Permanent";
- 				} elseif ($results->disposition == "N/A") {
- 					$retentionSchedule = "Not Applicaple";
- 				} else {
- 					$retentionSchedule['disposition'] = $results->disposition;
- 				}*/
- 				
  				$retentionSchedule['primaryAuthority'] = $results->primaryAuthority;
  				$retentionSchedule['officeOfPrimaryResponsibility'] = $results->officeOfPrimaryResponsibility;
- 				$retentionSchedule['relatedAuthorities'] = $results->relatedAuthorities;	
+ 					
  					// get divisionID
  					$this->db->select('divisionID, departmentName');
  					$this->db->from('rm_departments');
@@ -409,17 +325,13 @@ class RetentionScheduleModel extends CI_Model {
  						$retentionSchedule['divisionID'] = $officeOfPrimaryResponsibility->divisionID;
  						$retentionSchedule['officeOfPrimaryResponsibilityDept'] = trim(strip_tags($officeOfPrimaryResponsibility->departmentName));
  					}	
- 				$retentionSchedule['override'] = $results->override; 				
- 				$retentionSchedule['primaryOwnerOverride'] = $results->primaryOwnerOverride;
+ 				 				
  				$retentionSchedule['notes'] = trim(strip_tags($results->notes));
  				$retentionSchedule['vitalRecord'] = trim(strip_tags($results->vitalRecord));
  				$retentionSchedule['approvedByCounsel'] = trim(strip_tags($results->approvedByCounsel));
- 				$retentionSchedule['approvedByCounselDate'] = trim(strip_tags($results->approvedByCounselDate));
  				$retentionSchedule['timestamp'] = trim(strip_tags($results->timestamp));
- 				$retentionSchedule['updateTimestamp'] = trim(strip_tags($results->updateTimestamp));
- 				$retentionSchedule['updateUser'] = trim(strip_tags($results->updateUser));
  			}
- 			//old commented section 			 			
+ 			 			 			
  			// get related authorities / related authority retentions
  			$this->db->select('rsRelatedAuthorityID, rsRelatedAuthority, rsRelatedAuthorityRetention');
  			$this->db->from('rm_rsRelatedAuthorities');
@@ -435,7 +347,7 @@ class RetentionScheduleModel extends CI_Model {
  				}
  				$retentionSchedule['relatedAuthority'] = $relatedAuthority; 
  				$retentionSchedule['relatedAuthorityRetention'] = $relatedAuthorityRetention;
- 		}//old commented section
+ 			}
  			
  			// get associated units
  			$this->db->select('departmentID');
@@ -463,15 +375,7 @@ class RetentionScheduleModel extends CI_Model {
  			$this->db->from('rm_departments');
  			$this->db->where('departmentID', $results->officeOfPrimaryResponsibility);
  			$divisionQuery = $this->db->get();
- 			if($divisionQuery->num_rows() > 0)
- 			{
- 				$divisionID = $divisionQuery->row();
- 			}
- 			else
- 			{
- 				echo $divisionQuery;
- 				echo "Division ID not found";
- 			}
+ 			$divisionID = $divisionQuery->row();
  			$retentionSchedule['divisionID'] = $divisionID->divisionID;
  			
  			return $retentionSchedule;
@@ -496,53 +400,26 @@ class RetentionScheduleModel extends CI_Model {
 	 * @return void
 	 */
 	private function updateRetentionScheduleQuery($_POST) {
-		$now = time();
-		$date = unix_to_human($now, TRUE, 'us');
-		
 		$retentionScheduleID = $_POST['retentionScheduleID'];
 		$retentionSchedule = array();
-		$retentionSchedule['recordCode'] = trim(strip_tags($this->input->post('recordCode')));
 		$retentionSchedule['recordName'] = trim(strip_tags($this->input->post('recordName')));
 		$retentionSchedule['recordDescription'] = trim(strip_tags($this->input->post('recordDescription')));
 		$retentionSchedule['recordCategory'] = trim(strip_tags($this->input->post('recordCategory')));
-		$retentionSchedule['keywords'] = trim(strip_tags($this->input->post('keywords')));
 		$retentionSchedule['retentionPeriod'] = trim(strip_tags($this->input->post('retentionPeriod')));
-		//$retentionSchedule['retentionNotes'] = trim(strip_tags($this->input->post('retentionNotes')));
+		$retentionSchedule['retentionNotes'] = trim(strip_tags($this->input->post('retentionNotes')));
 		$retentionSchedule['retentionDecisions'] = trim(strip_tags($this->input->post('retentionDecisions')));
 		$retentionSchedule['disposition'] = trim(strip_tags($this->input->post('disposition')));
 		$retentionSchedule['primaryAuthority'] = trim(strip_tags($this->input->post('primaryAuthority')));
 		$retentionSchedule['primaryAuthorityRetention'] = trim(strip_tags($this->input->post('primaryAuthorityRetention')));
 		$retentionSchedule['officeOfPrimaryResponsibility'] = trim(strip_tags($this->input->post('departmentID')));
-		$retentionSchedule['override'] = trim(strip_tags($this->input->post('override')));
-		$retentionSchedule['primaryOwnerOverride'] = trim(strip_tags($this->input->post('primaryOwnerOverride')));
-		$retentionSchedule['relatedAuthorities'] = trim(strip_tags($this->input->post('relatedAuthorities')));
 		$retentionSchedule['notes'] = trim(strip_tags($this->input->post('notes')));
 		$retentionSchedule['vitalRecord'] = trim(strip_tags($this->input->post('vitalRecord')));
 		$retentionSchedule['approvedByCounsel'] = trim(strip_tags($this->input->post('approvedByCounsel')));
 		
-		//Test for manual date change, if not overwrite with current date
-		$this->db->select('approvedByCounselDate');
-		$query = $this->db->get_where('rm_retentionSchedule', array('retentionScheduleID' => $_POST['retentionScheduleID']));
-		if($query->num_rows() > 0) {
-			foreach($query->result() as $results)
-				if($this->input->post('approvedByCounselDate') == $results->approvedByCounselDate) {
-					$datestring = "%Y-%m-%d";
-					$time = time();
-					$retentionSchedule['approvedByCounselDate'] = mdate($datestring, $time);
-				} else {
-					$retentionSchedule['approvedByCounselDate'] = trim(strip_tags($this->input->post('approvedByCounselDate')));
-				}
-		} else {
-			$retentionSchedule['approvedByCounselDate'] = trim(strip_tags($this->input->post('approvedByCounselDate')));
-		}
-		
-		$retentionSchedule['updateTimestamp'] = $date;
-		$retentionSchedule['updateUser'] = $this->session->userdata('username');
-		
 		// update data
 		$this->db->where('retentionScheduleID', $retentionScheduleID);
 		$this->db->update('rm_retentionSchedule', $retentionSchedule);
-		/*
+		
 		// update related authorities / related authority retentions
 		if (isset($_POST['relatedAuthorityID'])) {
 			$rsRelatedAuthority = array();
@@ -567,7 +444,7 @@ class RetentionScheduleModel extends CI_Model {
 				$this->db->where('rsRelatedAuthorityID', $rsRelatedAuthorityID);
 				$this->db->update('rm_rsRelatedAuthorities', $rsRelatedAuthorityRetention);
 			++$j;	
-			}
+			}	
 		}
 		
 		// add new authorities
@@ -612,7 +489,7 @@ class RetentionScheduleModel extends CI_Model {
 					}
 				}
 		}
-		*/
+
 		// updates retention schedule index
 		$this->updateIndexRetentionSchedules($retentionScheduleID); 	
 	}
@@ -635,45 +512,36 @@ class RetentionScheduleModel extends CI_Model {
 	 * @return void
 	 */
 	private function getRetentionScheduleRecordQuery($retentionScheduleID) {
-		$sql = "SELECT retentionScheduleID, recordCode, recordName, recordCategory, recordDescription, keywords, retentionPeriod, disposition, officeOfPrimaryResponsibility, approvedByCounselDate FROM rm_fullTextSearch " .
+		$sql = "SELECT retentionScheduleID, recordName, recordCategory, recordDescription, retentionPeriod, retentionNotes, disposition, officeOfPrimaryResponsibility FROM rm_fullTextSearch " .
 						"WHERE retentionScheduleID = ? ";
 		$query = $this->db->query($sql, array($retentionScheduleID));	
 		
 		$retentionSchedule = "";
 		foreach ($query->result() as $results) {
 		 	$retentionSchedule .= "<br />";
-			//$retentionSchedule .= "<strong>Record ID:</strong><br />";
-			//$retentionSchedule .= trim(strip_tags($results->retentionScheduleID));
-			//$retentionSchedule .= "<br /><br />";
-			$retentionSchedule .= "<strong>Record Code:</strong><br />";
-			$retentionSchedule .= trim(strip_tags($results->recordCode));
+			$retentionSchedule .= "<strong>Record ID:</strong><br />";
+			$retentionSchedule .= trim(strip_tags($results->retentionScheduleID));
 			$retentionSchedule .= "<br /><br />";
-			$retentionSchedule .= "<strong>Functional Category:</strong><br />";
-			$retentionSchedule .= trim(strip_tags($results->recordCategory));
-			$retentionSchedule .= "<br /><br />";
-			$retentionSchedule .= "<strong>Record Group:</strong><br />";
+			$retentionSchedule .= "<strong>Record Name:</strong><br />";
 			$retentionSchedule .= trim(strip_tags($results->recordName));
 			$retentionSchedule .= "<br /><br />";
-			$retentionSchedule .= "<strong>Description:</strong><br />";
-			$retentionSchedule .= trim(strip_tags($results->recordDescription));
+			$retentionSchedule .= "<strong>Record Category:</strong><br />";
+			$retentionSchedule .= trim(strip_tags($results->recordCategory));
 			$retentionSchedule .= "<br /><br />";
-			$retentionSchedule .= "<strong>Search Terms:</strong><br />";
-			$retentionSchedule .= trim(strip_tags($results->keywords));
+			$retentionSchedule .= "<strong>Record Description:</strong><br />";
+			$retentionSchedule .= trim(strip_tags($results->recordDescription));
 			$retentionSchedule .= "<br /><br />";
 			$retentionSchedule .= "<strong>Retention Period:</strong><br />";
 			$retentionSchedule .= trim(strip_tags($results->retentionPeriod));
 			$retentionSchedule .= "<br /><br />";
-			//$retentionSchedule .= "<strong>Retention Notes:</strong><br />";	
-			//$retentionSchedule .= trim(strip_tags($results->retentionNotes));
-			//$retentionSchedule .= "<br /><br />";
-			$retentionSchedule .= "<strong>Retention Rules:</strong><br />";	
+			$retentionSchedule .= "<strong>Retention Notes:</strong><br />";	
+			$retentionSchedule .= trim(strip_tags($results->retentionNotes));
+			$retentionSchedule .= "<br /><br />";
+			$retentionSchedule .= "<strong>Disposition:</strong><br />";	
 			$retentionSchedule .= trim(strip_tags($results->disposition));
 			$retentionSchedule .= "<br /><br />";
-			$retentionSchedule .= "<strong>Primary Owner:</strong><br />";	
+			$retentionSchedule .= "<strong>Office of Primary Responsibility:</strong><br />";	
 			$retentionSchedule .= trim(strip_tags($results->officeOfPrimaryResponsibility));
-			$retentionSchedule .= "<br /><br />";
-			$retentionSchedule .= "<strong>Public Retention Schedule - Approved Date: </strong><br />";	
-			$retentionSchedule .= trim(strip_tags($results->approvedByCounselDate));
 			$retentionSchedule .= "<br /><br />";
 		 }
 		return $retentionSchedule;
@@ -745,70 +613,57 @@ class RetentionScheduleModel extends CI_Model {
 			$this->db->truncate('rm_fullTextSearch');
 		}
 		
-		$this->db->select('retentionScheduleID, recordCode, recordName, recordDescription, recordCategory, keywords, retentionPeriod, disposition, officeOfPrimaryResponsibility, override, primaryOwnerOverride,approvedByCounselDate');
+		$this->db->select('retentionScheduleID, recordName, recordDescription, recordCategory, retentionPeriod, retentionNotes, disposition, officeOfPrimaryResponsibility');
 		$this->db->from('rm_retentionSchedule');
 		$this->db->where('approvedByCounsel', 'yes');
 		if ($retentionScheduleID !== "") {
 			$this->db->where('retentionScheduleID', $retentionScheduleID);
 		}
 		$retentionScheduleQuery = $this->db->get();
-		echo "<table>";
-		echo "<tr><th>Code</th><th>Name</th></tr>";
+			
 		foreach ($retentionScheduleQuery->result() as $rsResults) {
 			$retentionScheduleArray['retentionScheduleID'] = $rsResults->retentionScheduleID;
-			$retentionScheduleArray['recordCode'] = $rsResults->recordCode;
 			$retentionScheduleArray['recordName'] = $rsResults->recordName;
 			$retentionScheduleArray['recordDescription'] = $rsResults->recordDescription;
 			$retentionScheduleArray['recordCategory'] = $rsResults->recordCategory;
-			$retentionScheduleArray['keywords'] = $rsResults->keywords;
 			$retentionScheduleArray['retentionPeriod'] = $rsResults->retentionPeriod;
-			//$retentionScheduleArray['retentionNotes'] = $rsResults->retentionNotes;
-			$retentionScheduleArray['approvedByCounselDate'] = $rsResults->approvedByCounselDate;
-			$retentionScheduleArray['disposition'] = $rsResults->disposition;
+			$retentionScheduleArray['retentionNotes'] = $rsResults->retentionNotes;
 			
-			
-			/*// get full dispsition name for search results display
+			// get full dispsition name for search results display
 			$this->db->select('dispositionLong');
 			$this->db->from('rm_disposition');
-			//$this->db->like('dispositionShort', $rsResults->disposition);
+			$this->db->like('dispositionShort', $rsResults->disposition);
 			$dispositionQuery = $this->db->get();
+			
 			$dispositionResult = $dispositionQuery->row();
 			$disposition = $dispositionResult->dispositionLong;			
 			
-			$retentionScheduleArray['disposition'] = $disposition;*/
-			if($rsResults->override == "yes") {			
-				$retentionScheduleArray['officeOfPrimaryResponsibility'] = $rsResults->primaryOwnerOverride;
-			} else {
-				$this->db->select('departmentName, divisionID');
-				$this->db->from('rm_departments');
-				$this->db->where('departmentID', $rsResults->officeOfPrimaryResponsibility);
-				$departmentQuery = $this->db->get();
-				
-				foreach ($departmentQuery->result() as $results) {
-					$dept = $results->departmentName;
-					$this->db->select('divisionName');
-					$this->db->from('rm_divisions');
-					$this->db->where('divisionID', $results->divisionID);
-					$divisionQuery = $this->db->get();
-					
-					if ($divisionQuery->num_rows() > 0) {
-						$row = $divisionQuery->row();
-						$div = $row->divisionName;
-						$divDept = $div . " - " . $dept; 
+			$retentionScheduleArray['disposition'] = $disposition;
 						
-						$retentionScheduleArray['officeOfPrimaryResponsibility'] = $divDept;
-					}
+			$this->db->select('departmentName, divisionID');
+			$this->db->from('rm_departments');
+			$this->db->where('departmentID', $rsResults->officeOfPrimaryResponsibility);
+			$departmentQuery = $this->db->get();
+			
+			foreach ($departmentQuery->result() as $results) {
+				$dept = $results->departmentName;
+				$this->db->select('divisionName');
+				$this->db->from('rm_divisions');
+				$this->db->where('divisionID', $results->divisionID);
+				$divisionQuery = $this->db->get();
+				
+				if ($divisionQuery->num_rows() > 0) {
+					$row = $divisionQuery->row();
+					$div = $row->divisionName;
+					$divDept = $div . " - " . $dept; 
+					
+					$retentionScheduleArray['officeOfPrimaryResponsibility'] = $divDept;
 				}
-			}	
-			
+			}
+						
 			$this->db->insert('rm_fullTextSearch', $retentionScheduleArray);
-			
-			echo "<tr>";
-			echo "<td>" . $retentionScheduleArray['recordCode'] . "</td><td>" . $retentionScheduleArray['recordName'] . "</td>";
-			echo "</tr>";
-			
 		}
-		echo "</table>";
+		
 		if ($retentionScheduleID == "") {
 			echo "<strong>Indexing Complete.</strong>";
 		}
@@ -822,7 +677,7 @@ class RetentionScheduleModel extends CI_Model {
 	 */
 	private function updateIndexRetentionSchedules($retentionScheduleID) {
 						
-		$this->db->select('retentionScheduleID, recordName, recordDescription, recordCategory, retentionPeriod, disposition, officeOfPrimaryResponsibility, override, primaryOwnerOverride, approvedByCounsel');
+		$this->db->select('retentionScheduleID, recordName, recordDescription, recordCategory, retentionPeriod, retentionNotes, disposition, officeOfPrimaryResponsibility, approvedByCounsel');
 		$this->db->from('rm_retentionSchedule');
 		$this->db->where('retentionScheduleID', $retentionScheduleID);
 		//$this->db->where('approvedByCounsel', 'yes');
@@ -834,38 +689,37 @@ class RetentionScheduleModel extends CI_Model {
 			$retentionScheduleArray['recordDescription'] = $rsResults->recordDescription;
 			$retentionScheduleArray['recordCategory'] = $rsResults->recordCategory;
 			$retentionScheduleArray['retentionPeriod'] = $rsResults->retentionPeriod;
-			//$retentionScheduleArray['retentionNotes'] = $rsResults->retentionNotes;
-			$retentionScheduleArray['disposition'] = $rsResults->disposition;
-			/*// get full dispsition name for search results display
+			$retentionScheduleArray['retentionNotes'] = $rsResults->retentionNotes;
+			
+			// get full dispsition name for search results display
 			$this->db->select('dispositionLong');
 			$this->db->from('rm_disposition');
-			//$this->db->like('dispositionShort', $rsResults->disposition);
+			$this->db->like('dispositionShort', $rsResults->disposition);
 			$dispositionQuery = $this->db->get();
-
+			
 			$dispositionResult = $dispositionQuery->row();
 			$disposition = $dispositionResult->dispositionLong;			
-			$retentionScheduleArray['disposition'] = $disposition;*/
-
-			if($rsResults->override == "yes") {
-				$retentionScheduleArray['officeOfPrimaryResponsibility'] = $rsResults->primaryOwnerOverride;
-			} else {
-				$this->db->select('departmentName, divisionID');
-				$this->db->from('rm_departments');
-				$this->db->where('departmentID', $rsResults->officeOfPrimaryResponsibility);
-				$departmentQuery = $this->db->get();
-				
-				foreach ($departmentQuery->result() as $results) {
-					$dept = $results->departmentName;
-					$this->db->select('divisionName');
-					$this->db->from('rm_divisions');
-					$this->db->where('divisionID', $results->divisionID);
-					$divisionQuery = $this->db->get();
-					$row = $divisionQuery->row();
-					$div = $row->divisionName;
-					$divDept = $div . " - " . $dept; 
-					$retentionScheduleArray['officeOfPrimaryResponsibility'] = $divDept;
-				}
+			
+			$retentionScheduleArray['disposition'] = $disposition;
+			
+			
+			$this->db->select('departmentName, divisionID');
+			$this->db->from('rm_departments');
+			$this->db->where('departmentID', $rsResults->officeOfPrimaryResponsibility);
+			$departmentQuery = $this->db->get();
+			
+			foreach ($departmentQuery->result() as $results) {
+				$dept = $results->departmentName;
+				$this->db->select('divisionName');
+				$this->db->from('rm_divisions');
+				$this->db->where('divisionID', $results->divisionID);
+				$divisionQuery = $this->db->get();
+				$row = $divisionQuery->row();
+				$div = $row->divisionName;
+				$divDept = $div . " - " . $dept; 
+				$retentionScheduleArray['officeOfPrimaryResponsibility'] = $divDept;
 			}
+			
 			// check if record exists
 			$this->db->where('retentionScheduleID', $retentionScheduleID); 
 			$count = $this->db->count_all_results('rm_fullTextSearch');
@@ -882,121 +736,7 @@ class RetentionScheduleModel extends CI_Model {
 				$this->db->update('rm_fullTextSearch', $retentionScheduleArray); 
 			}
 		}	
-		//empties temp associated units
-		$this->db->query('TRUNCATE TABLE rm_associatedUnits_temp; ');
 	}
-	
-	/**
-	 * invokes publishRetentionScheduleQuery()
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function publishRetentionSchedule($retentionScheduleID, $publish) {
-		$retentionScheduleID = $this->publishRetentionScheduleQuery($retentionScheduleID, $publish);
-	}
-	
-	/**
-	 * publishes Retention Schedule
-	 * 
-	 * @access private
-	 * @return void
-	 */
-	private function publishRetentionScheduleQuery($retentionScheduleID, $publish)
-	{
-		$now = time();
-		$datestring = "%Y-%m-%d";
-		$date = mdate($datestring, $now);
-		
-		if($publish == "yes") {	
-			$retentionSchedule['approvedByCounsel'] = "yes";
-			$retentionSchedule['approvedByCounselDate'] = "$date";
-		} else {
-			$retentionSchedule['approvedByCounsel'] = "no";
-		}
-		$this->db->trans_start();
-		$this->db->where('retentionScheduleID', $retentionScheduleID);
-		$this->db->update('rm_retentionSchedule', $retentionSchedule);
-		$this->db->trans_complete();
-	}
-	
-	/**
-	 * invokes deleteRetentionScheduleQuery()
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function deleteRetentionSchedule($retentionScheduleID)
-	{
-		$retentionScheduleID = $this->deleteRetentionScheduleQuery($retentionScheduleID);
-	}
-	
-	/**
-	 * deletes Retention Schedule and moves it to rm_retentionScheduleDeleted
-	 * 
-	 * @access private
-	 * @return void
-	 */
-	private function deleteRetentionScheduleQuery($retentionScheduleID)
-	{
-		$this->db->trans_start();
-		$this->db->query("INSERT INTO rm_retentionScheduleDeleted SELECT * FROM rm_retentionSchedule WHERE retentionScheduleID = $retentionScheduleID");
-		$this->db->where('retentionScheduleID',$retentionScheduleID);
-		$this->db->delete('rm_retentionSchedule');
-		$this->db->trans_complete();
-	}
-	
-	/**
-	 * invokes restoreRetentionScheduleQuery()
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function restoreRetentionSchedule($retentionScheduleID)
-	{
-		$retentionScheduleID = $this->restoreRetentionScheduleQuery($retentionScheduleID);
-	}
-	
-	/**
-	 * restores retention schedule and moves it to rm_retentionSchedule
-	 *
-	 * @access private
-	 * @return void
-	 */
-	private function restoreRetentionScheduleQuery($retentionScheduleID)
-	{
-		$this->db->trans_start();
-		$this->db->query("INSERT INTO rm_retentionSchedule SELECT * FROM rm_retentionScheduleDeleted WHERE retentionScheduleID = $retentionScheduleID");
-		$this->db->where('retentionScheduleID',$retentionScheduleID);
-		$this->db->delete('rm_retentionScheduleDeleted');
-		$this->db->trans_complete();
-	}
-	
-	/**
-	 * invokes permanentDeleteRetentionScheduleQuery()
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function permanentDeleteRetentionSchedule($retentionScheduleID)
-	{
-		$retentionScheduleID = $this->permanentDeleteRetentionScheduleQuery($retentionScheduleID);
-	}
-	
-	/**
-	 * deletes Retention Schedule
-	 * 
-	 * @access private
-	 * @return void
-	 */
-	private function permanentDeleteRetentionScheduleQuery($retentionScheduleID)
-	{
-		$this->db->trans_start();
-		$this->db->where('retentionScheduleID',$retentionScheduleID);
-		$this->db->delete('rm_retentionScheduleDeleted');
-		$this->db->trans_complete();
-	}
-	
 }
 
 ?>

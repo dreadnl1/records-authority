@@ -11,20 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "https://recordsmanagement.du.edu/recordsAuthority/";
-
-/*
-|--------------------------------------------------------------------------
-| Site Name
-|--------------------------------------------------------------------------
-|
-| Name of your CodeIgniter folder name. Typically this will be your base 
-| folder you installed to
-|
-|	http://example.com/
-|
-*/
-$config['site_name'] = "recordsAuthority";
+$config['base_url']	= "http://127.0.0.1/liaison/";
 
 /*
 |--------------------------------------------------------------------------
@@ -186,7 +173,7 @@ $config['function_trigger'] = 'm';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 1;
+$config['log_threshold'] = 4;
 
 /*
 |--------------------------------------------------------------------------
@@ -332,7 +319,7 @@ $config['rewrite_short_tags'] = FALSE;
 |  sets upload directory
 |
 */
-$config['uploadDirectory'] = '/var/www/html/recordsAuthority/surveyFileUploads/';
+$config['uploadDirectory'] = '/Library/WebServer/Documents/liaison/surveyFileUploads/';
 
 
 /*
@@ -343,7 +330,7 @@ $config['uploadDirectory'] = '/var/www/html/recordsAuthority/surveyFileUploads/'
 |  sets development email
 |
 */
-$config['devEmail'] = 'records@du.edu';
+$config['devEmail'] = 'freyes@du.edu';
 
 
 /*
@@ -354,17 +341,8 @@ $config['devEmail'] = 'records@du.edu';
 |  sets production email
 |
 */
-$config['prodEmail'] = 'records@du.edu';
+$config['prodEmail'] = 'freyes@du.edu';//'records-mgmt@du.edu';
 
-/*
-|--------------------------------------------------------------------------
-| Solr (custom - not part of original framework)
-|--------------------------------------------------------------------------
-|
-|  sets solr url
-|
-*/
-$config['solr'] = 'http://localhost:8080/solr';
 
 /* End of file config.php */
 /* Location: ./system/application/config/config.php */

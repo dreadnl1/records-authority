@@ -1,38 +1,28 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 ?>
 
-<?php 
-	$data['title'] = 'Record Series - Records Authority';
+<?php $this->load->view('includes/adminHeader'); ?>	
 	
-	$var1 = $retentionSchedule['timestamp'];
-	$var2 = mysql_to_unix($var1);
-	$creation = unix_to_human($var2);
-	$data['timestamp'] = $creation;
-	
-	$data['updateTimestamp'] = $retentionSchedule['updateTimestamp'];
-	$this->load->view('includes/adminHeader', $data); 
-?>
-	
-	 	<?php // TODO: refactor
+	 	<?php // refactor
 		$siteUrl = site_url();
 		$retentionScheduleID = $retentionSchedule['retentionScheduleID'];
 		$assocUnitsScript = "";
@@ -137,16 +127,15 @@
 		$officeOfPrimaryResponsibilitydepartmentCheckWidgetJs .= "</script>";
 		echo $officeOfPrimaryResponsibilitydepartmentCheckWidgetJs;
 	 ?>
-	 
+		
 	<div id="tabs">
 		<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Series</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Retention Schedule</a></li>
         </ul>
        <div id="fragment-1" class="adminForm">
        <br />
 		
 			<form id="retentionSchedule" method="post" action="<?php echo site_url();?>/retentionSchedule/update">
-			
 			<?php 
 				// set retentionSchedule ID for updates
 				if (isset($retentionSchedule['retentionScheduleID'])) {
@@ -164,28 +153,18 @@
 				}
 			?>
 						
-			<br /><br />	
-			
-			<label for='recordCode'>Record Code:&nbsp;</label>
-			<?php 
-				if (isset($retentionSchedule['recordCode'])) {
-					$recordCode = $retentionSchedule['recordCode'];
-					echo "<br /><input name='recordCode' id='recordCode' type='text' size='40' value='$recordCode' class='required' />";
-				}
-			?>
-			<br /><br />	
-								
-			<label for='recordName'>Record Name:&nbsp;* (Public)</label>
+			<br /><br />						
+			<label for='recordName'>Record Name:&nbsp;*</label>
 			<?php  
 				if (isset($retentionSchedule['recordName'])) {
 					$recordName = $retentionSchedule['recordName'];
-					echo "<br /><input name='recordName' id='recordName' type='text' size='45' value='$recordName' class='required' />";
+					echo "<br /><input name='recordName' type='text' size='45' value='$recordName' class='required' />";
 				}
 			?>
 			
 			<br /><br />
 										
-			<label for='recordDescription'>Record Description:&nbsp;* (Public)</label>
+			<label for='recordDescription'>Record Description:&nbsp;*</label>
 			<?php 
 				if (isset($retentionSchedule['recordDescription'])) {
 					$recordDescription = $retentionSchedule['recordDescription'];
@@ -195,7 +174,7 @@
 			
 			<br /><br />
 									
-			<label for='recordCategory'>Functional Category:&nbsp;* (Public)</label>
+			<label for='recordCategory'>Record Category:&nbsp;*</label>
 			<br />
 			<select name='recordCategory' size='1' class='required'>
 				<option value=''>Select a Record Category</option>
@@ -213,41 +192,24 @@
 						
 			<br /><br />
 			
-			<label for='keywords'>Keywords:&nbsp;* (Public)&nbsp;</label><br />
-			<?php $keywords = $retentionSchedule['keywords']; ?>
-			<textarea name="keywords" id="keywords" rows="10" cols="20" wrap="hard"><?php echo $keywords; ?></textarea>
-			<br /><br />
-			
-			<label for='retentionPeriod'>Retention Period:&nbsp;* (Public)&nbsp;</label><br />
+			<label for='retentionPeriod'>Retention Period:&nbsp;</label><br />
 			<?php $retentionPeriod = $retentionSchedule['retentionPeriod']; ?>
-			<textarea name="retentionPeriod" id="retentionPeriod" rows="3" cols="50" wrap="hard"><?php echo $retentionPeriod; ?></textarea>
-			<!-- <input name="retentionPeriod" id="retentionPeriod" type="text" value="<?php echo $retentionPeriod; ?>" size="40" value="" /> -->
+			<input name="retentionPeriod" id="retentionPeriod" type="text" value="<?php echo $retentionPeriod; ?>" size="40" value="" />
 			<br /><br />
 			
-			<?php /*<label for='retentionNotes'>Retention Notes: (Public)&nbsp;</label><br />
+			<label for='retentionNotes'>Retention Notes:&nbsp;</label><br />
 			<?php $retentionNotes = $retentionSchedule['retentionNotes'] ?>
 			<textarea name="retentionNotes" rows="3" cols="50" wrap="hard"><?php echo $retentionNotes; ?></textarea>
 			<br /><br />
-			*/?>
 			
 			<label for='rmRetentionDecisions'>Rm Retention Decisions:&nbsp;</label><br />
 			<?php $retentionDecisions = $retentionSchedule['retentionDecisions'] ?>
 			<textarea name="retentionDecisions" rows="3" cols="50" wrap="hard"><?php echo $retentionDecisions; ?></textarea>
 			<br /><br />
 			
-			
-			
-			<label for='disposition'>Retention Rule:&nbsp;* (Public)</label><br />
-			<?php  
-				if (isset($retentionSchedule['disposition'])) {
-					$disposition = $retentionSchedule['disposition'];
-					echo "<br /><input name='disposition' id='dispositions' type='text' size='45' value='$disposition' class='required' />";
-				} else {
-					echo "<br /><input name='disposition' id='dispositions' type='text' size='45' value='' class='required' />";
-				}
-			?>
-		
-			<?/*<p>
+			<label for='disposition'>Disposition:&nbsp;*</label><br />
+						
+			<p>
 			<select id='dispositions' name='disposition' size='1' class='required'> 
 				<option value='' selected='selected'>Select a disposition</option>
 				<option value=''>--------------------</option>
@@ -261,29 +223,24 @@
 					}
 				?>		
 			</select>
-			</p>*/?>
+			</p>
 						
 			<div id="dispositionDetails"><!-- disposition details are rendered here --></div>
 			<?php $primaryAuthority = $retentionSchedule['primaryAuthority'] ?>				
 			<br />
 			<label for='primaryAuthority'>Primary Authority:</label><br />
-				<textarea name="primaryAuthority" rows="3" cols="50" wrap="hard"><?php echo $primaryAuthority; ?></textarea><br />
-				<!-- <input name="primaryAuthority" id="primaryAuthority" type="text" size="40" value="<?php //echo $primaryAuthority; ?>" /><br /> -->
+				<input name="primaryAuthority" id="primaryAuthority" type="text" size="40" value="<?php echo $primaryAuthority; ?>" /><br />
 			<br />
 			
 			<label for='primaryAuthorityRetention'>Primary Authority Retention:</label><br />
 			<?php $primaryAuthorityRetention = $retentionSchedule['primaryAuthorityRetention'] ?>	
-			<textarea name="primaryAuthorityRetention" rows="3" cols="50" wrap="hard" /><?php echo $primaryAuthorityRetention; ?></textarea><br />
-			<!-- <input name="primaryAuthorityRetention" id="primaryAuthorityRetention" type="text" size="40" value="<?php //echo $primaryAuthorityRetention; ?>" /> -->
-			<br />
+			<input name="primaryAuthorityRetention" id="primaryAuthorityRetention" type="text" size="40" value="<?php echo $primaryAuthorityRetention; ?>" />
+			<br /><br /><br />
 			
-			<label for='relatedAuthorities'>Related Authorities:</label><br />
-			<?php $relatedAuthorities = $retentionSchedule['relatedAuthorities'] ?>
-			<textarea name="relatedAuthorities" rows="3" cols="50" wrap="hard" /><?php echo $relatedAuthorities; ?></textarea><br />
-			<!-- 			
+						
 			<fieldset>
 			<legend>Related Authorities</legend>
-				<?php /*
+				<?php
 					$arrayLength = 0; // default is changed if related authority is set
 					if (isset($retentionSchedule['relatedAuthority']) && is_array($retentionSchedule['relatedAuthority'])) {
 						// get array length
@@ -303,8 +260,8 @@
 					}
 										
 					// Add new related authority fields
-					if ($arrayLength !== 2) {
-						$fieldCount = (2 - $arrayLength);
+					if ($arrayLength !== 9) {
+						$fieldCount = (9 - $arrayLength);
 						$fieldCount = ($fieldCount / 2);
 						$fieldCount = round($fieldCount); 
 						while ($fieldCount) {
@@ -314,13 +271,13 @@
 							echo "<input name='newRelatedAuthorityRetentions[]' class='relatedAuthority' type='text' size='40' value='' /><br /><br />"; 
 						$fieldCount--;
 						}
-					} */
+					}
 				?>
 				<br /><br />
-			</fieldset> -->
+			</fieldset>
 			<br />
 								
-			<label for='Office of Primary Responsibility'>Primary Owner: (Public)</label><br />
+			<label for='Office of Primary Responsibility'>Office of Primary Responsibility:</label><br />
 			
 				<label for='divisions'></label>
 				<select id='divisions' name='divisionID' size='1' class='required'>
@@ -337,8 +294,6 @@
 					}
 				?>
 				</select>&nbsp;&nbsp;*
-				</select>&nbsp;&nbsp;*
-
 				&nbsp;&nbsp;&nbsp;&nbsp;<br /><br />
 								
 				<div id="departments">
@@ -356,29 +311,9 @@
 				?>
 				</div>
 				</p>
-			<br />
-			<br />
-
-			<label for='override'>Override Primary Owner:&nbsp;(In case primary owner is multiple departments or divisions)</label><br />
-				<?php 
-					if (isset($retentionSchedule['override']) && $retentionSchedule['override'] == "yes") { 
-						echo "<input name='override' type='radio' value='yes' checked />&nbsp;Yes<br />";
-						echo "<input name='override' type='radio' value='no' />&nbsp;No<br />";
-					} elseif (isset($retentionSchedule['override']) && $retentionSchedule['override'] == "no") { 
-						echo "<input name='override' type='radio' value='yes' />&nbsp;Yes<br />";
-						echo "<input name='override' type='radio' value='no' checked />&nbsp;No<br />";
-					} else {
-						echo "<input name='override' type='radio' value='yes' />&nbsp;Yes<br />";
-						echo "<input name='override' type='radio' value='no' />&nbsp;No<br />";
-					}
-				?>
-			<br />
 			
-			<label for='primaryOwnerOverride'>Primary Owner Override:&nbsp;</label><br />
-			<?php $primaryOwnerOverride = $retentionSchedule['primaryOwnerOverride'] ?>
-			<textarea name="primaryOwnerOverride" rows="3" cols="50" wrap="hard"><?php echo $primaryOwnerOverride; ?></textarea>
-			<br /><br />
-			
+			<br />
+			<br />
 			<label for='associatedUnits'>Associated Units:</label>
 			<div id="auContainer">
 				<div id="loadingContainer">
@@ -407,7 +342,7 @@
 			
 			<label for='notes'>RM notes:&nbsp;<br /></label>
 			<?php $notes = $retentionSchedule['notes'] ?>		
-			<textarea name="notes" rows="3" cols="50" wrap="hard"><?php echo $notes; ?></textarea>
+				<textarea name="notes" rows="3" cols="50" wrap="hard"><?php echo $notes; ?></textarea>
 			<br /><br />
 			
 			<label for='vitalRecord'>Vital Record:</label><br />
@@ -415,63 +350,30 @@
 					if (isset($retentionSchedule['vitalRecord']) && $retentionSchedule['vitalRecord'] == "yes") { 
 						echo "<input name='vitalRecord' type='radio' value='yes' checked />&nbsp;Yes<br />";
 						echo "<input name='vitalRecord' type='radio' value='no' />&nbsp;No<br />";
-					} elseif (isset($retentionSchedule['vitalRecord']) && $retentionSchedule['vitalRecord'] == "no") { 
+					}
+					if (isset($retentionSchedule['vitalRecord']) && $retentionSchedule['vitalRecord'] == "no") { 
 						echo "<input name='vitalRecord' type='radio' value='yes' />&nbsp;Yes<br />";
 						echo "<input name='vitalRecord' type='radio' value='no' checked />&nbsp;No<br />";
-					} else {
-						echo "<input name='vitalRecord' type='radio' value='yes' />&nbsp;Yes<br />";
-						echo "<input name='vitalRecord' type='radio' value='no' />&nbsp;No<br />";
 					}
 				?>
 			<br />
 			
-			<label for='approvedByCouncil'>Approve and Publish:&nbsp;*</label><br />
+			<label for='approvedByCouncil'>Approved by Counsel:&nbsp;*</label><br />
 				<?php 
 					if (isset($retentionSchedule['approvedByCounsel']) && $retentionSchedule['approvedByCounsel'] == "yes") { 
 						echo "<input name='approvedByCounsel' type='radio' value='yes' checked />&nbsp;Yes<br />";
 						echo "<input name='approvedByCounsel' type='radio' value='no' />&nbsp;No<br />";
-					} elseif (isset($retentionSchedule['approvedByCounsel']) && $retentionSchedule['approvedByCounsel'] == "no") { 
+					}
+					if (isset($retentionSchedule['approvedByCounsel']) && $retentionSchedule['approvedByCounsel'] == "no") { 
 						echo "<input name='approvedByCounsel' type='radio' value='yes' />&nbsp;Yes<br />";
 						echo "<input name='approvedByCounsel' type='radio' value='no' checked />&nbsp;No<br />";
-					} else {
-						echo "<input name='approvedByCounsel' type='radio' value='yes' />&nbsp;Yes<br />";
-						echo "<input name='approvedByCounsel' type='radio' value='no' />&nbsp;No<br />";
 					}
 				?>
 			<br /><br />
-			
-			<label for='approvedByCounselDate'>Public Record Series - Approved Date:&nbsp;*</label><br />
-			<div style="width:0%;">
-			<?php 
-				$approvedByCounselDate = $retentionSchedule['approvedByCounselDate']; 
-				if(!empty($retentionSchedule['approvedByCounselDate']))
-				{
-					echo "<script>DateInput('approvedByCounselDate', true, 'YYYY-MM-DD', '$approvedByCounselDate')</script>";
-				} else {
-					echo "<script>DateInput('approvedByCounselDate', true, 'YYYY-MM-DD')</script>";
-				}
-			?>
-			<!-- <input name="approvedByCounselDate" id="approvedByCounselDate" type="text" value="<?php echo $approvedByCounselDate; ?>" size="40" value="" /> -->
-			</div>
-			<br /><br />
-			
 			<br />
-				<input name="retentionSchedule" type="submit" value="Update Record Series" onClick='setTimeout("self.close()",5000);'/>&nbsp;&nbsp;
+				<input name="retentionSchedule" type="submit" value="Update Retention Schedule" />&nbsp;&nbsp;
 			</form>
-	   <?php
-	   		echo "<span class='deleteSpan'>";
-	   		if (isset($retentionSchedule['retentionScheduleID'])) { 
-					$retentionScheduleID = $retentionSchedule['retentionScheduleID'];
-					$siteUrl = site_url();
-					$deleteUrl = $siteUrl . "/retentionSchedule/delete";
-					echo "<form method='link' action='$deleteUrl/$retentionScheduleID' onClick='return confirm(\"Are you sure you want to DELETE this record?\")'>";
-					echo "<input type='submit' value='Delete'>";
-					echo "</form>";
-	   		}
-	   		echo "</span>";
-	   		echo br(2);
-	   	?>
 			<br />
 	</div>
 </div>
-<?php $this->load->view('includes/adminFooter', $data); ?>
+<?php $this->load->view('includes/adminFooter'); ?>

@@ -1,28 +1,28 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class Upkeep extends CI_Controller {
+class Upkeep extends Controller {
 	
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 	
 		// admin user must be loggedin in order to use dashboard methods
 		$this->load->model('SessionManager');
@@ -32,15 +32,6 @@ class Upkeep extends CI_Controller {
 		$this->imagePath = base_url() . "images/ffd40f_11x11_icon_close.gif";
 		
 	} 
-	/**
-    * displays division form 
-    *
-    * @access public
-    * @return void
-    */
-	public function solrTruncateForm() {
-		$this->load->view('admin/forms/solrTruncateForm');
-	}
 	
 	/**
     * displays division form 
@@ -71,18 +62,7 @@ class Upkeep extends CI_Controller {
     * @return void
     */
 	public function recordCategoryForm() {
-		$data['recordCategories'] = $this->UpkeepModel->getRecordCategories();
-		$this->load->view('admin/forms/addRecordCategoryForm', $data);
-	}
-		
-	/**
-    * displays user form 
-    *
-    * @access public
-    * @return void
-    */
-	public function userForm() {	
-		$this->load->view('admin/forms/addUserForm');
+		$this->load->view('admin/forms/addRecordCategoryForm');
 	}
 	
 	/**
@@ -119,28 +99,6 @@ class Upkeep extends CI_Controller {
 	}
 	
 	/**
-    * displays edit user form 
-    *
-    * @access public
-    * @return $users
-    */
-	public function editUserForm() {
-		$data['users'] = $this->UpkeepModel->getUsers();
-		$this->load->view('admin/forms/editUserForm', $data);
-	}
-	
-	/**
-    * displays edit password form 
-    *
-    * @access public
-    * @return $users
-    */
-	public function editPasswordForm() {
-		$data['user'] = $this->session->userdata('username');
-		$this->load->view('admin/forms/editPasswordForm', $data);
-	}
-	
-	/**
     * displays add doc types form
     *
     * @access public
@@ -172,19 +130,18 @@ class Upkeep extends CI_Controller {
 						
 		if (isset($_POST['recordCategory'])) {
 			$this->UpkeepModel->saveRecordCategory($_POST);
-			$data['recordSaved'] = "Record Saved";
-			$data['recordCategories'] = $this->UpkeepModel->getRecordCategories();
-			$this->load->view('admin/forms/addRecordCategoryForm', $data);
+			$data['imagePath'] = $this->imagePath;
+			$this->load->view('admin/displays/recordSaved', $data);
 		}
 		if (isset($_POST['divisionName'])) {
 			$this->UpkeepModel->saveDivision($_POST);
-			$data['recordSaved'] = "Record Saved";
+			$data['recordSaved'] = "Record Saved.";
 			$data['divisions'] = $this->LookUpTablesModel->createDivisionDropDown();
 			$this->load->view('admin/forms/addDivisionForm', $data);
 		}
 		if (isset($_POST['departmentName'])) {
 			$this->UpkeepModel->saveDepartment($_POST);
-			$data['recordSaved'] = "Record Saved";
+			$data['recordSaved'] = "Record Saved.";
 			$data['divisions'] = $this->LookUpTablesModel->createDivisionDropDown();
 			$this->load->view('admin/forms/addDepartmentForm', $data);
 		}
@@ -194,28 +151,8 @@ class Upkeep extends CI_Controller {
 			$data['docTypes'] = $this->UpkeepModel->getDocTypes();
 			$this->load->view('admin/forms/addDocTypeForm', $data);
 		}
-		if (isset($_POST['username'])) {
-			$usertest = $this->UpkeepModel->checkUserName($_POST);
-			if($usertest == TRUE) {
-				if($_POST['passcode'] == $_POST['passtest']) {
-					$this->UpkeepModel->saveUser($_POST);
-					$data['recordUpdated'] = "User Added";
-				} else {
-					$data['recordUpdated'] = "Passwords did not match.";
-				}
-			} else {
-				$data['recordUpdated'] = "User name is already in use.";
-			}
-			$this->load->view('admin/forms/addUserForm', $data);	
-		}
 	}
-
-	/**
-    * edits values to database from upkeep forms
-    *
-    * @access public
-    * @return void
-    */	
+	
 	public function edit() {
 				
 		if (isset($_POST['divisionID']) && !isset($_POST['getDept']) && !isset($_POST['editDept'])) {
@@ -244,19 +181,8 @@ class Upkeep extends CI_Controller {
 			$data['docType'] = $this->UpkeepModel->getDocType($_POST);
 			$this->load->view('admin/forms/editDocTypeForm', $data);	
 		}
-		if (isset($_POST['userID'])) {
-			$data['user'] = $this->UpkeepModel->getUser($_POST);
-			$data['users'] = $this->UpkeepModel->getUsers();		
-			$this->load->view('admin/forms/editUserForm', $data);	
-		}
 	}
-
-	/**
-    * update values to database from upkeep forms
-    *
-    * @access public
-    * @return void
-    */		
+	
 	public function update() {
 				
 		if (isset($_POST['divisionName'])) {
@@ -283,34 +209,8 @@ class Upkeep extends CI_Controller {
 			$data['recordUpdated'] = "Record Updated.";
 			$this->load->view('admin/forms/editDocTypeForm', $data);
 		}
-		if (isset($_POST['username'])) {
-			$this->UpkeepModel->updateUser($_POST);
-			$data['users'] = $this->UpkeepModel->getUsers();
-			$data['recordUpdated'] = "User Updated.";
-			$this->load->view('admin/forms/editUserForm', $data);
-		}
-		if (isset($_POST['passcode'])) {
-			$passtest = $this->UpkeepModel->checkOldPassword($_POST);
-			if($passtest == TRUE) {
-				if($_POST['passcode'] == $_POST['passtest']) {
-					$this->UpkeepModel->updatePassword($_POST);
-					$data['recordUpdated'] = "Password Changed.";
-				} else {
-					$data['recordUpdated'] = "Passwords did not match.";
-				}
-			} else {
-				$data['recordUpdated'] = "Old Password did not match.";
-			}
-			$this->load->view('admin/forms/editPasswordForm',$data);
-		}
 	}
-
-	/**
-    * delete values from the database based on url string
-    *
-    * @access public
-    * @return void
-    */		
+	
 	public function delete() {
 
 		// deletes division
@@ -348,24 +248,7 @@ class Upkeep extends CI_Controller {
 			$data['recordUpdated'] = "Record Deleted.";
 			$this->load->view('admin/forms/editDocTypeForm', $data);
 		}
-		
-		// deletes user
-		if ($this->uri->segment(3,0) == "delUser") {
-			$userID = $this->uri->segment(4, 0);
-			if($userID == "1")
-			{
-				$data['users'] = $this->UpkeepModel->getUsers();
-				$data['recordUpdated'] = "Cannot Delete the Admin account.";
-				$this->load->view('admin/forms/editUserForm', $data);
-			} else {
-				$this->UpkeepModel->deleteUser($userID);
-				$data['users'] = $this->UpkeepModel->getUsers();
-				$data['recordUpdated'] = "User Deleted.";
-				$this->load->view('admin/forms/editUserForm', $data);
-			}
-		}
 	}
-
 }
 
 ?>

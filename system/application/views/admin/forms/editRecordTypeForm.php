@@ -1,73 +1,58 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
- * Edited and updated 2010
- * Author evan.blount@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
- * This file is part of Records Authority.
+ * This file is part of Liaison.
  * 
- * Records Authority is free software: you can redistribute it and/or modify
+ * Liaison is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  * 
- * Records Authority is distributed in the hope that it will be useful,
+ * Liaison is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Liaison.  If not, see <http://www.gnu.org/licenses/>.
  **/
 ?>
 
-<?php 
-	$data['title'] = 'Record Inventory - Records Authority';
-	
-	$var1 = $recordTypeData['timestamp'];
-	$var2 = mysql_to_unix($var1);
-	$creation = unix_to_human($var2);
-	$data['timestamp'] = $creation;
-	
-	$data['updateTimestamp'] = $recordTypeData['updateTimestamp'];
-	$this->load->view('includes/adminHeader', $data); 
-?>
+<?php $this->load->view('includes/adminHeader');?>
 
-<?php 
-	echo $jQuery;
-	echo $jQueryDeptWidget;
- 	//echo $jQueryDeptMasterCopyWidget;
-	//echo $jQueryDeptDuplicationWidget; 
-?>
-
+<?php echo $jQuery; ?>
+<?php echo $jQueryDeptWidget; ?>
+<?php echo $jQueryDeptMasterCopyWidget; ?>
+<?php echo $jQueryDeptDuplicationWidget; ?>
+<?php // TODO: refactor... combine insert/edit form ?>
 <div id="tabs">
 		<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Inventory</a></li>
-            <!-- <li class="ui-tabs-nav-item"><a href="#fragment-2">Format and Location</a></li>-->
-            <!-- <li class="ui-tabs-nav-item"><a href="#fragment-3"><span>Management</span></a></li>-->
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Information</a></li>
+            <li class="ui-tabs-nav-item"><a href="#fragment-2">Format and Location</a></li>
+            <li class="ui-tabs-nav-item"><a href="#fragment-3"><span>Management</span></a></li>
         </ul>
        <div id="fragment-1" class="adminForm">
        <br />
-<!-- Begin Form -->
-       <form id="updateRecordInformation" name="recordInformation"  method="post" action="<?php echo site_url();?>/recordType/updateRecordTypeEditForm"> 		
+       <form id="updateRecordInformation" name="recordInformation"  method="post" action="<?php echo site_url();?>/dashboard/updateRecordTypeEditForm"> 
+					
 			<input name="recordInformationID" type="hidden" value="<?php if (!empty($recordTypeData['recordInformationID'])) { echo $recordTypeData['recordInformationID']; } ?>" />
 			<input name="recordTypeDepartment" type="hidden" value="<?php if (!empty($recordTypeData['recordTypeDepartment'])) { echo $recordTypeData['recordTypeDepartment']; } ?>" />
 			<input name="recordInformationDivisionID" type="hidden" value="<?php if (!empty($_POST['divisionID'])) {echo $_POST['divisionID']; } ?>" />
-
-<!-- Question 1 -->				
+				
 			<label for='recordName'>1.) Record Name:</label><br />
 			<input name="recordName" id="recordName" type="text" value="<?php if (!empty($recordTypeData['recordName'])) { echo $recordTypeData['recordName']; } ?>" class="required" />
 			<br /><br />
-<!-- Question 2 -->						
+						
 			<label for='recordDescription'>2.) Record Description:</label><br />
 			<textarea name="recordDescription" rows="3" cols="50" wrap="hard" class="required"><?php if (!empty($recordTypeData['recordDescription'])) { echo $recordTypeData['recordDescription']; } ?></textarea>
 			<br /><br />
-<!-- Question 3 -->									
-			3.) Functional Category<br /><br />
+									
+			3.) Record Category<br /><br />
 				
 				<select name='recordCategory' size='1' class='required'>
-					<option value=''>Select a Functional Category</option>
+					<option value=''>Select a Record Category</option>
 					<option value=''>-----------------</option>
 					<?php 
 						foreach ($recordCategories as $recordCategory) {
@@ -81,250 +66,25 @@
 				</select> 
 			 
 			<br /><br />
-<!-- Question 4 -->	
-			<label for='Office of Primary Responsibility'>4.) What department is the Primary Owner for these records?</label>
-			<br />
-			<select id='managementDivisions' name='managementDivisionID' size='1' class='required'>
-					<option value=''>Select a Division</option>
-					<option value=''>-----------------</option>
-					<?php 
-						foreach ($divisionData as $id => $divisions) {
-							if ($recordTypeData['managementDivisionID'] == $id) {
-								echo "<option selected='yes' value='$id'>$divisions</option>";
-							} else {
-								echo "<option value='$id'>$divisions</option>";
-							}
-						}
-					?>
-			</select> 
-				&nbsp;&nbsp;
-				<?php
-					// get department
-					$departmentID = $recordTypeData['managementDepartmentID'];
-					$this->load->model('LookUpTablesModel');
-					$department = $this->LookUpTablesModel->getDepartment($departmentID);
-							
-					echo "<select id='managementDepartments' name='managementDepartmentID' size='1'>";
-					echo "<option value='$departmentID'>$department</option>";
-					echo "</select>"; 
-					echo "<br /><br />";
-				?>		
-<!-- Question 5 -->		
+						
 			<label for='recordNotes'>4.) Records Notes</label><br />
 			Notes: (Department Answer)<br />
 			<textarea name="recordNotesDeptAnswer" rows="3" cols="50" wrap="hard"><?php if (!empty($recordTypeData['recordNotesDeptAnswer'])) { echo $recordTypeData['recordNotesDeptAnswer']; } ?></textarea>
 			<br /><br />
 			Notes: (Records Management)<br />
 			<textarea name="recordNotesRmNotes" rows="3" cols="50" wrap="hard"><?php if (!empty($recordTypeData['recordNotesRmNotes'])) { echo $recordTypeData['recordNotesRmNotes']; } ?></textarea>
-			<br /><br /><br />	
-		<br />
-<!-- Question 6 -->
-			<label for='recordFormat'>6.) What is the format of the official record?</label><br />
-			<input name="recordFormat" type="radio" value="Paper" <?php if (isset($recordTypeData['recordFormat']) && $recordTypeData['recordFormat'] == "Paper") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Paper<br />
-			<input name="recordFormat" type="radio" value="Banner"  <?php if (isset($recordTypeData['recordFormat']) && $recordTypeData['recordFormat'] == "Banner") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Banner Database Record<br />
-			<input name="recordFormat" type="radio" value="Electronic Document" <?php if (isset($recordTypeData['recordFormat']) && $recordTypeData['recordFormat'] == "Electronic Document") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Electronic Document<br />
-			<input name="recordFormat" type="radio" value="Email" <?php if (isset($recordTypeData['recordFormat']) && $recordTypeData['recordFormat'] == "Email") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Email<br />
-			<input name="recordFormat" type="radio" value="Other Physical" id="toggleOtherPhysical" <?php if (isset($recordTypeData['recordFormat']) && $recordTypeData['recordFormat'] == "Other Physical") { echo "checked=\"true\""; } ?> />&nbsp;&nbsp;Other Physical: (enter other type)<br />
-			
-	<?php /*
-			if (isset($recordTypeData['recordFormat']) && $recordTypeData['recordFormat'] == "Paper") { 
-				echo "<input name='recordFormat' type='radio' value='Paper' checked  />&nbsp;&nbsp;Paper<br /> ";
-				echo "<input name='recordFormat' type='radio' value='Banner'  />&nbsp;&nbsp;Banner Database Record<br />";
-				echo "<input name='recordFormat' type='radio' value='Electronic Document'  />&nbsp;&nbsp;Electronic Document<br />";
-				echo "<input name='recordFormat' type='radio' value='Email' />&nbsp;&nbsp;Email<br />";
-				echo "<input name='recordFormat' type='radio' value='Other Physical' id='toggleOtherPhysical' />&nbsp;&nbsp;Other Physical: (enter other type)<br />";
-				echo "<input name='recordFormat' type='radio' value='Other Electronic' id='toggleOtherElectronic' />&nbsp;&nbsp;Other Electronic: (enter other type)<br />";
-			}	*/		
-	?>			
-			
-			<div id="<?php if (isset($recordTypeData['recordFormat']) && $recordTypeData['recordFormat'] == "Other Physical") { echo "showOtherPhysical"; } else { echo "otherPhysicalText"; }?>">
-				<input name="otherPhysicalText" type="text" value="<?php if (!empty($recordTypeData['otherPhysicalText'])) { echo $recordTypeData['otherPhysicalText']; } ?>" />
-			</div>
-			
-			<input name="recordFormat" type="radio" value="Other Electronic" id="toggleOtherElectronic" <?php if (isset($recordTypeData['recordFormat']) && $recordTypeData['recordFormat'] == "Other Electronic") { echo "checked=\"true\""; } ?> />&nbsp;&nbsp;Other Electronic: (enter other type)<br />
-			
-			<div id="<?php if (isset($recordTypeData['recordFormat']) && $recordTypeData['recordFormat'] == "Other Electronic") { echo "showOtherElectronic"; } else { echo "otherElectronicText"; }?>">
-				<input name="otherElectronicText" type="text" value="<?php if (!empty($recordTypeData['otherElectronicText'])) { echo $recordTypeData['otherElectronicText']; } ?>" />
-			</div>
-			
-			<br /><br />			
-<!-- Question 7 -->
-			<label for='recordStorage'>7.) Where is the record stored?</label><br />
-			<input name="recordStorage" type="radio" value="Physical storage in department" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical storage in department") { echo "checked=\"true\""; }?>/>&nbsp;&nbsp;Physical Storage in department<br />
-			<input name="recordStorage" type="radio" value="Physical storage in other building" id="toggleOtherDUBuilding" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical storage in other building") { echo "checked=\"true\""; } ?>/>&nbsp;&nbsp;Physical Storage in other building (enter other type)<br />
-			
-			<div id="<?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical storage in other building") { echo "showDUBuildingText"; } else { echo "otherDUBuildingText"; }?>">
-				<input name="otherDUBuildingText" type="text" value="<?php if (!empty($recordTypeData['otherDUBuildingText'])) { echo $recordTypeData['otherDUBuildingText']; } ?>"/>
-			</div>			
-		
-			<input name="recordStorage" type="radio" value="Physical offsite storage" id="toggleOffsiteStorage" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical offsite storage") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Physical offsite storage (enter other type)<br />
-				
-			<div id="<?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical offsite storage") { echo "showOffsiteStorageText"; } else { echo "otherOffsiteStorageText"; }?>">
-				<input name="otherOffsiteStorageText" type="text" value="<?php if (!empty($recordTypeData['otherOffsiteStorageText'])) { echo $recordTypeData['otherOffsiteStorageText']; } ?>" />
-			</div>					
-			
-			<input name="recordStorage" type="radio" value="Banner" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Banner") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Banner<br />
-			<input name="recordStorage" type="radio" value="Peak Digital"  <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Peak Digital") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Peak Digital<br />
-			<input name="recordStorage" type="radio" value="Networked Computer/Server" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Networked Computer/Server") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Networked Computer/Server<br />
-			<input name="recordStorage" type="radio" value="Local HD"  <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Local HD") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Local HD<br />
-			<input name="recordStorage" type="radio" value="Other electronic system" id="toggleOtherElectronicSystem" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Other electronic system") { echo "checked=\"true\""; }?>/>&nbsp;&nbsp;Other electronic system (enter other type)<br />
-				
-			<div id="<?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Other electronic system") { echo "showElectronicSystemText"; } else { echo "otherElectronicSystemText"; }?>">
-				<input name="otherElectronicSystemText" type="text" value="<?php if (!empty($recordTypeData['otherElectronicSystemText'])) { echo $recordTypeData['otherElectronicSystemText']; } ?>"/>
-			</div>	
-					
-			<br /><br />
-<!-- Question 8 -->
-			<label for='formatAndLocationNotes'>8.) Format and Location Notes</label><br />
-			Notes: (Department Answer)<br />
-			<textarea name="formatAndLocationDeptAnswer" id="formatAndLocationNotes" rows="3" cols="50" wrap="hard" ><?php if (!empty($recordTypeData['formatAndLocationDeptAnswer'])) { echo $recordTypeData['formatAndLocationDeptAnswer']; } ?></textarea>
-			<br /><br />
-			Notes: (Records Management)<br />
-			<textarea name="formatAndLocationRmNotes" id="formatAndLocationNotes" rows="3" cols="50" wrap="hard" ><?php if (!empty($recordTypeData['formatAndLocationRmNotes'])) { echo $recordTypeData['formatAndLocationRmNotes']; } ?></textarea>
-			<br /><br />
-<!-- Question 9 -->
-			<label for='recordRetention'>9.) How long are the records currently retained?</label><br />
-			<textarea name="recordRetentionAnswer" id="recordRetention" rows="3" cols="50" wrap="hard" ><?php if (!empty($recordTypeData['recordRetentionAnswer'])) { echo $recordTypeData['recordRetentionAnswer']; } ?></textarea>
-			<br /><br />
-<!-- Question 10 -->
-			<label for='usageNotes'>10.) Usage Notes</label><br />
-			<textarea name="usageNotesAnswer" id="usageNotes" rows="3" cols="50" wrap="hard"><?php if (!empty($recordTypeData['usageNotesAnswer'])) { echo $recordTypeData['usageNotesAnswer']; } ?></textarea>
-			<br /><br />
-<!-- Question 11 -->
-			<label for='retentionAuthorities'>11.) Retention Authorities</label><br />
-			<textarea name="retentionAuthoritiesAnswer" id="retentionAuthorities" rows="3" cols="50" wrap="hard"><?php if (!empty($recordTypeData['retentionAuthoritiesAnswer'])) { echo $recordTypeData['retentionAuthoritiesAnswer']; } ?></textarea>
-			<br /><br />
-<!-- Question 12 -->
-			<label for='vitalRecord'>12.) Is this a vital record?</label><br />
-			<input name="vitalRecord" type="radio" value="Yes" <?php if (isset($recordTypeData['vitalRecord']) && $recordTypeData['vitalRecord'] == "Yes") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Yes<br />
-			<input name="vitalRecord" type="radio" value="No" <?php if (isset($recordTypeData['vitalRecord']) && $recordTypeData['vitalRecord'] == "No") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;No<br />
-			<br /><br />
-<!-- Question 13 -->
-			<label for='vitalRecordNotes'>13.) Vital Record Notes</label><br />
-			<textarea name="vitalRecordNotesAnswer" id="vitalRecordNotes" rows="3" cols="50" wrap="hard"><?php if (!empty($recordTypeData['vitalRecordNotesAnswer'])) { echo $recordTypeData['vitalRecordNotesAnswer']; } ?></textarea>
-			<br /><br />
-<!-- Question 14 -->
-			<label for='recordRegulations'>14.)  Do the records contain information that may be subject to any of the following regulations:</label><br />
-			<?php 
-				$recordRegulations = array('FERPA', 'HIPAA', 'PCI DSS', 'GLBA', 'FCRA/FACTA');		
-				if (isset($recordTypeData['recordRegulations'])) {
-					foreach ($recordRegulations as $notChecked) {
-						if (!in_array($notChecked, $recordTypeData['recordRegulations'])) {
-							if ($notChecked == "FERPA") {
-								$value1 = FALSE;	
-							}
-							if ($notChecked == "HIPAA") {
-								$value2 = FALSE;
-							}
-							if ($notChecked == "PCI DSS") {
-								$value3 = FALSE;
-							}
-							if ($notChecked == "GLBA") {
-								$value4 = FALSE;
-							}
-							if ($notChecked == "FCRA/FACTA") {
-								$value5 = FALSE;
-							}
-						}					
-					}
-					
-					foreach ($recordRegulations as $checked) {
-						foreach ($recordTypeData['recordRegulations'] as $checkedValue) {
-							if ($checked == $checkedValue && $checkedValue == "FERPA") {
-								$value1 = TRUE;
-							}
-							if ($checked == $checkedValue && $checkedValue == "HIPAA") {
-								$value2 = TRUE;
-							}
-							if ($checked == $checkedValue && $checkedValue == "PCI DSS") {
-								$value3 = TRUE;
-							}
-							if ($checked == $checkedValue && $checkedValue == "GLBA") {
-								$value4 = TRUE;
-							}
-							if ($checked == $checkedValue && $checkedValue == "FCRA/FACTA") {
-								$value5 = TRUE;
-							}
-						}
-					}	
-				}
-				
-				$box1 = array(
-					'name' => 'recordRegulations[]',
-					'value' => 'FERPA',
-					'checked' => $value1,
-				);
-				$box2 = array(
-					'name' => 'recordRegulations[]',
-					'value' => 'HIPAA',
-					'checked' => $value2,
-				);
-				$box3 = array(
-					'name' => 'recordRegulations[]',
-					'value' => 'PCI DSS',
-					'checked' => $value3,
-				);
-				$box4 = array(
-					'name' => 'recordRegulations[]',
-					'value' => 'GLBA',
-					'checked' => $value4,
-				);
-				$box5 = array(
-					'name' => 'recordRegulations[]',
-					'value' => 'FCRA/FACTA',
-					'checked' => $value5,
-				);
-				
-				echo form_checkbox($box1) . "&nbsp;&nbsp;FERPA<br />";
-				echo form_checkbox($box2) . "&nbsp;&nbsp;HIPAA<br />";
-				echo form_checkbox($box3) . "&nbsp;&nbsp;PCI DSS<br />";
-				echo form_checkbox($box4) . "&nbsp;&nbsp;GLBA<br />";
-				echo form_checkbox($box5) . "&nbsp;&nbsp;FCRA/FACTA<br />";
-				echo "<br />";
-			?>
-	
-<!-- Question 15 -->
-			<label for='personallyIdentifiableInformation'>15.) Personally Identifiable Information (PII) Notes</label><br />
-			Notes: (Department Answer)<br />
-			<textarea name="personallyIdentifiableInformationAnswer" id="personallyIdentifiableInformation" rows="3" cols="50" wrap="hard" ><?php if (!empty($recordTypeData['personallyIdentifiableInformationAnswer'])) { echo $recordTypeData['personallyIdentifiableInformationAnswer']; } ?></textarea>
-			<br /><br />
-			Notes: (Records Management)<br />
-			<textarea name="personallyIdentifiableInformationRmNotes" id="personallyIdentifiableInformation" rows="3" cols="50" wrap="hard" ><?php if (!empty($recordTypeData['personallyIdentifiableInformationRmNotes'])) { echo $recordTypeData['personallyIdentifiableInformationRmNotes']; } ?></textarea>
-			<br /><br />
-<!-- Question 16 -->
-			<label for='otherDepartmentCopies'>16.) Which other departments might hold copies of these records?</label><br />
-			<textarea name="otherDepartmentCopiesAnswer" id="otherDepartmentCopies" rows="3" cols="50" wrap="hard"><?php if (!empty($recordTypeData['otherDepartmentCopiesAnswer'])) { echo $recordTypeData['otherDepartmentCopiesAnswer']; } ?></textarea>
-			<br /><br />
-<!-- Save Form -->			
 			<br /><br /><br />
-			<input name="updateRecordInformation" type="submit" value="Update" />
-			
+			<input name="updateRecordInformation" type="submit" value="Update" />	
 		</form>
-<!-- End Form -->	
+		<br />
+		
 	   <?php
-	   		echo "<span class='deleteSpan'>";
-	   		if (isset($recordTypeData['recordInformationID'])) { 
-					$recordInformationID = $recordTypeData['recordInformationID'];
-					$siteUrl = site_url();
-					$deleteUrl = $siteUrl . "/recordType/delete";
-					echo "<form method='link' action='$deleteUrl/$recordInformationID' onClick='return confirm(\"Are you sure you want to DELETE this record?\")'>";
-					echo "<input type='submit' value='Delete'>";
-					echo "</form>";
-	   		}
-	   		echo "</span>";
-	   		echo br(2);
-	   		$recordInformationID = $recordTypeData['recordInformationID'];
-	   		echo anchor_popup('/retentionSchedule/view/' . $recordInformationID, 'Create Record Series', $popUp);
-	  	?>
-
-
+			$recordInformationID = $recordTypeData['recordInformationID'];
+	   		echo anchor_popup('/retentionSchedule/view/' . $recordInformationID, 'Create Retention Schedule', $popUp);
+	   ?>
+	   
 		<br /><br />
 	</div>
-
-	
-	
-	
-<?php /*	
     <div id="fragment-2" class="adminForm">
     <br /><br />
     
@@ -1522,6 +1282,6 @@
 			</form>
 			<?php } // closes if else statement ?>
 			<br /><br />
-        </div>*/ ?>
+        </div>
 </div>
-<?php $this->load->view('includes/adminFooter',$data); ?>
+<?php $this->load->view('includes/adminFooter'); ?>
