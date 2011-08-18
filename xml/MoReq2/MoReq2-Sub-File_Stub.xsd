@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.dlm-network.org/moreq2/1.04.01" xmlns:moreq2="http://www.dlm-network.org/moreq2/1.04.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.04.01">
+	<xs:include schemaLocation="MoReq2-Volume.xsd"/>
+	<xs:include schemaLocation="MoReq2-Volume_Stub.xsd"/>
+	<xs:include schemaLocation="MoReq2-Record.xsd"/>
+	<xs:include schemaLocation="MoReq2-Record_Stub.xsd"/>
+	<xs:include schemaLocation="MoReq2-Record_Redaction.xsd"/>
+	<xs:element name="Sub-File_Stub">
+		<xs:annotation>
+			<xs:documentation>Intellectual subdivision of a file.  A Sub-File contains metadata plus the option of "Volumes" or "Records".</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Description">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="abstract">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="description">
+											<xs:annotation>
+												<xs:documentation>A textual description of the entity and its relevant content.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M047</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="keyword" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Keyword(s) assigned to the entity to aid in discovering it.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M004</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="classification">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="classification_code" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The classification code of the entity, unique within its parent.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M011</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="fully_qualified_classification_code" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The hierarchical identifier of the entity, unique within the ERMS.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M012</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="new_fully_qualified_classification_code" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The fully qualified classification code of the entity after its relocation.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M157</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="place" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="current_location" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The current physical location of a physical entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M086</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="home_location" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>The home location of a physical entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M122</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="title">
+								<xs:annotation>
+									<xs:documentation>The name given to the entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M003</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Event_history" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="abstract" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="reclassification_reason" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The reason for the reclassification of an entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M021, M140</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="review_action_reason" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The reason for the decision taken during review.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M054</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="date" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="destroyed" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicates the date the entity was deleted.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M141</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="transferred" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicates the date the entity was transferred.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M133</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="checked_in" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the physical entity was checked in.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M093</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="checked_out" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the physical entity was checked out.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M094</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="closed" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the entity was closed.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M051</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="created" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the entity was created.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M048</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="moved_from_location" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the physical entity was moved from a previous location.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M095</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="opened" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the entity was opened.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M050</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="received_at_location" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the physical entity was received at the current location.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M096</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="reviewed" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the review took place.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M055</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="transferred_to" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Information about the organisation or system to which the information was transferred.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M194</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="disposal_hold" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Details of disposal holds that have been applied.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="agent_applied" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the user who applied the disposal hold.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M035</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="agent_lifted" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the user who lifted the disposal hold.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M134</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="date_applied" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the disposal hold was applied to the entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M034</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="date_lifted" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the disposal hold was lifted from the entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M102</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="reason_applied" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The reason why a disposal hold was applied.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M135</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="reason_lifted" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The reason why a disposal hold was lifted.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M136</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Event_plan" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="abstract" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="review_date" type="xs:date" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The disposition date decided by a reviewer during a review.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M138</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="review_action" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The disposition action decided by a reviewer during a review.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M053</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="DESTROY"/>
+													<xs:enumeration value="TRANSFER"/>
+													<xs:enumeration value="REVIEW"/>
+													<xs:enumeration value="RETAIN"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="date" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="return" type="xs:date" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date on which a checked out physical entity is due to be returned.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M098</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="status" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="permanent" type="xs:boolean" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicates whether an entity needs to be retained permanently.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M031</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Identity" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="system_identifier" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The identifier for an entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M020</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Relation">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="agent">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="destroy_or_transfer_or_relocate">
+											<xs:annotation>
+												<xs:documentation>System identifier of the user responsible for the destruction or transfer or relocation.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M139</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="custodian" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the custodian of the physical entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M123</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="movement" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the person who was responsible for executing the movement of a physical entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M097</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="owner" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>System identifier of the owner of the entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M002</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="entity_agent" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Identifier(s) of the Entity/Agent(s) that describe some agent's (agents') access permissions to the entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M172</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cross_referenced_to" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of another entity that is related to the subject entity by a cross reference.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M023</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="disposal_hold" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>System identifier of a disposal hold applied to the entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M032</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="is_child_of" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of the parent entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M057</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="is_parent_of" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of a child entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M056</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="previous_fully_qualified_classification_code" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The previous fully qualified classification code(s) of the entity following reclassification(s).</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M091</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="retention_and_disposition_schedule" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>System identifier of a retention and disposition schedule(s) assigned to the entity..</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M025</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Use" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="status" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="offline_download" type="xs:boolean" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicates whether the entity is downloaded for offline use.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M124</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="physical" type="xs:boolean" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicates whether the entity is a physical container.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M084</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="technical_environment" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="format" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The format for the physical entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M092</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Custom" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Any additional metadata that isn't included elsewhere in this entity.  This section will allow the MoReq2 schema to be extended without making the resulting XML invalid against the MoReq2 Schema.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any processContents="skip" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:choice minOccurs="0">
+					<xs:element name="Volumes">
+						<xs:annotation>
+							<xs:documentation>This element has been included to group individual volumes together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="moreq2:Volume" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element ref="moreq2:Volume_Stub" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Records">
+						<xs:annotation>
+							<xs:documentation>This element has been included to group individual records together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="moreq2:Record" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element ref="moreq2:Record_Stub" minOccurs="0" maxOccurs="unbounded"/>
+								<xs:element ref="moreq2:Record_Redaction" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:choice>
+				<!-- This is a choice of child entity, there can also be no child entity -->
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

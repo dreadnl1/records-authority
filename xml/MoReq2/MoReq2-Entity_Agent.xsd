@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.dlm-network.org/moreq2/1.04.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.04.01">
+	<xs:element name="Entity_Agent">
+		<xs:annotation>
+			<xs:documentation>A relationship between an Entity and an Agent.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Identity">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="system_identifier">
+								<xs:annotation>
+									<xs:documentation>The identifier of the Entity/Agent.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M175</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Relation">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="applies_to_agent">
+								<xs:annotation>
+									<xs:documentation>The agent for which the Entity/Agent describes access permissions.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M177</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="applies_to_entity">
+								<xs:annotation>
+									<xs:documentation>The entity for which the Entity/Agent describes access permissions.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M176</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Use">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="rights">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="permission" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicates the level of access available by the agent specified in M176 to the entity specified in M177.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M180</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="end_date" type="xs:date" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date on which the access defined by the Entity/Agent ceases to be in effect.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M181</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="start_date" type="xs:date">
+											<xs:annotation>
+												<xs:documentation>The date on which the access defined by the Entity/Agent comes to be in effect.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M179</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Custom" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Any additional metadata that isn't included elsewhere in this entity.  This section will allow the MoReq2 schema to be extended without making the resulting XML invalid against the MoReq2 Schema.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any processContents="skip" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

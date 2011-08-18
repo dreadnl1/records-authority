@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class xmlns="http://www.dlm-network.org/moreq2/1.04.01"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.dlm-network.org/moreq2/1.04.01 file:/C:/Users/evan.blount/workspace/recordsAuthority/xml/MoReq2/MoReq2.xsd">
+    <Description xmlns="">
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <title>[]</title>
+    </Description>
+    <Event_history xmlns="">
+        <date>
+            <created>2011-05-10T09:00:00</created>
+            <opened>2011-05-10T09:00:00</opened>
+        </date>
+    </Event_history>
+    <Event_plan xmlns="">
+        <status>
+            <permanent>0</permanent>
+        </status>
+    </Event_plan>
+    <Identity xmlns="">
+        <system_identifier>[]</system_identifier>
+    </Identity>
+    <Relation xmlns="">
+        <agent>
+            <owner>[]</owner>
+        </agent>
+        <is_child_of>[]</is_child_of>
+        <retention_and_disposition_schedule>[]</retention_and_disposition_schedule>
+    </Relation>
+    <Use xmlns="">
+        <status>
+            <active>0</active>
+            <physical>0</physical>
+        </status>
+    </Use>
+<Files xmlns="">
+    <File_Stub xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+    <Description xmlns="">
+        <abstract>
+            <description>[]</description>
+        </abstract>
+        <classification>
+            <new_fully_qualified_classification_code>[]</new_fully_qualified_classification_code>
+        </classification>
+        <title>[]</title>
+    </Description>
+    <Relation xmlns="">
+        <agent>
+            <destroy_or_transfer_or_relocate>[]</destroy_or_transfer_or_relocate>
+        </agent>
+    </Relation>
+
+    <Records xmlns="">
+        <Record xmlns="http://www.dlm-network.org/moreq2/1.04.01">                
+            <Description xmlns="">
+                <author>
+                    <name>[]</name>
+                </author>
+                <classification>
+                    <classification_code>[]</classification_code>
+                    <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                </classification>
+                <date>2011-05-10T09:00:00</date>
+                <title>[]</title>
+            </Description>
+            <Event_history xmlns="">
+                <date>
+                    <captured>2011-05-10T09:00:00</captured>
+                </date>
+            </Event_history>
+            <Event_plan xmlns="">
+                <date>
+                    <return>2011-05-10</return>
+                </date>
+                <status>
+                    <permanent>0</permanent>
+                </status>
+            </Event_plan>
+            <Identity xmlns="">
+                <system_identifier>[]</system_identifier>
+            </Identity>
+            <Relation xmlns="">
+                <agent>
+                    <owner></owner>
+                </agent>
+                <is_child_of>[]</is_child_of>
+                <retention_and_disposition_schedule>[]</retention_and_disposition_schedule>
+                <record_type>[]</record_type>
+            </Relation>
+            <Use xmlns="">
+                <status>
+                    <electronic_signature>[]</electronic_signature>
+                    <physical>0</physical>
+                    <vital_record>0</vital_record>
+                </status>
+                <technical_environment>
+                    <electronic_signature>[]</electronic_signature>
+                </technical_environment>
+            </Use>
+            
+            <Components xmlns="">
+        
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                   
+                    <Description>
+                        <abstract><reason_for_rendition>auditID</reason_for_rendition>
+                            </abstract>
+                        
+                        <classification>
+                            
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                       
+                    </Description>
+                    <Identity>
+                        <system_identifier>###</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_audit</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                        <Description>
+                            <abstract><reason_for_rendition>username</reason_for_rendition>
+                                </abstract>
+                            <classification>
+                                <classification_code>[]</classification_code>
+                                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                            </classification>
+                            
+                        </Description>
+                        <Identity>
+                            <system_identifier>[]</system_identifier>
+                            
+                        </Identity>
+                        <Relation>
+                        <is_child_of>rm_audit</is_child_of>
+                        </Relation>
+                        <Use>
+                            <technical_environment>
+                                <file_format>[]</file_format>
+                                <file_format_original>[]</file_format_original>
+                                <file_format_version>[]</file_format_version>
+                                <file_format_version_original>[]</file_format_version_original>
+                            </technical_environment>
+                        </Use> 
+                            <Custom><Relation><entity_agent>USERNAMEHERE</entity_agent>
+                                <is_child_of></is_child_of>
+                            </Relation>
+                            </Custom>
+                    </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>updateDate</reason_for_rendition>
+                        </abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_audit</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Event_history><date><modified>2011-05-10T09:00:00</modified></date></Event_history></Custom>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>previousData</reason_for_rendition>
+                        </abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_audit</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    
+                    </Use>
+                <Custom><Description><abstract><description>INPUT PREVIOUS DATA HERE</description></abstract>
+                    <classification>
+                        <classification_code></classification_code>
+                        <fully_qualified_classification_code></fully_qualified_classification_code>
+                    </classification>
+                </Description>
+                </Custom>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>timestamp</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Event_history><date><rendered>2011-05-10T09:00:00</rendered></date></Event_history>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_audit</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                </Component>
+            <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                <Description>
+                    <abstract><reason_for_rendition>currentData</reason_for_rendition></abstract>
+                    <classification>
+                       <classification_code>[]</classification_code>
+                        <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                    </classification>
+             
+                </Description>
+                <Identity>
+                    <system_identifier>[]</system_identifier>
+                </Identity>
+                <Relation>
+                    <is_child_of>rm_audit</is_child_of>
+                </Relation>
+                <Use>
+                    <technical_environment>
+                        <file_format>[]</file_format>
+                        <file_format_original>[]</file_format_original>
+                        <file_format_version>[]</file_format_version>
+                        <file_format_version_original>[]</file_format_version_original>
+                    </technical_environment>
+                </Use>
+                <Custom>
+                    <Description><abstract><description>INPUT CURRENT DATA HERE</description></abstract></Description>
+                        
+                </Custom>           
+            </Component>
+             <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                 <Description>
+                     <abstract><reason_for_rendition>divisionID</reason_for_rendition></abstract>
+                     <classification>
+                         <classification_code>[]</classification_code>
+                         <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                     </classification>
+                 </Description>
+                 <Identity>
+                     <system_identifier>###</system_identifier>
+                 </Identity>
+                 <Relation>
+                     <is_child_of>rm_departments</is_child_of>
+                 </Relation>
+                 <Use>
+                     <technical_environment>
+                         <file_format>[]</file_format>
+                         <file_format_original>[]</file_format_original>
+                         <file_format_version>[]</file_format_version>
+                         <file_format_version_original>[]</file_format_version_original>
+                     </technical_environment>
+                 
+                 </Use>
+<Custom><Description><abstract><description>INPUT DIVISION INFORMATION HERE</description></abstract>
+  
+</Description>
+</Custom>
+             </Component>
+                
+            <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                <Description>
+                    <abstract><reason_for_rendition>departmentName</reason_for_rendition></abstract>
+                    <classification>
+                        <classification_code>[]</classification_code>
+                        <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                    </classification>
+                </Description>
+                <Identity>
+                    <system_identifier>[]</system_identifier>
+                </Identity>
+                <Relation>
+                    <is_child_of>rm_departments</is_child_of>
+                </Relation>
+                <Use>
+                    <technical_environment>
+                        <file_format>[]</file_format>
+                        <file_format_original>[]</file_format_original>
+                        <file_format_version>[]</file_format_version>
+                        <file_format_version_original>[]</file_format_version_original>
+                    </technical_environment>
+                </Use>
+                 <Custom><Description><abstract><description>INPUTDEPARTMENTNAME</description></abstract>
+                   
+                 </Description>
+                 </Custom>          
+            </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>timestamp</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Event_history><date><rendered>2011-05-10</rendered></date></Event_history>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_departments</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                   
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>divisionID</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>###</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_divisions</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract><description></description></abstract>
+                     
+                    </Description>
+                    </Custom>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>divisionName</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_divisions</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract><description>INPUTDIVISIONNAMEHERE</description></abstract>
+                        <classification>
+                            <classification_code></classification_code>
+                            <fully_qualified_classification_code></fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    </Custom>
+                </Component>
+               <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                   <Description>
+                       <abstract><reason_for_rendition>recordCategoryID</reason_for_rendition></abstract>
+                       <classification>
+                          
+                           <classification_code>###</classification_code>
+                           <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                       </classification>
+                   </Description>
+                   <Identity>
+                       <system_identifier>[]</system_identifier>
+                   </Identity>
+                   <Relation>
+                       <is_child_of>rm_recordCategories</is_child_of>
+                   </Relation>
+                   <Use>
+                       <technical_environment>
+                           <file_format>[]</file_format>
+                           <file_format_original>[]</file_format_original>
+                           <file_format_version>[]</file_format_version>
+                           <file_format_version_original>[]</file_format_version_original>
+                       </technical_environment>
+                   </Use>
+               </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>recordCategory</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_recordCategories</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract><description>INPUTRECORDCATEGORYHERE</description></abstract>
+                    
+                    </Description>
+                        
+                    </Custom>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>timestamp</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Event_history><date><rendered>2011-05-10</rendered></date></Event_history>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_recordCategories</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>recordCode</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>###</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>###</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>recordName</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract><description>INPUTRECORDNAMEHERE</description></abstract>
+                        
+                    </Description>
+                    </Custom>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>recordCategory</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><classification><case_id>###</case_id>
+                        <classification_code></classification_code>
+                        <fully_qualified_classification_code></fully_qualified_classification_code>
+                    </classification>
+                    </Custom>
+                </Component>
+                
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>keywords</reason_for_rendition></abstract>
+                        
+                        <classification>
+                            
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract><keywords>InsertKeywordsHere</keywords></abstract>
+                     
+                    </Description>
+                    </Custom>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>retentionPeriod</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                   <Event_history></Event_history>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>[]</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract>ENTERRETENTIONPERIODHERE</abstract></Description>
+                        <Event_plan><date><volume><period>march 2000-april 2001</period></volume></date></Event_plan></Custom>
+                </Component>
+               
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>primaryAuthorityRetention</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract>ENTERSAUTHORITYRETENTIONHERE</abstract></Description>
+                       </Custom>
+                </Component>
+                
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>retentionNotes</reason_for_rendition></abstract>
+                        <classification>
+                         <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract>ENTERRETENTIONNOTESHERE</abstract></Description>
+                    </Custom>
+                </Component>
+               
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>retentionDecisions</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract>ENTERRETENTIONDECISIONSHERE</abstract></Description>
+                    </Custom>
+                </Component>
+            
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>disposition</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                     <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract>ENTERDISPOSITIONHERE</abstract></Description></Custom>
+                </Component>
+                
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>primaryAuthority</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                  </Use>
+                    <Custom><Description><abstract>ENTERPRIMARYAUTHORITYHERE</abstract></Description></Custom>
+            
+                </Component>
+               
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                <Description>
+                    <abstract><reason_for_rendition>officeOfPrimaryResponsibility</reason_for_rendition></abstract>
+                    <classification>
+                        <classification_code>[]</classification_code>
+                        <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                    </classification>
+                </Description>
+                <Identity>
+                    <system_identifier>[]</system_identifier>
+                </Identity>
+                <Relation>
+                    <is_child_of>rm_retentionSchedule</is_child_of>
+                </Relation>
+                <Use>
+                    <technical_environment>
+                        <file_format>[]</file_format>
+                        <file_format_original>[]</file_format_original>
+                        <file_format_version>[]</file_format_version>
+                        <file_format_version_original>[]</file_format_version_original>
+                    </technical_environment>
+                </Use>
+                    <Custom><Description><abstract>ENTEROFFICEOFPRIMARYRESPONSIBILITYHERE</abstract></Description></Custom>
+                
+                </Component>
+            
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>relatedAuthorities</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Description><abstract>ENTERRELATEDAUTHORITIESHERE</abstract></Description></Custom>
+                    
+                </Component>
+                
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>vitalRecord</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                     <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom><Use><status><vital_record>0or1</vital_record></status></Use></Custom>
+             
+                </Component>
+                
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>approvedByCounselDate</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+              
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                   
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                  <Use>
+                     <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom> <Event_history><date><reviewed>2011-05-10</reviewed></date></Event_history></Custom>
+                    
+                </Component>
+               
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>updateTimestamp</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom> <Event_history><date><modified>2011-05-10</modified></date></Event_history></Custom>
+               </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>next</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                  
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom> <Event_history><date><modified>2011-05-10</modified></date></Event_history></Custom>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>updateTimestamp</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                   
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom> <Event_history><date><modified>2011-05-10</modified></date></Event_history></Custom>
+                </Component>
+                <Component xmlns="http://www.dlm-network.org/moreq2/1.04.01">
+                    <Description>
+                        <abstract><reason_for_rendition>updateTimestamp</reason_for_rendition></abstract>
+                        <classification>
+                            <classification_code>[]</classification_code>
+                            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                        </classification>
+                    </Description>
+                   
+                    <Identity>
+                        <system_identifier>[]</system_identifier>
+                    </Identity>
+                    <Relation>
+                        <is_child_of>rm_retentionSchedule</is_child_of>
+                    </Relation>
+                    <Use>
+                        <technical_environment>
+                            <file_format>[]</file_format>
+                            <file_format_original>[]</file_format_original>
+                            <file_format_version>[]</file_format_version>
+                            <file_format_version_original>[]</file_format_version_original>
+                        </technical_environment>
+                    </Use>
+                    <Custom> <Event_history><date><modified>2011-05-10</modified></date></Event_history></Custom>
+                </Component>
+            </Components>
+           </Record>
+       </Records>
+    </File_Stub>
+  </Files>
+</Class>

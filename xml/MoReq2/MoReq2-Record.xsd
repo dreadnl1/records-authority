@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.dlm-network.org/moreq2/1.04.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:moreq2="http://www.dlm-network.org/moreq2/1.04.01" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.04.01">
+	<xs:include schemaLocation="MoReq2-Component.xsd"/>
+	<xs:element name="Record">
+		<xs:annotation>
+			<xs:documentation>Information created, received, and maintained as evidence and information by an organisation or person.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Description">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="abstract" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="keyword" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Keyword(s) assigned to the entity to aid in discovering it.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M004</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="reason_for_rendition" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Why the record has been rendered.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M126</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="author" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The list of the author(s) of a document that is captured as a record.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="e_mail_address" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>The e-mail address of the author of a document that is captured as a record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M184</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:pattern value="((\S*\s*)*&lt;(([a-zA-Z0-9!#$%&amp;'\*\+/=\?\^`\{\}\|~\._-])|(&quot;.+&quot;)|(\\.))+@([a-zA-Z0-9-])+(([a-zA-Z0-9-])*\.([a-zA-Z0-9-])+)+&gt;)|((([a-zA-Z0-9!#$%&amp;'\*\+/=\?\^`\{\}\|~\._-])|(&quot;.+&quot;)|(\\.))+@([a-zA-Z0-9-])+(([a-zA-Z0-9-])*\.([a-zA-Z0-9-])+)+)"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="name">
+											<xs:annotation>
+												<xs:documentation>The name of the author of a document that is captured as a record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M069</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="classification">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="classification_code">
+											<xs:annotation>
+												<xs:documentation>The classification code of the entity, unique within its parent.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M011</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="fully_qualified_classification_code">
+											<xs:annotation>
+												<xs:documentation>The hierarchical identifier of the entity, unique within the ERMS.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M012</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="new_fully_qualified_classification_code" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The fully qualified classification code of a copy of the entity after its relocation.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M158</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="copy_recipient" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The details of copy recipient(s) of a document that is captured as a record.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="e_mail_address" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The e-mail address of copy recipient of a document that is captured as a record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M185</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:pattern value="((\S*\s*)*&lt;(([a-zA-Z0-9!#$%&amp;'\*\+/=\?\^`\{\}\|~\._-])|(&quot;.+&quot;)|(\\.))+@([a-zA-Z0-9-])+(([a-zA-Z0-9-])*\.([a-zA-Z0-9-])+)+&gt;)|((([a-zA-Z0-9!#$%&amp;'\*\+/=\?\^`\{\}\|~\._-])|(&quot;.+&quot;)|(\\.))+@([a-zA-Z0-9-])+(([a-zA-Z0-9-])*\.([a-zA-Z0-9-])+)+)"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="name" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The name of the copy recipient of a document that is captured as a record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M067</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="date" type="xs:dateTime">
+								<xs:annotation>
+									<xs:documentation>The document date (as in the body of the document).</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M065</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="external_identifier" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="external_system_reference" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Unique identifier of an e-mail, as produced by the email system.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M195</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="internal_reference" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>An internal reference on an outgoing or internal document that is captured.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M070</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="place" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="current_location" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The current physical location of a physical entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M086</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="home_location" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>The home location of a physical entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M122</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="recipient" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The details of the recipient(s) of an outgoing or internal document that is captured as a record.  Please note that this element is optional, this contradicts to the metadata model.  The model will probably be updated at a later date.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="e_mail_address" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The e-mail address of the recipient of an outgoing or internal document that is captured as a record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M186</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:pattern value="((\S*\s*)*&lt;(([a-zA-Z0-9!#$%&amp;'\*\+/=\?\^`\{\}\|~\._-])|(&quot;.+&quot;)|(\\.))+@([a-zA-Z0-9-])+(([a-zA-Z0-9-])*\.([a-zA-Z0-9-])+)+&gt;)|((([a-zA-Z0-9!#$%&amp;'\*\+/=\?\^`\{\}\|~\._-])|(&quot;.+&quot;)|(\\.))+@([a-zA-Z0-9-])+(([a-zA-Z0-9-])*\.([a-zA-Z0-9-])+)+)"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="name" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The name of the recipient of an outgoing or internal document that is captured as a record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M066</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="sender" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="e_mail_address" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The e-mail address of the sender of an e-mail or fax.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M187</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:pattern value="((\S*\s*)*&lt;(([a-zA-Z0-9!#$%&amp;'\*\+/=\?\^`\{\}\|~\._-])|(&quot;.+&quot;)|(\\.))+@([a-zA-Z0-9-])+(([a-zA-Z0-9-])*\.([a-zA-Z0-9-])+)+&gt;)|((([a-zA-Z0-9!#$%&amp;'\*\+/=\?\^`\{\}\|~\._-])|(&quot;.+&quot;)|(\\.))+@([a-zA-Z0-9-])+(([a-zA-Z0-9-])*\.([a-zA-Z0-9-])+)+)"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="name" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The name(s) of the sender of an e-mail or fax or other correspondence.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M075</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="title">
+								<xs:annotation>
+									<xs:documentation>The name given to the entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M003</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Event_history">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="abstract" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="reclassification_reason" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The reason for the reclassification of an entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M021</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="date">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="captured" type="xs:dateTime">
+											<xs:annotation>
+												<xs:documentation>The date the record was captured.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M071</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="checked_in" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the physical entity was checked in.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M093</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="checked_out" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the physical entity was checked out.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M094</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="decrypted" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the record was decrypted.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M120</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="deleted" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicates the date the entity was deleted.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M160</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="encrypted" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the record was encrypted.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M119</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="moved_from_location" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the physical entity was last moved from a previous location.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M095</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="received" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date an e-mail or fax was received.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M088</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="received_at_location" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the physical entity was received at the current location.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M096</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="relocated" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date on which the entity was last relocated.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M159</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="rendered" type="xs:dateTime" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>The date on which the entity was rendered.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M127</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="sent" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the fax or email was sent.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M074</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="verified" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="electronic_signature" type="xs:dateTime" minOccurs="0" maxOccurs="unbounded">
+														<xs:annotation>
+															<xs:documentation>The date and time the electronic signature was verified.</xs:documentation>
+															<xs:appinfo>
+																<MetadataRef>M114</MetadataRef>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="disposal_hold" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Details of disposal holds that have been applied.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="agent_applied">
+											<xs:annotation>
+												<xs:documentation>System identifier of the user who applied the disposal hold.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M035</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="agent_lifted" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the user who lifted the disposal hold.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M134</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="date_applied" type="xs:dateTime">
+											<xs:annotation>
+												<xs:documentation>The date the disposal hold was applied to the entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M034</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="date_lifted" type="xs:dateTime" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The date the disposal hold was lifted from the entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M102</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="reason_applied">
+											<xs:annotation>
+												<xs:documentation>The reason why a disposal hold was applied.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M135</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="reason_lifted" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The reason why a disposal hold was lifted.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M136</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Event_plan">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="date">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="return" type="xs:date">
+											<xs:annotation>
+												<xs:documentation>The date which a checked out physical entity is due to be returned.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M098</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="status">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="permanent" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Indicates whether an entity needs to be retained permanently.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M031</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Identity">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="system_identifier">
+								<xs:annotation>
+									<xs:documentation>The identifier for an entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M020</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="system_identifier_rendition" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The unique identifier of a rendition of a record.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M125</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Relation">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="agent">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="author" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the author of the record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M190</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="copy_recipient" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>System identifier of the copy recipient(s) of the record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M191</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="custodian" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the custodian of the entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M123</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="deleted" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the person who deleted the record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M161</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="movement" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the person who was responsible for executing the movement of a physical entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M097</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="owner" type="xs:string" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>System identifier of the owner of the entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M002</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="recipient" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>System identifier of the recipient(s) of the record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M192</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="relocated" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the person who was relocated the record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M162</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="sender" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of the sender of the record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M193</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="cross_referenced_to" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of another entity that is related to the subject entity by a cross reference.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M023</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="entity_agent" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Identifier(s) of the Entity/Agent(s) that describe some agent's (agents') access permissions to the entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M172</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="has_redaction" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of a redaction associated with the record.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M082</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="has_rendition" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of a rendition associated with the record.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M148</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="is_child_of">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of the parent entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M057</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="is_parent_of" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of a child entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M056</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="is_rendition_of" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of a record for which the subject is a rendition.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M149</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="previous_fully_qualified_classification_code" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The previous fully qualified classification code(s) of the entity following reclassification(s).</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M091</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="retention_and_disposition_schedule" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>System identifier of a retention and disposition schedule(s) assigned to the entity.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M025</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="record_type">
+								<xs:annotation>
+									<xs:documentation>System identifier of the related record type.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M026</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Use">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="language" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The language(s) in which the content of the record is (are) written.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M145</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="status">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="deleted_or_moved" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Whether a record has, or has not, been deleted or relocated.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M155</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="NO"/>
+													<xs:enumeration value="DELETED"/>
+													<xs:enumeration value="MOVED"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="electronic_signature">
+											<xs:annotation>
+												<xs:documentation>The validity of an electronic signature associated with a record following a verification process.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M113</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="encrypted_in_transit" type="xs:boolean" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicates that a record has been transmitted in encrypted form.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M143</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="offline_download" type="xs:boolean" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Indicates whether the entity is downloaded for offline use.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M124</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="physical" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Indicates whether the entity is a physical container.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M084</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="vital_record" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Indicates whether an entity is, or contains, vital record(s).</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M005</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="technical_environment">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="certificate_issuer" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The issuer of an electronic record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M146</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="certification_service_provider" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The certification service provider issuing the electronic certificate.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M077</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="counter_signature" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>A counter signature appended to a record by a certification service provider.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M111</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="digital_certificate" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>The digital certificate of a record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M110</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="drm_features" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The textual description of the DRM features contained within the record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M121</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="electronic_signature" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>The electronic signature associated with a record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M076</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="encryption_algorithm" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The encryption algorithm used to encrypt the record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M116</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="encryption_level" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The encryption level of the encryption code used on the record.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M118</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="format" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The format for the physical entity.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M092</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="serial_number_digital_certificate" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The serial number of the digital certificate.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M117</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="validated_by" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>System identifier of an agent who has initiated the validation of an electronic signature or certificate.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M147</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="validation_token" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>A validation or token issued by a certification service provider.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M144</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Custom" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Any additional metadata that isn't included elsewhere in this entity.  This section will allow the MoReq2 schema to be extended without making the resulting XML invalid against the MoReq2 Schema.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any processContents="skip" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Components">
+					<xs:annotation>
+						<xs:documentation>This element has been included to group individual components together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="moreq2:Component" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
