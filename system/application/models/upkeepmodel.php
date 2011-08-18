@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
 
 
-class UpkeepModel extends CI_Model {
+class UpkeepModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  	}
  	
  	/**
@@ -292,7 +292,7 @@ class UpkeepModel extends CI_Model {
 			 	$recordCategories[$results->recordCategoryID] = $results->recordCategory;
 			 }
 	 	}		
-	 	return $recordCategories;
+	 		return $recordCategories;
 	}
 	
 	/**
@@ -433,39 +433,6 @@ class UpkeepModel extends CI_Model {
 		$user['username'] = $_POST['username'];
 		$this->db->where('userID', $_POST['userID']);
 		$this->db->update('rm_users', $user);
-	}
-	
-	/**
-	 * invokes checkUserNameQuery()
-	 *
-	 *	@access public
-	 *	@return $check TRUE/FALSE
-	 */
-	public function checkUserName() {
-		$check = $this->checkUserNameQuery($_POST);
-		return $check;
-	}
-	
-	/**
-	 *	checks user name is taken
-	 *	
-	 *	@access private
-	 *	@return boolean
-	 */
-	private function checkUserNameQuery($_POST) {
-		$username = $_POST['username'];
-		
-		$this->db->select('username');
-	 	$this->db->from('rm_users');
-	 	$this->db->where('username', $username);
-
- 		$isTaken = $this->db->get();
- 		
-	 	if ($isTaken->num_rows > 0) {
- 			return FALSE;
- 		} else {
- 			return TRUE;
- 		}
 	}
 	
 	/**
@@ -784,24 +751,11 @@ class UpkeepModel extends CI_Model {
 		return $docTypes;
 	}
 	
-	/**
-    * gets primary authorities types for autosuggest display
-    *
-    * @access  public
-    * @return  $primaryAuthorities
-    */
 	public function autoSuggest_primaryAuthorities($primaryAuthority) {
 		$primaryAuthorities = $this->getPrimaryAuthoritiesQuery($primaryAuthority);
 		return $primaryAuthorities;  
 	}
 	
-	/**
-    * gets primary authorities for autosuggest display
-    *
-    * @access  	private
-    * @param	$primaryAuthority
-    * @return  	$primaryAuthority
-    */
 	private function getPrimaryAuthoritiesQuery($primaryAuthority) {
 		$sql = "SELECT DISTINCT primaryAuthority FROM rm_retentionSchedule WHERE primaryAuthority LIKE ? ";
 		$primaryAuthorityQuery = $this->db->query($sql, array('%' . $primaryAuthority . '%'));
@@ -815,26 +769,12 @@ class UpkeepModel extends CI_Model {
 			//return $primaryAuthority = "No results found.";
 		//}
 	}
-		
-	/**
-    * gets primary authorities retentions for autosuggest display
-    *
-    * @access  	public
-    * @param	$primaryAuthorityRetention
-    * @return  	$primaryAuthorityRetentions
-    */	
+			
 	public function autoSuggest_primaryAuthorityRetentions($primaryAuthorityRetention) {
 		$primaryAuthorityRetentions = $this->getPrimaryAuthorityRetentionsQuery($primaryAuthorityRetention);
 		return $primaryAuthorityRetentions;  
 	}
 	
-	/**
-    * gets primary authorities retentions
-    *
-    * @access  	private
-    * @param	$primaryAuthorityRetention
-    * @return  	$primaryAuthorityRetention
-    */	
 	private function getPrimaryAuthorityRetentionsQuery($primaryAuthorityRetention) {
 		$sql = "SELECT DISTINCT primaryAuthorityRetention FROM rm_retentionSchedule WHERE primaryAuthorityRetention LIKE ? ";
 		$primaryAuthorityRetentionQuery = $this->db->query($sql, array('%' . $primaryAuthorityRetention . '%'));
@@ -849,25 +789,12 @@ class UpkeepModel extends CI_Model {
 		//}
 	}
 	
-	/**
-    * gets related authorities for autosuggest display
-    *
-    * @access  	public
-    * @param	$relatedAuthority
-    * @return  	$relatedAuthority
-    */	
 	public function autoSuggest_relatedAuthorities($relatedAuthority) {
 		$relatedAuthorities = $this->getRelatedAuthoritiesQuery($relatedAuthority);
 		return $relatedAuthorities;  
 	}
 	
-	/**
-    * gets related authorities
-    *
-    * @access  	private
-    * @param	$relatedAuthority
-    * @return  	$relatedAuthority
-    */	
+	
 	private function getRelatedAuthoritiesQuery($relatedAuthority) {
 		$sql = "SELECT DISTINCT rsRelatedAuthority FROM rm_rsRelatedAuthorities WHERE rsRelatedAuthority LIKE ? ";
 		$relatedAuthorityQuery = $this->db->query($sql, array('%' . $relatedAuthority . '%'));
@@ -882,25 +809,11 @@ class UpkeepModel extends CI_Model {
 		//}
 	}
 	
-	/**
-    * gets retention Period for autosuggest display
-    *
-    * @access  	public
-    * @param	$retentionPeriod
-    * @return  	$retentionPeriod
-    */	
 	public function autoSuggest_retentionPeriods($retentionPeriod) {
 		$retentionPeriods = $this->getRetentionPeriodQuery($retentionPeriod);
 		return $retentionPeriods;  
 	}
 	
-	/**
-    * gets retention Period
-    *
-    * @access  	private
-    * @param	$retentionPeriod
-    * @return  	$retentionPeriod
-    */
 	private function getRetentionPeriodQuery($retentionPeriod) {
 		$sql = "SELECT DISTINCT retentionPeriod FROM rm_retentionSchedule WHERE retentionPeriod LIKE ? ";
 		$retentionPeriodQuery = $this->db->query($sql, array('%' . $retentionPeriod . '%'));
@@ -915,25 +828,12 @@ class UpkeepModel extends CI_Model {
 		//}
 	}
 	
-	/**
-    * gets related authority retention for autosuggest display
-    *
-    * @access  	public
-    * @param	$relatedAuthorityRetention
-    * @return  	$relatedAuthorityRetention
-    */
+	
 	public function autoSuggest_relatedAuthorityRetention($relatedAuthorityRetention) {
 		$relatedAuthorityRetentions = $this->getRelatedAuthorityRetentionQuery($relatedAuthorityRetention);
 		return $relatedAuthorityRetentions;  
 	}
 	
-	/**
-    * gets related authority retention
-    *
-    * @access  	private
-    * @param	$relatedAuthorityRetention
-    * @return  	$relatedAuthorityRetention
-    */
 	private function getRelatedAuthorityRetentionQuery($relatedAuthorityRetention) {
 		$sql = "SELECT DISTINCT rsRelatedAuthorityRetention FROM rm_rsRelatedAuthorities WHERE rsRelatedAuthorityRetention LIKE ? ";
 		$relatedAuthorityRetentionQuery = $this->db->query($sql, array('%' . $relatedAuthorityRetention . '%'));
@@ -949,25 +849,11 @@ class UpkeepModel extends CI_Model {
 		//}
 	}
 	
-	/**
-    * gets record names for autosuggest display
-    *
-    * @access  	private
-    * @param	$recordName
-    * @return  	$recordNames
-    */
 	public function autoSuggest_recordName($recordName) {
 		$recordNames = $this->getRecordNamesQuery($recordName);
 		return $recordNames;  
 	}
 	
-	/**
-    * gets record names
-    *
-    * @access  	private
-    * @param	$recordName
-    * @return  	$recordNames
-    */
 	private function getRecordNamesQuery($recordName) {
 		$sql = "SELECT DISTINCT recordName FROM rm_retentionSchedule WHERE recordName LIKE ? ";
 		$recordNamesQuery = $this->db->query($sql, array('%' . $recordName . '%'));
@@ -983,25 +869,11 @@ class UpkeepModel extends CI_Model {
 		//}
 	}
 	
-	/**
-    * gets record codes for autosuggest display
-    *
-    * @access  	private
-    * @param	$recordCode
-    * @return  	$recordCodes
-    */
 	public function autoSuggest_recordCode($recordCode) {
 		$recordCodes = $this->getRecordCodesQuery($recordCode);
 		return $recordCodes;  
 	}
 	
-	/**
-    * gets record names
-    *
-    * @access  	private
-    * @param	$recordCode
-    * @return  	$recordCodes
-    */
 	private function getRecordCodesQuery($recordCode) {
 		$sql = "SELECT DISTINCT recordCode FROM rm_retentionSchedule WHERE recordCode LIKE ? ";
 		$recordCodesQuery = $this->db->query($sql, array('%' . $recordCode . '%'));

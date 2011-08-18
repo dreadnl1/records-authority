@@ -113,24 +113,3 @@ body.unbranded #global-inside-header h1 a {background:none; text-indent:0; font-
 #internal-search ul {list-style:none; float:left; margin:9px 0 0 0; padding:0; list-style-position:outside; display:inline;}
 #internal-search li a {color:#fff; font-weight:bold; text-decoration:none; margin:0; padding:0 0 0 7px;}
 #internal-search li a:hover {background: url("../images/shared/searchArrowWhite.gif") no-repeat 0 50%;}
-
-.buttonLink {
-	Border: none; 
-	background: none; 
-	margin-left: 40px; 
-	color: #990000;
-	border-bottom: 1px solid;
-	height: 13px;
-	font-size: 11px;
-	margin-bottom: 2px;
-	text-indent: 0px;
-}
-
-.buttonLink:hover {
-	border-bottom: none;
-}
-
-.button {
-    border: 1px solid #000000;
-    padding: 2px;
-}

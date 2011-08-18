@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -18,12 +18,10 @@
  * You should have received a copy of the GNU General Public License
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
- 
-	$siteUrl = site_url();
 ?>
 
 <div id="local-footer">
-		<p>University Records Management Program | Mary Reed Building, Room 221 | 2199 S University Blvd, Denver, CO, 80208-4822 | 303.871.3662 | <a href="http://www.du.edu/media/forms/recordsmanagement/contact_us2.html">records@du.edu</a></p>
+		<p>University Records Management Program | Penrose Library, Room 327 | 2150 E Evans Ave, Denver, CO 80208 | 303.871.3334 | <a href="mailto:records-mgmt@du.edu">records-mgmt@du.edu</a></p>
         <!--contact information insertion in the footer-->
 	</div>
 </div><!-- END content wrapper -->
@@ -35,8 +33,7 @@
 
   <div id="global-footer">
   	<div id="global-footer-nav">
-  	<?php /*
-  		 <ul> 
+	 	<ul> 
 	    	<li><a href="http://www.du.edu/" title="">du.edu</a></li>
 	        <li><a href="http://www.du.edu/resources/contacts.html" title="Contacts and Directions">Contacts &amp; Directions</a></li>
 	        <li><a href="http://www.du.edu/admission/app.html" title="Undergraduate Admission">Undergraduate Admission</a></li>
@@ -49,9 +46,8 @@
 	        <li><a href="http://www.du.edu/az/" title="A-Z">A-Z</a></li>
 	        <li class="last"><a href="http://search1.du.edu/" title="Search DU">Search</a></li> 
 		</ul>
-	*/ ?>
-	    <p><span class="copyright">&copy;2011 University of Denver. All Rights Reserved. <a href="http://www.du.edu/privacy/" 
-	    title="Privacy Policy">Privacy Policy</a></span><br />The University of Denver is an equal opportunity/affirmative action institution.<br />Records Authority ver. <a href="<?php echo $siteUrl?>/dashboard">2.0.0</a> | <?php echo $this->benchmark->elapsed_time();?></p>
+	    <p><span class="copyright">&copy;2010 University of Denver. All Rights Reserved. <a href="http://www.du.edu/privacy/" 
+	    title="Privacy Policy">Privacy Policy</a></span><br />The University of Denver is an equal opportunity/affirmative action institution.<br />Records Authority ver. 1.1.1 | <?php echo $this->benchmark->elapsed_time();?></p>
     </div>
   </div>
 <!-- END global-footer -->

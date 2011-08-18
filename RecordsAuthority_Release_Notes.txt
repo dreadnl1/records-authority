@@ -2,184 +2,95 @@ Records Authority Release Notes
 
 a.b.c Where a is Major version #, b is Minor version #, c is Bug fix #
 
-0.1.0	
-		:	database schema created 
-	  	: 	working survey builder forms 
-      	: 	working survey preview
-      	: 	CSS applied to survey builder forms
-	  	: 	Ajax applied to survey builder forms
-	  	: 	working user survey (dynamically generated)
-	  	: 	client side validation applied to forms
-	  	: 	working survey submission (into database) 
+0.1.0 : database schema created 
+	  : working survey builder forms 
+      : working survey preview
+      : CSS applied to survey builder forms
+	  : Ajax applied to survey builder forms
+	  : working user survey (dynamically generated)
+	  : client side validation applied to forms
+	  : working survey submission (into database) 
 
-0.2.0 	
-		: 	database schema modifications
-	  	:	working survey notes form
-
-0.2.1 	
-		: 	Survey Notes Form bugs fixed (problems rendering survey notes data in edit mode)
+0.2.0 : database schema modifications
+	  :	working survey notes form
+0.2.1 : Survey Notes Form bugs fixed (problems rendering survey notes data in edit mode)
       
-0.3.1	
-		: 	database schema modifications 
-	  	:	working record type form
-	  	: 	Ajax applied to record type form
-      	: 	client side validation applied to form
-
-0.3.2 	
-		: 	record type form edit functionality refactored
+0.3.1 : database schema modifications 
+	  :	working record type form
+	  : Ajax applied to record type form
+      : client side validation applied to form
+0.3.2 : record type form edit functionality refactored
      
-0.4.2 	
-		: 	working public login form
-      	: 	working admin login form 
-	  	: 	client side validation applied to login forms
-	  	: 	dashboard landing page created
-	  	: 	working user sessions public and admin
-	  	: 	working logout functionality 
-      	: 	LDAP functionality applied
-      	: 	public side CSS template applied (DU template)
+0.4.2 : working public login form
+      : working admin login form 
+	  : client side validation applied to login forms
+	  : dashboard landing page created
+	  : working user sessions public and admin
+	  : working logout functionality 
+      : LDAP functionality applied
+      : public side CSS template applied (DU template)
 
-0.5.2 	
-		: 	working admin department/divison form
-      	: 	working admin record categories form
-      	: 	working admin document types form 
-      	: 	working division/department search form and results display 
-      	: 	working global search form and results display
-      	: 	client side validation applied to forms 
-      	: 	Ajax applied to search forms
-      	: 	working data-driven autosuggest in record type form
-      	: 	working public survey edit form
+0.5.2 : working admin department/divison form
+      : working admin record categories form
+      : working admin document types form 
+      : working division/department search form and results display 
+      : working global search form and results display
+      : client side validation applied to forms 
+      : Ajax applied to search forms
+      : working data-driven autosuggest in record type form
+      : working public survey edit form
         
-0.5.3 	
-		: 	JavaScript file extension checker applied to public survey form upload field (bug allowed processing to continue despite incorrect file type)
-
-0.5.4 	
-		: 	fixed subChoice toggle when clicking on 'other' on survey form
+0.5.3 : JavaScript file extension checker applied to public survey form upload field (bug allowed processing to continue despite incorrect file type)
+0.5.4 : fixed subChoice toggle when clicking on 'other' on survey form
       
-0.5.5 	
-		: 	hard coded confguration values placed in framework config file (upload folder / dev and prod emails)
-
-0.5.6 	
-		: 	fixed client-side form validation problems in record type form (liaison needs server-side validation implemented!!) 
+0.5.5 : hard coded confguration values placed in framework config file (upload folder / dev and prod emails)
+0.5.6 : fixed client-side form validation problems in record type form (liaison needs server-side validation implemented!!) 
       
-0.6.6 	
-		: 	database schema modifications 
-	  	:	working retention schedule form
-	  	: 	working retention schedule form associated units sub form
-	  	: 	working retention schedule search form and results display
-	    : 	working data-driven autosuggest in retention schedule form
-	    : 	client side validation applied to retention schedule form
-	    : 	Ajax applied to associated units sub form
-	    : 	Ajax applied to retention schedule search form and results display
-	    : 	working retention schedule record Excel exporting
-	    : 	working sorting functionality in retention schedule search results
+0.6.6 : database schema modifications 
+	  :	working retention schedule form
+	  : working retention schedule form associated units sub form
+      : working retention schedule search form and results display
+      : working data-driven autosuggest in retention schedule form
+      : client side validation applied to retention schedule form
+      : Ajax applied to associated units sub form
+      : Ajax applied to retention schedule search form and results display
+      : working retention schedule record Excel exporting
+      : working sorting functionality in retention schedule search results
+0.6.7 : fixed retention authority field bug in retention schedule form (blank fields did not render)
 
-0.6.7	
-		:	fixed retention authority field bug in retention schedule form (blank fields did not render)
+0.7.7 : working public full-text search (MySQL)
+      : working public search by department
 
-0.7.7	
-		: 	working public full-text search (MySQL)
-      	: 	working public search by department
+0.8.7 : database schema modifications
+      : working check/uncheck in retention schedule edit form
+      : functinality added to automatically add office of primary responsibility to associated units     
 
-0.8.7 	
-		: 	database schema modifications
-      	: 	working check/uncheck in retention schedule edit form
-      	: 	functinality added to automatically add office of primary responsibility to associated units     
-
-0.9.7 	
-		: 	working automated indexing when retention schedule is added or updated
-      	: 	added general notes field under the contacts section in the survey notes form
-      	: 	refactored excel export
-      	: 	suppressed "all departments" option from jump menus
-      	: 	added uuid's to retention schedule records
-      	: 	modified yes/no radio buttons to default to no
+0.9.7 : working automated indexing when retention schedule is added or updated
+        added general notes field under the contacts section in the survey notes form
+        refactored excel export
+        suppressed "all departments" option from jump menus
+        added uuid's to retention schedule records
+        modified yes/no radio buttons to default to no
         
-0.9.8 	
-		: 	fixed file type checker bug in main survey form        
+0.9.8 : fixed file type checker bug in main survey form        
  
-1.0.0 	
-		: 	working search by record category
-	  	: 	added ability to delete surveys, survey questions, survey sub questions, and survey sub choice questions
-	  	: 	updated CodeIgniter framework to 1.7.2
-	  	: 	public full-text search moved to Solr search server
+1.0.0 : working search by record category
+		added ability to delete surveys, survey questions, survey sub questions, and survey sub choice questions
+        updated CodeIgniter framework to 1.7.2
+        public full-text search moved to Solr search server
         
-1.1.0 	
-		: 	working searches for record types, retention schedules and surveys
-	  	: 	redesign of dashboard, record type form and retention schedule form
-	  	: 	MySQL full text search added for surveys, record types, and retention schedules
-	  	: 	User management interface added.
-	  	: 	Delete record types and retention schedules
-	  	: 	Browse deleted documents and restore or purge added
-	  	: 	Several date trackers added
+1.1.0 : working searches for record types, retention schedules and surveys
+		redesign of dashboard, record type form and retention schedule form
+		MySQL full text search added for surveys, record types, and retention schedules
+		User management interface added.
+		Delete record types and retention schedules
+		Browse deleted documents and restore or purge added
+		Several date trackers added
 		
-1.1.1 	
-		: 	recordCode add to the retention schedule and deleted retention schedule
-	  	: 	searches added recordCode
-	  	: 	added wild card design to the end of fulltext search to open up the number of results
-	  	: 	changed default splash page to full text search
-	  	: 	added auto suggest for record codes
-	  	: 	fixed solrIndexer to actually index intended values
-	  	:	fixed some more hardcoded names for the purpose of dynamic renaming
-
-1.1.2 	
-		: 	added file upload page to load to ./uploads
-	  	: 	Retention Period and Retention Notes were combined to one field
-	  	: 	Export of the entire schedule can now be performed
-	  	: 	Finished up CSV export and added icons for HTML and CSV
-	  	: 	Removed functionality for PDF export because that code does not yet work but the link was available.
-	  	: 	Full Schedule search available on public pages
-
-1.1.3 	
-		: 	Import funcionality
-	  	: 	Keywords added and searchable
-	  	: 	Terminology changes public
-	  	:	Public display changes
-	  	:	Updated contact information in the Survey
-		
-1.1.4 	
-		: 	Export excel spreadsheet to public
-	  	: 	Fine tuning Public
-		
-1.1.5 	
-		: 	Publish from Admin Retention Schedule Search added
-	  	: 	Bulk publish/unpublish from Retention Schedule Text search added
-	  	: 	Terminology changes across admin interface
-		
-1.2.0 	
-		: 	Release Version
-
-1.2.1 	
-		: 	Updates to the index functions to make them more informative
-	  	: 	Forced no caching on index pages
-	  	: 	Left justified admin table data
-  		:	Fixed a bug with retreival of ID's from the rm_relatedAuthorities table
-  		:	Widened the public search frame
-  		:	Larger font by 1px
-
-1.2.2	
-		:	Adding more auditing with retrieval of posts
-		:	Auditing Search
-		:	Updating Record Group will update the date if it is equal to the previous date received
-		:	Stripped out old non-functional related authorities code
-		
-1.2.3
-		:	Included Jetty/Solr in the SVN directory
-		:	Improved the Functional Category Public search to reflect changes made to the Full Text search
-		:	Used reusable CSS calls to ajax to avoid further confusion through out the project in the Functional Category search
-		:	Swapped Survey Notes to Browse Surveys
-		:	Fixed a bug in the retention period display public side
-		
-1.2.4
-		:	Shortened the masthead
-		:	Changes to functional category search to search multiple categories at once
-		:	Added links back to different parts of the site to ease navigation
-		:	Added the override primary owner function
-		:	Improvements to the import and upload pages to be more specific on csv format
-		:	Added MoReq2 XML export
-		
-2.0.0	
-		:	Upgraded from codeigniter 1.7.2 to 2.0.0 which has some much needed bug fixes and will help future developers from being so far behind
-		:	Added dashboard link from public by clicking the version number
-		:	Added Export functionality to Text Search
-		:	Changed Record Group to Record Series from partner consensus
-		:	Added link back to dashboard from public search by clicking the version number on the bottom
-		
+1.1.1 : recordCode add to the retention schedule and deleted retention schedule
+		searches added recordCode
+		added wild card design to the end of fulltext search to open up the number of results
+		changed default splash page to full text search
+		added auto suggest for record codes
+		fixed solrIndexer to actually index intended values
+		fixed some more hardcoded names for the purpose of dynamic renaming

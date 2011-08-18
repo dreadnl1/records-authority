@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
 
  
- class RetentionSchedule extends CI_Controller {
+ class RetentionSchedule extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		// admin user must be loggedin 
 		$this->load->model('SessionManager');
@@ -31,7 +31,6 @@
 		$this->load->model('UpkeepModel');
 		$this->load->model('LookUpTablesModel');
 		$this->load->model('JsModel');
-		$this->load->model('AuditModel');
 	}
 	
 	/**
@@ -41,13 +40,13 @@
 	 */
 	public function view() {
 		$siteUrl = site_url();
-		//$data['dispositions'] = $this->RetentionScheduleModel->getDispositions();
+		$data['dispositions'] = $this->RetentionScheduleModel->getDispositions();
 		$data['divisions'] = $this->LookUpTablesModel->createRsDivisionDropDown();
 		// js
 		$data['unitScript'] = $this->JsModel->departmentWidgetJs($siteUrl);
 		$data['unitRadioButtonScript'] = $this->JsModel->departmentRadioButtonWidgetJs($siteUrl);
 		$data['unitRadioButtonCheckScript'] = $this->JsModel->officeOfPrimaryResponsibilitydepartmentCheckWidgetJs($siteUrl);
-		//$data['dispositionScript'] = $this->JsModel->dispositionWidgetJs($siteUrl);
+		$data['dispositionScript'] = $this->JsModel->dispositionWidgetJs($siteUrl);
 		$data['assocUnitsScript'] = $this->JsModel->associatedUnitWidgetJs($siteUrl);
 		$data['checkAllScript'] = $this->JsModel->associatedUnitCheckAllWidgetJs($siteUrl);
 		$data['uncheckAllScript'] = $this->JsModel->associatedUnitUnCheckAllWidgetJs($siteUrl);
@@ -71,8 +70,7 @@
 	 */
 	public function save() {
 		if (isset($_POST['retentionPeriod'])) {
-			$this->AuditModel->audit($_POST);
-			$retentionScheduleID = $this->RetentionScheduleModel->saveRetentionSchedule($_POST);
+			$retentionScheduleID = $this->RetentionScheduleModel->saveRetentionSchedule($_POST);	
 			// go into edit mode immediately after save
 			$this->edit($retentionScheduleID);
 		}
@@ -85,7 +83,6 @@
 	 */
 	public function update() {
 		if (isset($_POST['retentionScheduleID'])) {
-			$this->AuditModel->audit($_POST);
 			$retentionScheduleID = $_POST['retentionScheduleID'];
 			$this->RetentionScheduleModel->updateRetentionSchedule($_POST);	
 			$this->edit($retentionScheduleID);
@@ -100,14 +97,14 @@
 	 */
 	public function edit($retentionScheduleID="") {
 		$siteUrl = site_url();
-		//$data['dispositions'] = $this->RetentionScheduleModel->getDispositions();
+		$data['dispositions'] = $this->RetentionScheduleModel->getDispositions();
 		$data['divisions'] = $this->LookUpTablesModel->createDivisionDropDown();
 		$data['recordCategories'] = $this->LookUpTablesModel->getRecordCategories();
 		//js
 		$data['unitScript'] = $this->JsModel->departmentWidgetJs($siteUrl);
 		$data['unitRadioButtonScript'] = $this->JsModel->departmentRadioButtonWidgetJs($siteUrl);
 		$data['unitRadioButtonCheckScript'] = $this->JsModel->officeOfPrimaryResponsibilitydepartmentCheckWidgetJs($siteUrl);
-		//$data['dispositionScript'] = $this->JsModel->dispositionWidgetJs($siteUrl);
+		$data['dispositionScript'] = $this->JsModel->dispositionWidgetJs($siteUrl);
 		$data['assocUnitsScript'] = $this->JsModel->associatedUnitWidgetJs($siteUrl);
 		$data['checkAllScript'] = $this->JsModel->associatedUnitCheckAllWidgetJs($siteUrl);
 		$data['uncheckAllScript'] = $this->JsModel->associatedUnitUnCheckAllWidgetJs($siteUrl);
@@ -346,63 +343,11 @@
     * @return void
     */
 	public function indexRetentionSchedules() {
-		$data['title'] = 'Index Retention Schedule - Records Authority';
-		$this->load->view('includes/adminHeader', $data); 
 		$this->RetentionScheduleModel->indexRs();
-		$this->load->view('includes/adminFooter');
 	}
-	
-	/**
-    * publishes individual retention schedules
-    *
-    * @access public
-    * @return void
-    */
-	public function publish() {
-		$this->load->model('SearchModel');
-		if(isset($_POST['approvedByCounsel']) && $_POST['approvedByCounsel'] == "yes") {
-			$publish = "yes";
-		} else {
-			$publish = "no";
-		}
-		$keyword = $_POST['keyword'];
-		$retentionScheduleID = $_POST['retentionScheduleID'];
-		$this->RetentionScheduleModel->publishRetentionSchedule($retentionScheduleID, $publish);
-		$data['recordUpdated'] = "Record Published.";
-		$data['previousSearch'] = $this->SearchModel->getGlobalRetentionSchedules($keyword);
-		$this->load->view('admin/forms/searchGlobalRetentionScheduleForm',$data);
-	}
-	
-	/**
-    * publishes all searched retention schedules
-    *
-    * @access public
-    * @return void
-    */
-	public function publishAll() {
-		$this->load->model('SearchModel');
-		if(isset($_POST['publishAll']) && $_POST['publishAll'] == "yes") {
-			$publish = "yes";
-		} else {
-			$publish = "no";
-		}
-		$keyword = $_POST['keyword'];
-		$query = $this->RetentionScheduleModel->getRetentionInformationKeyword($keyword);
-		
-		if($query->num_rows() > 0) {
-			foreach ($query->result() as $results) {
-				$retentionScheduleID = $results->retentionScheduleID;
-				$this->RetentionScheduleModel->publishRetentionSchedule($retentionScheduleID, $publish);
-			}
-		}
-		$data['recordUpdated'] = "All Records Published.";
-		$data['previousSearch'] = $this->SearchModel->getGlobalRetentionSchedules($keyword);
-		$this->load->view('admin/forms/searchGlobalRetentionScheduleForm',$data);
-	}
-	
 	
  	/**
-	 * deletes retention schedule
+	 * deletes record type
 	 * 
 	 * @access public
 	 * @return void
