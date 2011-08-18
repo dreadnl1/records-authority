@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -27,30 +27,30 @@
 <div id="tabs">
 	<div id="saving">Saving...</div>
     	<ul>
-    		<li class="ui-tabs-nav-item"><a href="#fragment-1" id="edit">Edit Survey</a></li>
-    		<li class="ui-tabs-nav-item"><a href="#fragment-2" id="preview">Preview Survey</a></li>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-3">Question Type 1</a></li>
-            <li class="ui-tabs-nav-item"><a href="#fragment-4">Question Type 2</a></li>
-            <li class="ui-tabs-nav-item"><a href="#fragment-5">Question Type 3</a></li>
-            <li class="ui-tabs-nav-item"><a href="#fragment-6">Question Type 4</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Question Type 1</a></li>
+            <li class="ui-tabs-nav-item"><a href="#fragment-2">Question Type 2</a></li>
+            <li class="ui-tabs-nav-item"><a href="#fragment-3">Question Type 3</a></li>
+            <li class="ui-tabs-nav-item"><a href="#fragment-4"><span>Question Type 4</span></a></li>
+            <li class="ui-tabs-nav-item"><a href="#fragment-5" id="preview">Preview Survey</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-6" id="edit">Edit Survey</a><li>
         </ul>
         <div id="fragment-1">
-        	<?php $this->load->view('admin/forms/editSurveyForm');?>
-        </div>
-        <div id="fragment-2">
-        	<?php $this->load->view('admin/forms/surveyPreviewForm');?>
-        </div>
-        <div id="fragment-3">
         	<?php $this->load->view('admin/forms/addSurveyQuestionsChoice1Form');?>
         </div>
-        <div id="fragment-4">
+        <div id="fragment-2">
         	<?php $this->load->view('admin/forms/addSurveyQuestionsChoice2Form');?>
         </div>
-        <div id="fragment-5">
+        <div id="fragment-3">
         	<?php $this->load->view('admin/forms/addSurveyQuestionsChoice3Form');?>
         </div>
-        <div id="fragment-6">
+        <div id="fragment-4">
         	<?php $this->load->view('admin/forms/addSurveyQuestionsChoice4Form');?>
+        </div>
+        <div id="fragment-5">
+        	<?php $this->load->view('admin/forms/surveyPreviewForm');?>
+        </div>
+        <div id="fragment-6">
+        	<?php $this->load->view('admin/forms/editSurveyForm');?>
         </div>
 </div>
         

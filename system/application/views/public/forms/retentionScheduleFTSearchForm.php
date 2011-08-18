@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -85,7 +85,7 @@
 						<h3 id="title"><br />Browse the Schedule</h3>
 						<a href="<?php echo site_url();?>/du/retentionSchedules/recordCategory">Browse by Functional Category</a>
 						<br />
-						<a href="<?php echo site_url();?>/du/retentionSchedules/browseByDepartment">Browse by Department</a>
+						<!-- <a href="<?php echo site_url();?>/du/retentionSchedules/browseByDepartment">Browse by Department</a> -->
 						<br /><br /><br />
 						<?php
 							echo "<span class='question'>";

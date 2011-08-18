@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
  
  
- class JsModel extends CI_Model {
+ class JsModel extends Model {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Model();
 	} 
 	
 	// TODO: refactor...use only one pop up method - passing width and height as arguments
@@ -112,7 +112,7 @@
     */
 	public function shadowboxPopUp() {
 		$popUpParams = array(
-						'rel' => 'shadowbox;player=iframe;width=1200;height=800'
+						'rel' => 'shadowbox;player=iframe'
 					);
 		return $popUpParams;
 	}

@@ -1,0 +1,1469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Component xmlns="http://www.dlm-network.org/moreq2/1.04.01"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.dlm-network.org/moreq2/1.04.01 file:/C:/Documents%20and%20Settings/john.adams/Desktop/adams/MoReq2-Record.xsd">
+  
+        <Description>
+        <abstract><reason_for_rendition>auditID</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_audit</reason_for_rendition></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+            <Title>auditID</Title>
+    </Description>
+    <Identity>
+        
+        <system_identifier>###</system_identifier>
+    </Identity>
+    <Relation>
+        <is_child_of>rm_audit</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+
+</Component>
+
+<Component>
+        <Description>
+        <abstract><reason_for_rendition>username</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_audit</reason_for_rendition></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+            <Title>username</Title>
+    </Description>
+    <Identity>
+        
+        <system_identifier></system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent>usernamehere</entity_agent>
+        <is_child_of>rm_audit</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+</Component>
+<?xml version="1.0" encoding="UTF-8"?>
+<Component xmlns="http://www.dlm-network.org/moreq2/1.04.01"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.dlm-network.org/moreq2/1.04.01 file:/C:/Documents%20and%20Settings/john.adams/Desktop/adams/MoReq2-Record.xsd">
+
+    <Description>
+        <abstract><reason_for_rendition>updateDate</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_audit</reason_for_rendition></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>updateDate</Title>
+    </Description>
+    <Event_history><date><modified>###</modified></date></Event_history>
+    <Identity>
+         <system_identifier></system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent></entity_agent>
+        <is_child_of>rm_audit</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+</Component>
+
+<Component>
+
+    
+<Description>
+        <abstract><reason_for_rendition>previousData</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_audit</reason_for_rendition></abstract>
+    <abstract>,<description>inputpreviousdatahere</description></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+    <Title>previousData</Title>
+    </Description>
+    <Identity>
+        
+        <system_identifier></system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent></entity_agent>
+        <is_child_of>rm_audit</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+</Component>
+<Component>
+    
+        <Description>
+        <abstract><reason_for_rendition>timestamp</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_audit</reason_for_rendition></abstract>
+        <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+            <Title>timestamp</Title> 
+    </Description>
+    <Event_history>,<date><rendered>###</rendered></date></Event_history>
+    <Identity>
+        
+        <system_identifier></system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent></entity_agent>
+        <is_child_of>rm_audit</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+</Component>
+<Component>
+    <Description>
+        <abstract><reason_for_rendition>currentData</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_audit</reason_for_rendition></abstract>
+        <abstract>,<description>inputcurrentdatahere</description></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>currentData</Title>
+    </Description>
+    <Identity>
+        
+        <system_identifier></system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent></entity_agent>
+        <is_child_of>rm_audit</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+</Component>
+<Component>
+    
+        <Description>
+        <abstract><reason_for_rendition>divisionID</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_departments</reason_for_rendition></abstract>
+        <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+            <Title>divisionID</Title>
+    </Description>
+    <Identity>
+        
+        <system_identifier>###</system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent></entity_agent>
+        <is_child_of>rm_departments</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+</Component>
+<Component>
+    
+        <Description>
+        <abstract><reason_for_rendition>departmentName</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_departments</reason_for_rendition></abstract>
+            <abstract>,<description>inputdepartmentname</description></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+            <Title>departmentName</Title>
+    </Description>
+    <Identity>
+        
+        <system_identifier></system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent></entity_agent>
+        <is_child_of>rm_departments</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+    </Component>
+<Component>
+    
+    <Description>
+        <abstract><reason_for_rendition>timestamp</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_departments</reason_for_rendition></abstract>
+        <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>recordCategory</Title>
+    </Description>
+    <Event_history>,<date><rendered>###</rendered></date></Event_history><Identity>
+        
+       <system_identifier></system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent></entity_agent>
+        <is_child_of>rm_departments</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+    <Component>
+   
+    <Description>
+        <abstract><reason_for_rendition>divisionID</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_divisions</reason_for_rendition></abstract>
+        <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>divisionID</Title>
+    </Description>
+    <Identity>
+        
+        <system_identifier>###</system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent></entity_agent>
+        <is_child_of>rm_divisions</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+    </Component>
+    <Component>
+  
+        <Description>
+        <abstract><reason_for_rendition>divisionName</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_divisions</reason_for_rendition></abstract>
+            <abstract>,<description>inputdivisionname</description></abstract>
+        <classification>
+            <classification_code>[]</classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+            <Title>divisionName</Title>
+    </Description>
+    <Identity>
+        
+        <system_identifier></system_identifier>
+    </Identity>
+    <Relation>
+        <entity_agent></entity_agent>
+        <is_child_of>rm_divisions</is_child_of><is_rendition_of></is_rendition_of>
+    </Relation>
+    <Use>
+        <technical_environment>
+            <file_format>[]</file_format>
+            <file_format_original>[]</file_format_original>
+            <file_format_version>[]</file_format_version>
+            <file_format_version_original>[]</file_format_version_original>
+        </technical_environment>
+    </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>recordCategoryID</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_recordCategories</reason_for_rendition></abstract>
+            <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+            <classification>
+                <classification_code>###</classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>recordCategoryID</Title>
+        </Description>
+        <Identity>
+            
+            <system_identifier></system_identifier>
+        </Identity>
+        <Relation>
+            <entity_agent></entity_agent>
+            <is_child_of>rm_recordCategories</is_child_of><is_rendition_of></is_rendition_of>
+        </Relation>
+        <Use>
+            <technical_environment>
+                <file_format>[]</file_format>
+                <file_format_original>[]</file_format_original>
+                <file_format_version>[]</file_format_version>
+                <file_format_version_original>[]</file_format_version_original>
+            </technical_environment>
+        </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>recordCategory</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_recordCategories</reason_for_rendition></abstract>
+            <abstract>,<description>inputrecordcategory</description></abstract>
+            <classification>
+                <classification_code>[]</classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>recordCategory</Title>
+        </Description>
+        
+        <Identity>
+            
+            <system_identifier></system_identifier>
+        </Identity>
+        <Relation>
+            <entity_agent></entity_agent>
+            <is_child_of>rm_recordCategories</is_child_of><is_rendition_of></is_rendition_of>
+        </Relation>
+        <Use>
+            <technical_environment>
+                <file_format>[]</file_format>
+                <file_format_original>[]</file_format_original>
+                <file_format_version>[]</file_format_version>
+                <file_format_version_original>[]</file_format_version_original>
+            </technical_environment>
+        </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>timestamp</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_recordCategories</reason_for_rendition></abstract>
+            <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+            <classification>
+                <classification_code>[]</classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>divisionName</Title>
+        </Description>
+        <Event_history>,<date><rendered>###</rendered></date></Event_history> 
+        <Identity>
+            
+            <system_identifier></system_identifier>
+        </Identity>
+        <Relation>
+            <entity_agent></entity_agent>
+            <is_child_of>rm_divisions</is_child_of><is_rendition_of></is_rendition_of>
+        </Relation>
+        <Use>
+            <technical_environment>
+                <file_format>[]</file_format>
+                <file_format_original>[]</file_format_original>
+                <file_format_version>[]</file_format_version>
+                <file_format_version_original>[]</file_format_version_original>
+            </technical_environment>
+        </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>recordCode</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+            <classification>
+                <classification_code><case_id>###</case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>recordCode</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier>###</system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>recordName</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<reason_for_rendition>inputrecordnamehere</reason_for_rendition></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>recordName</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>recordCategory</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description>inputrecordcategory</description></abstract>
+            <classification>
+                <classification_code><case_id>###</case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>recordCategory</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>keywords</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract><keyword>inputkeywordshere</keyword></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>keywords</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>retentionPeriod</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>retentionPeriod</Title>
+            < /Description>
+            <Event_plan>,<date>###</date></plan></Event_plan> 
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component >
+        
+        <Description>
+            <abstract><reason_for_rendition>primaryAuthorityRetention</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description>inputprimaryAuthorityRetention</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>primaryAuthorityRetention</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier>###</system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>retentionNotes</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description>inputretentionNoteshere</description></abstract>
+            <classification>
+                <classification_code><case_id>###</case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>retentionNotes</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>retentionDecisions</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description>inputretentiondecisionshere</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>retentionDecisions</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component >
+        
+        <Description>
+            <abstract><reason_for_rendition>disposition</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description></description></abstract>
+           <mandate
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>disposition</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Event_plan><event_type><disposition_action>inputdispositionactionhere</disposition_action></event_type></Event_plan>
+               <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>primaryAuthority </reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description>inputprimaryauthorityhere</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>primaryAuthority</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier>###</system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>officeOfPrimaryResponsibility</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description>inputofficeOfPrimaryResponsibilityhere</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>officeOfPrimaryResponsibility</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier>###</system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>relatedAuthorities</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description>inputrelatedAuthoritieshere</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>relatedAuthorities</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>vitalRecord</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description></description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>vitalRecord</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <status><vital_record>yesorno</vital_record></status>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>approvedByCounselDate</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description></description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>approvedByCounselDate</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Event_history><date><reviewed>###</reviewed></date></Event_history>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>updateTimestamp</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionSchedule</reason_for_rendition></abstract>
+            <abstract>,<description></description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>updateTimestamp</Title>
+            < /Description>
+            <Event_history><date><modified>###</modified></date></Event_history>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionSchedule</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>retentionScheduleID</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract>,<description>inputretentionScheduleIDhere</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>retentionScheduleID</Title>
+            < /Description>
+            <Event_history><date><modified></modified></date></Event_history>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>retentionScheduleID</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract>,<description>inputretentionScheduleIDhere</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>retentionScheduleID</Title>
+            < /Description>
+            <Event_history><date><modified></modified></date></Event_history>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>uuid</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract>,<description>inputuuidhere</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>retentionScheduleID</Title>
+            < /Description>
+            <Event_history><date><modified></modified></date></Event_history>
+            <Identity>
+                <system_identifier>###</system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>recordDescription</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract>,<description>inputrecorddescriptionhere</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>recordDescription</Title>
+            < /Description>
+            <Event_history><date><modified></modified></date></Event_history>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>recordCode</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+            <classification>
+                <classification_code><case_id>###</case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>recordCode</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier>###</system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>recordName</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract>,<reason_for_rendition>inputrecordnamehere</reason_for_rendition></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>recordName</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>recordCategory</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract>,<description>inputrecordcategory</description></abstract>
+            <classification>
+                <classification_code><case_id>###</case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>recordCategory</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>keywords</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract><keyword>inputkeywordshere</keyword></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>keywords</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>retentionPeriod</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract>,<reason_for_rendition></reason_for_rendition></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>retentionPeriod</Title>
+            < /Description>
+            <Event_plan>,<date>###</date></plan></Event_plan> 
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    <Component>
+        
+        <Description>
+            <abstract><reason_for_rendition>primaryAuthorityRetention</reason_for_rendition></abstract>
+            <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+            <abstract>,<description>inputprimaryAuthorityRetentionHere</description></abstract>
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>primaryAuthorityRetention</Title>
+            < /Description>
+            <Identity>
+                <system_identifier>###</system_identifier>
+            </Identity>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+    </Component>
+    
+    <Description>
+        <abstract><reason_for_rendition>retentionNotes</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+        <abstract>,<description>inputretentionNoteshere</description></abstract>
+        <classification>
+            <classification_code><case_id>###</case_id></classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>retentionNotes</Title>
+        < /Description>
+        <Identity>
+            
+            <system_identifier></system_identifier>
+        </Identity>
+        <Relation>
+            <entity_agent></entity_agent>
+            <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+        </Relation>
+        <Use>
+            <technical_environment>
+                <file_format>[]</file_format>
+                <file_format_original>[]</file_format_original>
+                <file_format_version>[]</file_format_version>
+                <file_format_version_original>[]</file_format_version_original>
+            </technical_environment>
+        </Use>
+</Component>
+<Component>
+    
+    <Description>
+        <abstract><reason_for_rendition>retentionDecisions</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+        <abstract>,<description>inputretentiondecisionshere</description></abstract>
+        <classification>
+            <classification_code><case_id></case_id></classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>retentionDecisions</Title>
+        < /Description>
+        <Identity>
+            
+            <system_identifier></system_identifier>
+        </Identity>
+        <Relation>
+            <entity_agent></entity_agent>
+            <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+        </Relation>
+        <Use>
+            <technical_environment>
+                <file_format>[]</file_format>
+                <file_format_original>[]</file_format_original>
+                <file_format_version>[]</file_format_version>
+                <file_format_version_original>[]</file_format_version_original>
+            </technical_environment>
+        </Use>
+</Component> 
+<Component>
+    
+    <Description>
+        <abstract><reason_for_rendition>disposition</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+        <abstract>,<description></description></abstract>
+        <mandate
+            <classification>
+                <classification_code><case_id></case_id></classification_code>
+                <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+            </classification>
+            <Title>disposition</Title>
+            < /Description>
+            <Identity>
+                
+                <system_identifier></system_identifier>
+            </Identity>
+            <Event_plan><event_type><disposition_action>inputdispositionactionhere</disposition_action></event_type></Event_plan>
+            <Relation>
+                <entity_agent></entity_agent>
+                <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+            </Relation>
+            <Use>
+                <technical_environment>
+                    <file_format>[]</file_format>
+                    <file_format_original>[]</file_format_original>
+                    <file_format_version>[]</file_format_version>
+                    <file_format_version_original>[]</file_format_version_original>
+                </technical_environment>
+            </Use>
+</Component>
+<Component>
+    
+    <Description>
+        <abstract><reason_for_rendition>primaryAuthority </reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+        <abstract>,<description>inputprimaryauthorityhere</description></abstract>
+        <classification>
+            <classification_code><case_id></case_id></classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>primaryAuthority</Title>
+        < /Description>
+        <Identity>
+            
+            <system_identifier>###</system_identifier>
+        </Identity>
+        <Relation>
+            <entity_agent></entity_agent>
+            <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+        </Relation>
+        <Use>
+            <technical_environment>
+                <file_format>[]</file_format>
+                <file_format_original>[]</file_format_original>
+                <file_format_version>[]</file_format_version>
+                <file_format_version_original>[]</file_format_version_original>
+            </technical_environment>
+        </Use>
+</Component>
+<Component>
+    
+    <Description>
+        <abstract><reason_for_rendition>officeOfPrimaryResponsibility</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+        <abstract>,<description>inputofficeOfPrimaryResponsibilityhere</description></abstract>
+        <classification>
+            <classification_code><case_id></case_id></classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>officeOfPrimaryResponsibility</Title>
+        < /Description>
+        <Identity>
+            
+            <system_identifier>###</system_identifier>
+        </Identity>
+        <Relation>
+            <entity_agent></entity_agent>
+            <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+        </Relation>
+        <Use>
+            <technical_environment>
+                <file_format>[]</file_format>
+                <file_format_original>[]</file_format_original>
+                <file_format_version>[]</file_format_version>
+                <file_format_version_original>[]</file_format_version_original>
+            </technical_environment>
+        </Use>
+</Component>
+<Component>
+    
+    <Description>
+        <abstract><reason_for_rendition>relatedAuthorities</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+        <abstract>,<description>inputrelatedAuthoritieshere</description></abstract>
+        <classification>
+            <classification_code><case_id></case_id></classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>relatedAuthorities</Title>
+        < /Description>
+        <Identity>
+            
+            <system_identifier>###</system_identifier>
+        </Identity>
+        <Relation>
+            <entity_agent></entity_agent>
+            <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+        </Relation>
+        <Use>
+            <technical_environment>
+                <file_format>[]</file_format>
+                <file_format_original>[]</file_format_original>
+                <file_format_version>[]</file_format_version>
+                <file_format_version_original>[]</file_format_version_original>
+            </technical_environment>
+        </Use>
+</Component>
+<Component>
+    
+    <Description>
+        <abstract><reason_for_rendition>notes</reason_for_rendition></abstract>
+        <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+        <abstract>,<description>inputnoteshere</description></abstract>
+        <classification>
+            <classification_code><case_id></case_id></classification_code>
+            <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+        </classification>
+        <Title>notes</Title>
+        < /Description>
+        <Identity>
+            
+            <system_identifier></system_identifier>
+        </Identity>
+        <Relation>
+            <entity_agent></entity_agent>
+            <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+        </Relation>
+        <Use>
+            <technical_environment>
+                <file_format>[]</file_format>
+                <file_format_original>[]</file_format_original>
+                <file_format_version>[]</file_format_version>
+                <file_format_version_original>[]</file_format_version_original>
+            </technical_environment>
+        </Use>
+        <Component>
+            
+            <Description>
+                <abstract><reason_for_rendition>vitalRecord</reason_for_rendition></abstract>
+                <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+                <abstract>,<description></description></abstract>
+                <classification>
+                    <classification_code><case_id></case_id></classification_code>
+                    <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                </classification>
+                <Title>vitalRecord</Title>
+                < /Description>
+                <Identity>
+                    
+                    <system_identifier></system_identifier>
+                </Identity>
+                <Relation>
+                    <entity_agent></entity_agent>
+                    <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+                </Relation>
+                <Use>
+                    <status><vital_record>yesorno</vital_record></status>
+                    <technical_environment>
+                        <file_format>[]</file_format>
+                        <file_format_original>[]</file_format_original>
+                        <file_format_version>[]</file_format_version>
+                        <file_format_version_original>[]</file_format_version_original>
+                    </technical_environment>
+                </Use>
+        </Component>
+        <Component>
+            
+            <Description>
+                <abstract><reason_for_rendition>approvedByCounselDate</reason_for_rendition></abstract>
+                <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+                <abstract>,<description></description></abstract>
+                <classification>
+                    <classification_code><case_id></case_id></classification_code>
+                    <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                </classification>
+                <Title>approvedByCounselDate</Title>
+                < /Description>
+                <Identity>
+                    
+                    <system_identifier></system_identifier>
+                </Identity>
+                <Event_history><date><reviewed>###</reviewed></date></Event_history>
+                <Relation>
+                    <entity_agent></entity_agent>
+                    <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+                </Relation>
+                <Use>
+                    <technical_environment>
+                        <file_format>[]</file_format>
+                        <file_format_original>[]</file_format_original>
+                        <file_format_version>[]</file_format_version>
+                        <file_format_version_original>[]</file_format_version_original>
+                    </technical_environment>
+                </Use>
+        </Component>
+        
+        <Component>
+            
+            <Description>
+                <abstract><reason_for_rendition>updateTimestamp</reason_for_rendition></abstract>
+                <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+                <abstract>,<description></description></abstract>
+                <classification>
+                    <classification_code><case_id></case_id></classification_code>
+                    <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                </classification>
+                <Title>updateTimestamp</Title>
+                < /Description>
+                <Event_history><date><modified>###</modified></date></Event_history>
+                <Identity>
+                    
+                    <system_identifier></system_identifier>
+                </Identity>
+                <Relation>
+                    <entity_agent></entity_agent>
+                    <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+                </Relation>
+                <Use>
+                    <technical_environment>
+                        <file_format>[]</file_format>
+                        <file_format_original>[]</file_format_original>
+                        <file_format_version>[]</file_format_version>
+                        <file_format_version_original>[]</file_format_version_original>
+                    </technical_environment>
+                </Use>
+        </Component>
+        <Component>
+            
+            <Description>
+                <abstract><reason_for_rendition>updateUser</reason_for_rendition></abstract>
+                <abstract><reason_for_rendition>rm_retentionScheduleDeleted</reason_for_rendition></abstract>
+                <abstract>,<description></description></abstract>
+                <classification>
+                    <classification_code><case_id></case_id></classification_code>
+                    <fully_qualified_classification_code>[]</fully_qualified_classification_code>
+                </classification>
+                <Title>updateUser</Title>
+                < /Description>
+                <Event_history><date><modified>###</modified></date></Event_history>
+                <Identity>
+                     <system_identifier></system_identifier>
+                </Identity>
+                <Relation>
+                    <entity_agent></entity_agent>
+                    <is_child_of>rm_retentionScheduleDeleted</is_child_of><is_rendition_of></is_rendition_of>
+                </Relation>
+                <Use>
+                    <technical_environment>
+                        <file_format>[]</file_format>
+                        <file_format_original>[]</file_format_original>
+                        <file_format_version>[]</file_format_version>
+                        <file_format_version_original>[]</file_format_version_original>
+                    </technical_environment>
+                </Use>
+        </Component>

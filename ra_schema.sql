@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 01, 2011 at 11:32 AM
+-- Generation Time: Apr 20, 2011 at 03:26 PM
 -- Server version: 5.1.44
 -- PHP Version: 5.3.2
 
@@ -19,16 +19,13 @@ START TRANSACTION;
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `test`
+-- Database: `rmTestDB`
 --
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_associatedUnits`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_associatedUnits`;
@@ -38,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `rm_associatedUnits` (
   `departmentID` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`associatedUnitsID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1109 ;
 
 --
 -- Dumping data for table `rm_associatedUnits`
@@ -49,9 +46,6 @@ CREATE TABLE IF NOT EXISTS `rm_associatedUnits` (
 
 --
 -- Table structure for table `rm_associatedUnits_temp`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_associatedUnits_temp`;
@@ -75,9 +69,6 @@ CREATE TABLE IF NOT EXISTS `rm_associatedUnits_temp` (
 --
 -- Table structure for table `rm_audit`
 --
--- Creation: Aug 01, 2011 at 11:21 AM
--- Last update: Aug 01, 2011 at 11:21 AM
---
 
 DROP TABLE IF EXISTS `rm_audit`;
 CREATE TABLE IF NOT EXISTS `rm_audit` (
@@ -89,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `rm_audit` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`auditID`),
   FULLTEXT KEY `search` (`username`,`updateDate`,`previousData`,`currentData`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `rm_audit`
@@ -100,9 +91,6 @@ CREATE TABLE IF NOT EXISTS `rm_audit` (
 
 --
 -- Table structure for table `rm_departmentContacts`
---
--- Creation: Aug 01, 2011 at 11:21 AM
--- Last update: Aug 01, 2011 at 11:21 AM
 --
 
 DROP TABLE IF EXISTS `rm_departmentContacts`;
@@ -117,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `rm_departmentContacts` (
   `submitDate` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`contactID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `rm_departmentContacts`
@@ -129,9 +117,6 @@ CREATE TABLE IF NOT EXISTS `rm_departmentContacts` (
 --
 -- Table structure for table `rm_departments`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:24 AM
---
 
 DROP TABLE IF EXISTS `rm_departments`;
 CREATE TABLE IF NOT EXISTS `rm_departments` (
@@ -140,22 +125,17 @@ CREATE TABLE IF NOT EXISTS `rm_departments` (
   `departmentName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`departmentID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1005 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1001 ;
 
 --
 -- Dumping data for table `rm_departments`
 --
 
-INSERT DELAYED IGNORE INTO `rm_departments` (`departmentID`, `divisionID`, `departmentName`, `timestamp`) VALUES
-(1000, 1000, 'Default Department', '2011-02-25 15:55:41');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_disposition`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_disposition`;
@@ -172,19 +152,11 @@ CREATE TABLE IF NOT EXISTS `rm_disposition` (
 -- Dumping data for table `rm_disposition`
 --
 
-INSERT DELAYED IGNORE INTO `rm_disposition` (`dispositionID`, `dispositionShort`, `dispositionLong`, `description`, `timestamp`) VALUES
-(1, 'D', 'Destroy', 'At the end of the retention period, these records must be securely destroyed.  Paper records must be shredded by an approved shredding vendor or an approved University-owned shredding equipment.  Other physical media must be securely destroyed and disposed of of in a manner that prevents the data on it from being recovered.  All instances of electronic records must be permanently deleted. ', '2009-03-10 08:32:28'),
-(2, 'R', 'Recycle', 'These records are not confidential and do not have to be shredded.  Please recycle theses records when no longer needed.  All instances of electronic records must be deleted.', '2009-03-10 08:32:54'),
-(3, 'P', 'Permanent', 'These records are permanent University records.  At the end of the retention period, custodianship of permanent records is transferred to the university Archives to ensure long-term preservation.', '2009-03-10 08:33:30'),
-(4, 'N/A', 'Not applicable', '', '2009-03-10 08:34:12');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_divisions`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:25 AM
 --
 
 DROP TABLE IF EXISTS `rm_divisions`;
@@ -193,22 +165,17 @@ CREATE TABLE IF NOT EXISTS `rm_divisions` (
   `divisionName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`divisionID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1004 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1001 ;
 
 --
 -- Dumping data for table `rm_divisions`
 --
 
-INSERT DELAYED IGNORE INTO `rm_divisions` (`divisionID`, `divisionName`, `timestamp`) VALUES
-(1000, 'Default Division', '2011-02-25 15:55:19');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_docTypes`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_docTypes`;
@@ -223,32 +190,11 @@ CREATE TABLE IF NOT EXISTS `rm_docTypes` (
 -- Dumping data for table `rm_docTypes`
 --
 
-INSERT DELAYED IGNORE INTO `rm_docTypes` (`docTypeID`, `docType`, `timestamp`) VALUES
-(1, 'pdf', '2009-02-18 16:35:09'),
-(2, 'docx', '2009-02-18 16:35:16'),
-(3, 'doc', '2009-02-18 16:35:22'),
-(4, 'txt', '2009-02-18 16:35:26'),
-(5, 'gif', '2009-02-18 16:35:31'),
-(6, 'jpg', '2009-02-18 16:35:37'),
-(7, 'jpeg', '2009-02-18 16:35:42'),
-(8, 'vsd', '2009-02-18 16:35:48'),
-(9, 'xls', '2009-02-18 16:35:53'),
-(10, 'xlsx', '2009-02-18 16:35:58'),
-(11, 'ppt', '2009-02-18 16:36:02'),
-(12, 'pptx', '2009-02-18 16:36:13'),
-(20, 'vdx', '2009-09-10 14:10:58'),
-(14, 'tiff', '2009-02-18 16:36:23'),
-(15, 'tif', '2009-02-18 16:36:29'),
-(16, 'pdf/a', '2009-04-15 14:47:43'),
-(17, 'rtf', '2009-06-29 16:09:38');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_fieldTypes`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_fieldTypes`;
@@ -263,20 +209,11 @@ CREATE TABLE IF NOT EXISTS `rm_fieldTypes` (
 -- Dumping data for table `rm_fieldTypes`
 --
 
-INSERT DELAYED IGNORE INTO `rm_fieldTypes` (`fieldTypeID`, `fieldType`, `timestamp`) VALUES
-(1, 'text', '2008-08-04 13:26:22'),
-(2, 'checkbox', '2008-08-04 13:26:32'),
-(3, 'radio', '2008-08-04 13:26:39'),
-(4, 'textarea', '2008-08-22 13:15:31'),
-(5, 'file', '2008-08-22 14:07:00');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_fullTextSearch`
---
--- Creation: Aug 01, 2011 at 11:22 AM
--- Last update: Aug 01, 2011 at 11:22 AM
 --
 
 DROP TABLE IF EXISTS `rm_fullTextSearch`;
@@ -288,14 +225,14 @@ CREATE TABLE IF NOT EXISTS `rm_fullTextSearch` (
   `recordDescription` text COLLATE utf8_unicode_ci,
   `recordCategory` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `keywords` text COLLATE utf8_unicode_ci NOT NULL,
-  `retentionPeriod` text COLLATE utf8_unicode_ci,
+  `retentionPeriod` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `retentionNotes` text COLLATE utf8_unicode_ci,
   `disposition` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `officeOfPrimaryResponsibility` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `approvedByCounselDate` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`searchID`),
   FULLTEXT KEY `rm_fullText` (`recordName`,`recordDescription`,`retentionPeriod`,`disposition`,`officeOfPrimaryResponsibility`,`approvedByCounselDate`,`recordCategory`,`recordCode`,`keywords`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=194 ;
 
 --
 -- Dumping data for table `rm_fullTextSearch`
@@ -306,9 +243,6 @@ CREATE TABLE IF NOT EXISTS `rm_fullTextSearch` (
 
 --
 -- Table structure for table `rm_recordCategories`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:25 AM
 --
 
 DROP TABLE IF EXISTS `rm_recordCategories`;
@@ -323,17 +257,11 @@ CREATE TABLE IF NOT EXISTS `rm_recordCategories` (
 -- Dumping data for table `rm_recordCategories`
 --
 
-INSERT DELAYED IGNORE INTO `rm_recordCategories` (`recordCategoryID`, `recordCategory`, `timestamp`) VALUES
-(1, 'Default Category', '2011-08-01 11:25:30');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_recordType`
---
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
--- Last check: Aug 01, 2011 at 11:25 AM
 --
 
 DROP TABLE IF EXISTS `rm_recordType`;
@@ -371,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `rm_recordType` (
   PRIMARY KEY (`recordInformationID`),
   FULLTEXT KEY `recordTypeFT1` (`recordDescription`,`recordNotesDeptAnswer`,`recordNotesRmNotes`,`otherPhysicalText`,`otherElectronicText`,`otherDUBuildingText`,`otherOffsiteStorageText`,`otherElectronicSystemText`,`formatAndLocationDeptAnswer`,`formatAndLocationRmNotes`,`usageNotesAnswer`,`retentionAuthoritiesAnswer`,`vitalRecordNotesAnswer`,`personallyIdentifiableInformationAnswer`,`personallyIdentifiableInformationRmNotes`,`otherDepartmentCopiesAnswer`),
   FULLTEXT KEY `recordTypeFT2` (`recordName`,`recordCategory`,`recordFormat`,`recordStorage`,`vitalRecord`,`recordRegulations`,`recordRetentionAnswer`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=129 ;
 
 --
 -- Dumping data for table `rm_recordType`
@@ -382,10 +310,6 @@ CREATE TABLE IF NOT EXISTS `rm_recordType` (
 
 --
 -- Table structure for table `rm_recordTypeDeleted`
---
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
--- Last check: Aug 01, 2011 at 11:25 AM
 --
 
 DROP TABLE IF EXISTS `rm_recordTypeDeleted`;
@@ -433,11 +357,134 @@ CREATE TABLE IF NOT EXISTS `rm_recordTypeDeleted` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rm_retentionSchedule`
+-- Table structure for table `rm_recordTypeFormatAndLocation`
 --
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
--- Last check: Aug 01, 2011 at 11:25 AM
+
+DROP TABLE IF EXISTS `rm_recordTypeFormatAndLocation`;
+CREATE TABLE IF NOT EXISTS `rm_recordTypeFormatAndLocation` (
+  `formatAndLocationID` int(11) NOT NULL AUTO_INCREMENT,
+  `recordTypeDepartment` int(11) NOT NULL,
+  `electronicRecord` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `system` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `otherText` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `paperVersion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `otherBuilding` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `otherStorage` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `finalRecordExist` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `backupMedia` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `recordLocation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `otherRecordLocation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fileFormat` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `formatAndLocationDeptAnswer` text COLLATE utf8_unicode_ci,
+  `formatAndLocationRmNotes` text COLLATE utf8_unicode_ci,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `recordInformationID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`formatAndLocationID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=46 ;
+
+--
+-- Dumping data for table `rm_recordTypeFormatAndLocation`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rm_recordTypeManagement`
+--
+
+DROP TABLE IF EXISTS `rm_recordTypeManagement`;
+CREATE TABLE IF NOT EXISTS `rm_recordTypeManagement` (
+  `managementID` int(11) NOT NULL AUTO_INCREMENT,
+  `recordTypeDepartment` int(11) NOT NULL,
+  `accessAndUseDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `accessAndUseRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `yearsActive` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `yearsAvailable` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `activePeriodDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `activePeriodRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `yearsKept` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `retentionPeriodDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `retentionPeriodRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `managementDivisionID` int(11) NOT NULL,
+  `managementDepartmentID` int(11) NOT NULL,
+  `custodianDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `custodianRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `legislationGovernRecords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `legislation` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `legislationHowLong` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `legalRequirmentsDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `legalRequirmentsRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `standardsAndBestPracticesDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `standardsAndBestPracticesRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `destroyRecords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `howOftenDestruction` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `howAreRecordsDestroyed` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `destructionDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `destructionRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `transferToArchives` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `howOftenArchive` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `transferToArchivesDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `transferToArchivesRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `vitalRecords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `manageVitalRecords` text COLLATE utf8_unicode_ci NOT NULL,
+  `vitalRecordsDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `vitalRecordsRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `sensitiveInformation` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `describeInformation` text COLLATE utf8_unicode_ci NOT NULL,
+  `sensitiveInformationDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `sensitiveInformationRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `secureRecords` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `describeSecurityRecords` text COLLATE utf8_unicode_ci NOT NULL,
+  `securityDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `securityRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `duplication` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `duplicationDivisionID` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `duplicationDepartmentID` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `masterCopyDivisionID` int(11) NOT NULL,
+  `masterCopyDepartmentID` int(11) NOT NULL,
+  `duplicationDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `duplicationRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `recordInformationID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`managementID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=108 ;
+
+--
+-- Dumping data for table `rm_recordTypeManagement`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rm_recordTypeRecordInformation`
+--
+
+DROP TABLE IF EXISTS `rm_recordTypeRecordInformation`;
+CREATE TABLE IF NOT EXISTS `rm_recordTypeRecordInformation` (
+  `recordInformationID` int(11) NOT NULL AUTO_INCREMENT,
+  `recordTypeDepartment` int(11) NOT NULL,
+  `recordInformationDivisionID` int(11) NOT NULL,
+  `recordName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `recordDescription` text COLLATE utf8_unicode_ci NOT NULL,
+  `recordCategory` text COLLATE utf8_unicode_ci NOT NULL,
+  `recordNotesDeptAnswer` text COLLATE utf8_unicode_ci NOT NULL,
+  `recordNotesRmNotes` text COLLATE utf8_unicode_ci NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`recordInformationID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=129 ;
+
+--
+-- Dumping data for table `rm_recordTypeRecordInformation`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rm_retentionSchedule`
 --
 
 DROP TABLE IF EXISTS `rm_retentionSchedule`;
@@ -456,8 +503,6 @@ CREATE TABLE IF NOT EXISTS `rm_retentionSchedule` (
   `disposition` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `primaryAuthority` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `officeOfPrimaryResponsibility` int(11) NOT NULL,
-  `override` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
-  `primaryOwnerOverride` text COLLATE utf8_unicode_ci NOT NULL,
   `relatedAuthorities` text COLLATE utf8_unicode_ci NOT NULL,
   `notes` text COLLATE utf8_unicode_ci NOT NULL,
   `vitalRecord` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
@@ -468,8 +513,8 @@ CREATE TABLE IF NOT EXISTS `rm_retentionSchedule` (
   `updateUser` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`retentionScheduleID`),
   UNIQUE KEY `recordCode` (`recordCode`),
-  FULLTEXT KEY `rm_retentionSchedule` (`uuid`,`recordName`,`recordDescription`,`recordCategory`,`retentionPeriod`,`primaryAuthorityRetention`,`retentionNotes`,`retentionDecisions`,`disposition`,`primaryAuthority`,`notes`,`approvedByCounsel`,`approvedByCounselDate`,`recordCode`,`keywords`,`primaryOwnerOverride`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  FULLTEXT KEY `rm_retentionSchedule` (`uuid`,`recordName`,`recordDescription`,`recordCategory`,`retentionPeriod`,`primaryAuthorityRetention`,`retentionNotes`,`retentionDecisions`,`disposition`,`primaryAuthority`,`notes`,`vitalRecord`,`approvedByCounsel`,`approvedByCounselDate`,`recordCode`,`keywords`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=201 ;
 
 --
 -- Dumping data for table `rm_retentionSchedule`
@@ -480,9 +525,6 @@ CREATE TABLE IF NOT EXISTS `rm_retentionSchedule` (
 
 --
 -- Table structure for table `rm_retentionScheduleDeleted`
---
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
 --
 
 DROP TABLE IF EXISTS `rm_retentionScheduleDeleted`;
@@ -498,11 +540,9 @@ CREATE TABLE IF NOT EXISTS `rm_retentionScheduleDeleted` (
   `primaryAuthorityRetention` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `retentionNotes` text COLLATE utf8_unicode_ci NOT NULL,
   `retentionDecisions` text COLLATE utf8_unicode_ci NOT NULL,
-  `disposition` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `disposition` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `primaryAuthority` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `officeOfPrimaryResponsibility` int(11) NOT NULL,
-  `override` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
-  `primaryOwnerOverride` text COLLATE utf8_unicode_ci NOT NULL,
   `relatedAuthorities` text COLLATE utf8_unicode_ci NOT NULL,
   `notes` text COLLATE utf8_unicode_ci NOT NULL,
   `vitalRecord` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
@@ -512,8 +552,8 @@ CREATE TABLE IF NOT EXISTS `rm_retentionScheduleDeleted` (
   `updateTimestamp` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `updateUser` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`retentionScheduleID`),
-  FULLTEXT KEY `rm_retentionScheduleDeleted` (`uuid`,`recordName`,`recordDescription`,`recordCategory`,`retentionPeriod`,`primaryAuthorityRetention`,`retentionNotes`,`retentionDecisions`,`disposition`,`primaryAuthority`,`notes`,`approvedByCounsel`,`approvedByCounselDate`,`recordCode`,`keywords`,`primaryOwnerOverride`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  FULLTEXT KEY `uuid` (`uuid`,`recordName`,`recordDescription`,`recordCategory`,`retentionPeriod`,`primaryAuthorityRetention`,`retentionNotes`,`retentionDecisions`,`disposition`,`primaryAuthority`,`notes`,`vitalRecord`,`approvedByCounsel`,`approvedByCounselDate`,`recordCode`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=199 ;
 
 --
 -- Dumping data for table `rm_retentionScheduleDeleted`
@@ -525,9 +565,6 @@ CREATE TABLE IF NOT EXISTS `rm_retentionScheduleDeleted` (
 --
 -- Table structure for table `rm_rsRelatedAuthorities`
 --
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
---
 
 DROP TABLE IF EXISTS `rm_rsRelatedAuthorities`;
 CREATE TABLE IF NOT EXISTS `rm_rsRelatedAuthorities` (
@@ -537,7 +574,7 @@ CREATE TABLE IF NOT EXISTS `rm_rsRelatedAuthorities` (
   `rsRelatedAuthorityRetention` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`rsRelatedAuthorityID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `rm_rsRelatedAuthorities`
@@ -548,9 +585,6 @@ CREATE TABLE IF NOT EXISTS `rm_rsRelatedAuthorities` (
 
 --
 -- Table structure for table `rm_sessions`
---
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
 --
 
 DROP TABLE IF EXISTS `rm_sessions`;
@@ -573,9 +607,6 @@ CREATE TABLE IF NOT EXISTS `rm_sessions` (
 --
 -- Table structure for table `rm_surveyContactFields`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
---
 
 DROP TABLE IF EXISTS `rm_surveyContactFields`;
 CREATE TABLE IF NOT EXISTS `rm_surveyContactFields` (
@@ -592,30 +623,11 @@ CREATE TABLE IF NOT EXISTS `rm_surveyContactFields` (
 -- Dumping data for table `rm_surveyContactFields`
 --
 
-INSERT DELAYED IGNORE INTO `rm_surveyContactFields` (`contactFieldID`, `contactQuestionID`, `contactField`, `fieldTypeID`, `required`, `timestamp`) VALUES
-(1, 1, 'First Name', 1, 1, '2008-11-10 08:42:49'),
-(2, 1, 'Last Name', 1, 1, '2008-11-10 08:42:56'),
-(3, 1, 'Phone', 1, 1, '2008-11-10 08:43:03'),
-(4, 1, 'Email', 1, 1, '2008-11-10 08:43:09'),
-(5, 1, 'What are this contact''s major duties/responsibilities', 4, 1, '2008-11-10 08:43:17'),
-(6, 1, 'First Name', 1, 0, '2008-11-10 08:43:24'),
-(7, 1, 'Last Name', 1, 0, '2008-11-10 08:43:29'),
-(8, 1, 'Phone', 1, 0, '2008-11-10 08:43:48'),
-(9, 1, 'Email', 1, 0, '2008-11-10 08:43:55'),
-(10, 1, 'What are this contact''s major duties/responsibilities', 4, 0, '2008-11-10 08:44:03'),
-(11, 1, 'First Name', 1, 0, '2008-11-10 08:44:10'),
-(12, 1, 'Last Name', 1, 0, '2008-11-10 08:44:22'),
-(13, 1, 'Phone', 1, 0, '2008-11-10 08:44:27'),
-(14, 1, 'Email', 1, 0, '2008-11-10 08:44:31'),
-(15, 1, 'What are this contact''s major duties/responsibilities', 4, 0, '2008-11-10 08:44:38');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_surveyContactNotes`
---
--- Creation: Aug 01, 2011 at 11:26 AM
--- Last update: Aug 01, 2011 at 11:26 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyContactNotes`;
@@ -625,7 +637,7 @@ CREATE TABLE IF NOT EXISTS `rm_surveyContactNotes` (
   `contactNotes` text COLLATE utf8_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`contactNotesID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `rm_surveyContactNotes`
@@ -636,9 +648,6 @@ CREATE TABLE IF NOT EXISTS `rm_surveyContactNotes` (
 
 --
 -- Table structure for table `rm_surveyContactQuestions`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyContactQuestions`;
@@ -655,16 +664,11 @@ CREATE TABLE IF NOT EXISTS `rm_surveyContactQuestions` (
 -- Dumping data for table `rm_surveyContactQuestions`
 --
 
-INSERT DELAYED IGNORE INTO `rm_surveyContactQuestions` (`contactQuestionID`, `surveyID`, `questionType`, `contactQuestion`, `timestamp`) VALUES
-(1, 1, 4, 'Please list names and email addresses of 1-3 people that the Records Management program could interview for more detailed information about the records in your department. These people should have, among them, contact with or knowledge of most (at least 90%) of the records in your department.', '2008-11-10 08:42:41');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_surveyContactResponses`
---
--- Creation: Aug 01, 2011 at 11:26 AM
--- Last update: Aug 01, 2011 at 11:26 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyContactResponses`;
@@ -676,7 +680,7 @@ CREATE TABLE IF NOT EXISTS `rm_surveyContactResponses` (
   `contactResponse` varchar(510) COLLATE utf8_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`contactResponseID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=61 ;
 
 --
 -- Dumping data for table `rm_surveyContactResponses`
@@ -687,9 +691,6 @@ CREATE TABLE IF NOT EXISTS `rm_surveyContactResponses` (
 
 --
 -- Table structure for table `rm_surveyNotes`
---
--- Creation: Aug 01, 2011 at 11:26 AM
--- Last update: Aug 01, 2011 at 11:26 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyNotes`;
@@ -702,7 +703,7 @@ CREATE TABLE IF NOT EXISTS `rm_surveyNotes` (
   `rmSurveyNotes` text COLLATE utf8_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`surveyNotesID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=53 ;
 
 --
 -- Dumping data for table `rm_surveyNotes`
@@ -713,9 +714,6 @@ CREATE TABLE IF NOT EXISTS `rm_surveyNotes` (
 
 --
 -- Table structure for table `rm_surveyQuestionResponses`
---
--- Creation: Aug 01, 2011 at 11:27 AM
--- Last update: Aug 01, 2011 at 11:27 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyQuestionResponses`;
@@ -728,7 +726,7 @@ CREATE TABLE IF NOT EXISTS `rm_surveyQuestionResponses` (
   `response` text COLLATE utf8_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`responseID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=66 ;
 
 --
 -- Dumping data for table `rm_surveyQuestionResponses`
@@ -739,9 +737,6 @@ CREATE TABLE IF NOT EXISTS `rm_surveyQuestionResponses` (
 
 --
 -- Table structure for table `rm_surveyQuestions`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyQuestions`;
@@ -762,28 +757,11 @@ CREATE TABLE IF NOT EXISTS `rm_surveyQuestions` (
 -- Dumping data for table `rm_surveyQuestions`
 --
 
-INSERT DELAYED IGNORE INTO `rm_surveyQuestions` (`questionID`, `surveyID`, `question`, `fieldTypeID`, `subQuestion`, `required`, `questionType`, `questionOrder`, `timestamp`) VALUES
-(1, 1, 'What is the mission or purpose of your department?', 4, 0, 1, 1, 0, '2008-11-10 08:27:02'),
-(2, 1, 'If available, please attach a copy of your department''s organizational chart.', 5, 0, 0, 1, 0, '2008-11-10 08:27:35'),
-(3, 1, 'Has a departmental history or overview ever been written? ', 0, 1, 1, 2, 0, '2008-11-10 08:28:22'),
-(4, 1, 'What are the programs or subdivisions within your department?<br />Example: University Disability Services -- Disability Services Program and Learning Effectiveness Program', 4, 0, 1, 1, 0, '2008-11-10 08:30:04'),
-(5, 1, 'Please list any department-wide committees involved in curriculum or policy development.', 4, 0, 0, 1, 0, '2008-11-10 08:30:29'),
-(6, 1, 'What is unusual or unique about your department in regards to records?', 4, 0, 0, 1, 0, '2008-11-10 08:30:47'),
-(7, 1, 'What records are you most concerned about managing in your department?', 4, 0, 1, 1, 0, '2008-11-10 08:31:39'),
-(8, 1, 'Do any of your department''s records fall into the following categories? (Check all that apply)', 0, 1, 1, 3, 0, '2008-11-10 08:32:12'),
-(9, 1, 'What electronic systems are used in the department?', 0, 1, 1, 3, 0, '2008-11-10 08:36:11'),
-(10, 1, 'Does your department store records outside your department''s main offices? <br />Examples include third-party vendors that store electronic or paper records, and other DU buildings that store paper records.', 0, 1, 1, 2, 0, '2008-11-10 08:39:05'),
-(11, 1, 'Do you share records frequently with other departments (besides HR and Purchasing/Financial)?', 0, 1, 1, 2, 0, '2008-11-10 08:40:28'),
-(12, 1, 'Do you know of any organizations that issue records retention or compliance guidelines for your field?', 0, 1, 1, 2, 0, '2008-11-10 08:41:26'),
-(13, 1, 'Please share any questions, concerns, or additional information you have about records management within your department.', 4, 0, 0, 1, 0, '2008-11-10 08:42:13');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_surveys`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveys`;
@@ -794,23 +772,17 @@ CREATE TABLE IF NOT EXISTS `rm_surveys` (
   `surveyUrl` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`surveyID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `rm_surveys`
 --
 
-INSERT DELAYED IGNORE INTO `rm_surveys` (`surveyID`, `surveyName`, `surveyDescription`, `surveyUrl`, `timestamp`) VALUES
-(1, 'Departmental Records Management Survey', 'Please take no more than 15 minutes to fill out this survey about the functions and recordkeeping activities of your department.  We are looking for a brief, general overview of your department and its activities, and will be following up with more detailed in-person interviews.  If you are unsure of the answers to any questions, skip the question or answer "no" or "not sure" if a response is required.  \n<br /><br />\nThis survey will help the Records Management program prepare for a detailed inventory of your department''s records. Information collected from this survey and the inventory will be used to prepare a retention schedule for your department''s records.\n<br /><br />\nNote: The questions below apply to all records in your department regardless of format (paper or electronic).\n<br /><br />\nIf you have any questions or technical difficulties with this survey, please contact Joanna Lamb at <a href="mailto:records@du.edu">records@du.edu</a> or x13662.\n', 'http://130.253.139.225/recordsManagement/surveys/departmental-records-management-survey.html', '2008-11-10 08:25:01'),
-(4, 'Follow up Departmental Records Management Survey', 'This survey will be sent to contacts provided by the Departmental Records Management Survey. Its purpose is to identify records on an item level that interviewee deals with on a daily basis. Results will be used to pre-populate B forms to use in one-on-one interview.', NULL, '2009-03-05 09:59:45');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_surveySubChoiceQuestionResponses`
---
--- Creation: Aug 01, 2011 at 11:27 AM
--- Last update: Aug 01, 2011 at 11:27 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveySubChoiceQuestionResponses`;
@@ -824,7 +796,7 @@ CREATE TABLE IF NOT EXISTS `rm_surveySubChoiceQuestionResponses` (
   `response` text COLLATE utf8_unicode_ci,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`subChoiceResponseID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `rm_surveySubChoiceQuestionResponses`
@@ -835,9 +807,6 @@ CREATE TABLE IF NOT EXISTS `rm_surveySubChoiceQuestionResponses` (
 
 --
 -- Table structure for table `rm_surveySubChoiceQuestions`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveySubChoiceQuestions`;
@@ -855,17 +824,11 @@ CREATE TABLE IF NOT EXISTS `rm_surveySubChoiceQuestions` (
 -- Dumping data for table `rm_surveySubChoiceQuestions`
 --
 
-INSERT DELAYED IGNORE INTO `rm_surveySubChoiceQuestions` (`subChoiceQuestionID`, `subQuestionID`, `subChoiceQuestion`, `fieldTypeID`, `toggle`, `timestamp`) VALUES
-(1, 6, 'If you know of any relevant legislation, list it here.  Otherwise enter "not sure".', 4, 1, '2008-11-10 08:33:30'),
-(3, 14, 'other', 1, 1, '2009-02-12 12:00:33');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_surveySubQuestionResponses`
---
--- Creation: Aug 01, 2011 at 11:27 AM
--- Last update: Aug 01, 2011 at 11:27 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveySubQuestionResponses`;
@@ -879,7 +842,7 @@ CREATE TABLE IF NOT EXISTS `rm_surveySubQuestionResponses` (
   `response` text COLLATE utf8_unicode_ci,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`subResponseID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=60 ;
 
 --
 -- Dumping data for table `rm_surveySubQuestionResponses`
@@ -890,9 +853,6 @@ CREATE TABLE IF NOT EXISTS `rm_surveySubQuestionResponses` (
 
 --
 -- Table structure for table `rm_surveySubQuestions`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveySubQuestions`;
@@ -911,32 +871,11 @@ CREATE TABLE IF NOT EXISTS `rm_surveySubQuestions` (
 -- Dumping data for table `rm_surveySubQuestions`
 --
 
-INSERT DELAYED IGNORE INTO `rm_surveySubQuestions` (`subQuestionID`, `questionID`, `fieldTypeID`, `subQuestion`, `subChoiceQuestionCheck`, `toggle`, `timestamp`) VALUES
-(1, 3, 5, 'Please attach.', 0, 1, '2008-11-10 08:29:03'),
-(2, 8, 2, 'Records containing personally identifiable information such as SSNs', 0, 0, '2008-11-10 08:33:30'),
-(3, 8, 2, 'Student records', 0, 0, '2008-11-10 08:33:52'),
-(4, 8, 2, 'Records containing other sensitive or confidential information', 0, 0, '2008-11-10 08:34:07'),
-(5, 8, 2, 'Records with restricted access', 0, 0, '2008-11-10 08:34:26'),
-(6, 8, 2, 'Records whose retention is governed by legislation', 1, 0, '2008-11-10 08:34:38'),
-(7, 8, 2, 'None of the above', 0, 0, '2008-11-10 08:34:52'),
-(8, 8, 2, 'Not sure', 0, 0, '2008-11-10 08:35:31'),
-(9, 9, 2, 'Banner', 0, 0, '2008-11-10 08:36:28'),
-(10, 9, 2, 'Blackboard', 0, 0, '2008-11-10 08:36:40'),
-(11, 9, 2, 'Portfolio', 0, 0, '2008-11-10 08:36:56'),
-(12, 9, 2, 'Network Drives', 0, 0, '2008-11-10 08:37:08'),
-(13, 9, 2, 'VAGA', 0, 0, '2008-11-10 08:37:19'),
-(14, 9, 2, 'Other', 1, 0, '2008-11-10 08:37:51'),
-(15, 10, 4, 'Where?', 0, 1, '2008-11-10 08:39:23'),
-(16, 11, 4, 'Please list departments:', 0, 1, '2008-11-10 08:41:02'),
-(17, 12, 4, 'Please list.', 0, 1, '2008-11-10 08:41:52');
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `rm_users`
---
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:28 AM
 --
 
 DROP TABLE IF EXISTS `rm_users`;
@@ -946,7 +885,7 @@ CREATE TABLE IF NOT EXISTS `rm_users` (
   `passcode` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`userID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `rm_users`

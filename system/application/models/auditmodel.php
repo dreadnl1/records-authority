@@ -21,10 +21,10 @@
  **/
 
 
-class AuditModel extends CI_Model {
+class AuditModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  				
  		$this->devEmail = $this->config->item('devEmail');
  	}

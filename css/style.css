@@ -114,14 +114,14 @@ hr {
 #masthead {
 	width: 960px;
 	background: #fff;
-	height: 80px;
+	height: 160px;
 	float: left;
 }
 #masthead .header {
 	float: left;
 	background: #fff url("../images/header.jpg") no-repeat center bottom;
-	width: 959px;
-	height: 80px;
+	width: 960px;
+	height: 160px;
 	cursor: hand;
 }
 
@@ -143,7 +143,7 @@ hr {
 
 #searchContent {
 	margin: 0 auto;
-	padding: 95px 265px 10px 0px;
+	padding: 175px 265px 10px 0px;
 }
 
 /*IE min-height hack*/

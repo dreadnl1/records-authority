@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -37,9 +37,9 @@
 							$count = 0;
 							foreach ($recordCategories as $recordCategoryID => $recordCategory) {
 								if($count%4 == 0 ) {
-									echo "<tr><td><input type='checkbox' id='recordCategory' name='recordCategory$count' value='$recordCategory'/>&nbsp;&nbsp;$recordCategory</input></td>";
+									echo "<tr><td><input type='radio' name='recordCategory' value='$recordCategory' class='required'/>&nbsp;&nbsp;$recordCategory</input></td>";
 								} else {
-									echo "<td><input type='checkbox' id='recordCategory' name='recordCategory$count' value='$recordCategory'/>&nbsp;&nbsp;$recordCategory</input></td>";
+									echo "<td><input type='radio' name='recordCategory' value='$recordCategory' class='required'/>&nbsp;&nbsp;$recordCategory</input></td>";
 								}
 								$count = $count + 1;
 							} 
@@ -86,7 +86,7 @@
 						<h3 id="title"><br />Browse the Schedule</h3>
 						<a href="<?php echo site_url();?>/du/retentionSchedules/fullText">Full-Text Search</a>
 						<br />
-						<a href="<?php echo site_url();?>/du/retentionSchedules/browseByDepartment">Browse by Department</a>
+						<!-- <a href="<?php echo site_url();?>/du/retentionSchedules/browseByDepartment">Browse by Department</a> -->
 						<br /><br /><br />
 						<?php
 							echo "<span class='question'>";

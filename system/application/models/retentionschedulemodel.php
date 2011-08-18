@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
 
 
-class RetentionScheduleModel extends CI_Model {
+class RetentionScheduleModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  				
  		$this->devEmail = $this->config->item('devEmail');
  	}
@@ -63,7 +63,7 @@ class RetentionScheduleModel extends CI_Model {
 			}
 			return $recordInformation;	
 		} else {
-			//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: unable to pull record information into retention schedule form - getRecordInformationQuery()');
+			send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: unable to pull record information into retention schedule form - getRecordInformationQuery()');
 			$recordInformation = "Unable to render retention schedule form.";
 			return $recordInformation;
 		}
@@ -87,16 +87,7 @@ class RetentionScheduleModel extends CI_Model {
 	 * @return $retentionInformation
 	 */
  	private function getRetentionInformationKeywordQuery($keyword) {
- 		$this->db->select('	retentionScheduleID, 
- 							recordCode,
- 							recordName,
- 							recordCategory,
- 							recordDescription,
- 							keywords,
- 							officeOfPrimaryResponsibility,
- 							primaryOwnerOverride,
- 							uuid,
- 							approvedByCounsel');
+ 		$this->db->select('retentionScheduleID, recordCode, recordName, recordCategory, recordDescription, keywords, officeOfPrimaryResponsibility, uuid, approvedByCounsel');
 	 	$this->db->from('rm_retentionSchedule');
 	 	//Check for Search all with *
 	 	if($keyword != '*') {
@@ -113,8 +104,8 @@ class RetentionScheduleModel extends CI_Model {
 		 						retentionDecisions,
 		 						disposition,
 		 						primaryAuthority,
-		 						primaryOwnerOverride,
 		 						notes,
+		 						vitalRecord,
 		 						approvedByCounsel,
 		 						approvedByCounselDate) 
 		 						AGAINST ("*' . $keyword . '*" IN BOOLEAN MODE)');
@@ -153,8 +144,7 @@ class RetentionScheduleModel extends CI_Model {
  			}
  			return $dispositions;
  		} else {
- 			//send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: unable to pull dispositions from database - getDispositionsQuery()');
- 			echo "database error: unable to pull dispositions from database - getDispositionsQuery()";
+ 			send_email($this->devEmail, 'RecordsAuthority_Error', 'database error: unable to pull dispositions from database - getDispositionsQuery()');
  		}
  	}
  	
@@ -237,8 +227,6 @@ class RetentionScheduleModel extends CI_Model {
 		
 		// get department
 		$retentionSchedule['officeOfPrimaryResponsibility'] = trim(strip_tags($this->input->post('departmentID')));
-		$retentionSchedule['override'] = trim(strip_tags($this->input->post('override')));
-		$retentionSchedule['primaryOwnerOverride'] = trim(strip_tags($this->input->post('primaryOwnerOverride')));
 		$retentionSchedule['relatedAuthorities'] = trim(strip_tags($this->input->post('relatedAuthorities')));
 		$retentionSchedule['notes'] = trim(strip_tags($this->input->post('notes')));
 		$retentionSchedule['vitalRecord'] = trim(strip_tags($this->input->post('vitalRecord')));
@@ -409,8 +397,7 @@ class RetentionScheduleModel extends CI_Model {
  						$retentionSchedule['divisionID'] = $officeOfPrimaryResponsibility->divisionID;
  						$retentionSchedule['officeOfPrimaryResponsibilityDept'] = trim(strip_tags($officeOfPrimaryResponsibility->departmentName));
  					}	
- 				$retentionSchedule['override'] = $results->override; 				
- 				$retentionSchedule['primaryOwnerOverride'] = $results->primaryOwnerOverride;
+ 				 				
  				$retentionSchedule['notes'] = trim(strip_tags($results->notes));
  				$retentionSchedule['vitalRecord'] = trim(strip_tags($results->vitalRecord));
  				$retentionSchedule['approvedByCounsel'] = trim(strip_tags($results->approvedByCounsel));
@@ -513,8 +500,6 @@ class RetentionScheduleModel extends CI_Model {
 		$retentionSchedule['primaryAuthority'] = trim(strip_tags($this->input->post('primaryAuthority')));
 		$retentionSchedule['primaryAuthorityRetention'] = trim(strip_tags($this->input->post('primaryAuthorityRetention')));
 		$retentionSchedule['officeOfPrimaryResponsibility'] = trim(strip_tags($this->input->post('departmentID')));
-		$retentionSchedule['override'] = trim(strip_tags($this->input->post('override')));
-		$retentionSchedule['primaryOwnerOverride'] = trim(strip_tags($this->input->post('primaryOwnerOverride')));
 		$retentionSchedule['relatedAuthorities'] = trim(strip_tags($this->input->post('relatedAuthorities')));
 		$retentionSchedule['notes'] = trim(strip_tags($this->input->post('notes')));
 		$retentionSchedule['vitalRecord'] = trim(strip_tags($this->input->post('vitalRecord')));
@@ -745,7 +730,7 @@ class RetentionScheduleModel extends CI_Model {
 			$this->db->truncate('rm_fullTextSearch');
 		}
 		
-		$this->db->select('retentionScheduleID, recordCode, recordName, recordDescription, recordCategory, keywords, retentionPeriod, disposition, officeOfPrimaryResponsibility, override, primaryOwnerOverride,approvedByCounselDate');
+		$this->db->select('retentionScheduleID, recordCode, recordName, recordDescription, recordCategory, keywords, retentionPeriod, disposition, officeOfPrimaryResponsibility, approvedByCounselDate');
 		$this->db->from('rm_retentionSchedule');
 		$this->db->where('approvedByCounsel', 'yes');
 		if ($retentionScheduleID !== "") {
@@ -765,8 +750,6 @@ class RetentionScheduleModel extends CI_Model {
 			//$retentionScheduleArray['retentionNotes'] = $rsResults->retentionNotes;
 			$retentionScheduleArray['approvedByCounselDate'] = $rsResults->approvedByCounselDate;
 			$retentionScheduleArray['disposition'] = $rsResults->disposition;
-			
-			
 			/*// get full dispsition name for search results display
 			$this->db->select('dispositionLong');
 			$this->db->from('rm_disposition');
@@ -776,31 +759,28 @@ class RetentionScheduleModel extends CI_Model {
 			$disposition = $dispositionResult->dispositionLong;			
 			
 			$retentionScheduleArray['disposition'] = $disposition;*/
-			if($rsResults->override == "yes") {			
-				$retentionScheduleArray['officeOfPrimaryResponsibility'] = $rsResults->primaryOwnerOverride;
-			} else {
-				$this->db->select('departmentName, divisionID');
-				$this->db->from('rm_departments');
-				$this->db->where('departmentID', $rsResults->officeOfPrimaryResponsibility);
-				$departmentQuery = $this->db->get();
-				
-				foreach ($departmentQuery->result() as $results) {
-					$dept = $results->departmentName;
-					$this->db->select('divisionName');
-					$this->db->from('rm_divisions');
-					$this->db->where('divisionID', $results->divisionID);
-					$divisionQuery = $this->db->get();
-					
-					if ($divisionQuery->num_rows() > 0) {
-						$row = $divisionQuery->row();
-						$div = $row->divisionName;
-						$divDept = $div . " - " . $dept; 
 						
-						$retentionScheduleArray['officeOfPrimaryResponsibility'] = $divDept;
-					}
-				}
-			}	
+			$this->db->select('departmentName, divisionID');
+			$this->db->from('rm_departments');
+			$this->db->where('departmentID', $rsResults->officeOfPrimaryResponsibility);
+			$departmentQuery = $this->db->get();
 			
+			foreach ($departmentQuery->result() as $results) {
+				$dept = $results->departmentName;
+				$this->db->select('divisionName');
+				$this->db->from('rm_divisions');
+				$this->db->where('divisionID', $results->divisionID);
+				$divisionQuery = $this->db->get();
+				
+				if ($divisionQuery->num_rows() > 0) {
+					$row = $divisionQuery->row();
+					$div = $row->divisionName;
+					$divDept = $div . " - " . $dept; 
+					
+					$retentionScheduleArray['officeOfPrimaryResponsibility'] = $divDept;
+				}
+			}
+						
 			$this->db->insert('rm_fullTextSearch', $retentionScheduleArray);
 			
 			echo "<tr>";
@@ -822,7 +802,7 @@ class RetentionScheduleModel extends CI_Model {
 	 */
 	private function updateIndexRetentionSchedules($retentionScheduleID) {
 						
-		$this->db->select('retentionScheduleID, recordName, recordDescription, recordCategory, retentionPeriod, disposition, officeOfPrimaryResponsibility, override, primaryOwnerOverride, approvedByCounsel');
+		$this->db->select('retentionScheduleID, recordName, recordDescription, recordCategory, retentionPeriod, disposition, officeOfPrimaryResponsibility, approvedByCounsel');
 		$this->db->from('rm_retentionSchedule');
 		$this->db->where('retentionScheduleID', $retentionScheduleID);
 		//$this->db->where('approvedByCounsel', 'yes');
@@ -846,26 +826,24 @@ class RetentionScheduleModel extends CI_Model {
 			$disposition = $dispositionResult->dispositionLong;			
 			$retentionScheduleArray['disposition'] = $disposition;*/
 
-			if($rsResults->override == "yes") {
-				$retentionScheduleArray['officeOfPrimaryResponsibility'] = $rsResults->primaryOwnerOverride;
-			} else {
-				$this->db->select('departmentName, divisionID');
-				$this->db->from('rm_departments');
-				$this->db->where('departmentID', $rsResults->officeOfPrimaryResponsibility);
-				$departmentQuery = $this->db->get();
-				
-				foreach ($departmentQuery->result() as $results) {
-					$dept = $results->departmentName;
-					$this->db->select('divisionName');
-					$this->db->from('rm_divisions');
-					$this->db->where('divisionID', $results->divisionID);
-					$divisionQuery = $this->db->get();
-					$row = $divisionQuery->row();
-					$div = $row->divisionName;
-					$divDept = $div . " - " . $dept; 
-					$retentionScheduleArray['officeOfPrimaryResponsibility'] = $divDept;
-				}
+			
+			$this->db->select('departmentName, divisionID');
+			$this->db->from('rm_departments');
+			$this->db->where('departmentID', $rsResults->officeOfPrimaryResponsibility);
+			$departmentQuery = $this->db->get();
+			
+			foreach ($departmentQuery->result() as $results) {
+				$dept = $results->departmentName;
+				$this->db->select('divisionName');
+				$this->db->from('rm_divisions');
+				$this->db->where('divisionID', $results->divisionID);
+				$divisionQuery = $this->db->get();
+				$row = $divisionQuery->row();
+				$div = $row->divisionName;
+				$divDept = $div . " - " . $dept; 
+				$retentionScheduleArray['officeOfPrimaryResponsibility'] = $divDept;
 			}
+			
 			// check if record exists
 			$this->db->where('retentionScheduleID', $retentionScheduleID); 
 			$count = $this->db->count_all_results('rm_fullTextSearch');
