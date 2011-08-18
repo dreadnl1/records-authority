@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class Du extends CI_Controller {
+class Du extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		$this->load->library('iputility');
 		$this->load->model('LookUpTablesModel');
@@ -37,28 +37,25 @@ class Du extends CI_Controller {
     * @return void
     */
 	public function retentionSchedules() {
-		//enable this code to lock to DU IP only
 		/*$duIP = $this->iputility->checkDuIp();
 		if ($duIP == FALSE) { 
 	    	$this->load->view("public/displays/accessDenied");
 			return; 
 	    }*/
-	    $this->load->model('JsModel');
-		$data['searchPopUp'] = $this->JsModel->searchPopUp();
-		
+	    
 		// handles search forms
-		if ($this->uri->segment(3) == "recordCategory") {
-			$siteUrl = site_url();
-			$data['unitScript'] = $this->JsModel->departmentWidgetJs($siteUrl);
-			$data['recordCategories'] = $this->LookUpTablesModel->getRecordCategories();
-	    	$this->load->view('public/forms/retentionScheduleRCSearchForm', $data);
+		if ($this->uri->segment(3) == "fullText") {
+			$this->load->view('public/forms/retentionScheduleFTSearchForm');
 		} elseif ($this->uri->segment(3) == "browseByDepartment") {
 	    	$siteUrl = site_url();
 			$data['unitScript'] = $this->JsModel->departmentWidgetJs($siteUrl);
 			$data['divisions'] = $this->LookUpTablesModel->createDivisionDropDown();
 	    	$this->load->view('public/forms/retentionScheduleDDSearchForm', $data);
 	    } else {
-	        $this->load->view('public/forms/retentionScheduleFTSearchForm', $data);                                                              
+	    	$siteUrl = site_url();
+			//$data['unitScript'] = $this->JsModel->departmentWidgetJs($siteUrl);
+			$data['recordCategories'] = $this->LookUpTablesModel->getRecordCategories();
+	    	$this->load->view('public/forms/retentionScheduleRCSearchForm', $data);	                                                                       
 	    }
 	}
 	
@@ -70,7 +67,7 @@ class Du extends CI_Controller {
     */
 	public function searchByRecordCategory() {
 		$searchResults = $this->SearchModel->doRecordCategorySearch($_POST); 
-		echo $searchResults;
+		echo $searchResults; 
 	}
 			
 	/**
@@ -91,16 +88,6 @@ class Du extends CI_Controller {
     * @return void
     */
 	public function fullTextSearch() {
-		/*if($this->input->post('submit') == 'Search All') {
-			echo "Search All was selected";
-			$_POST['keyword'] = "*";
-			print_r($_POST);
-		}
-		$_POST['keyword'] = "*";
-		print_r($_POST);
-		$action = $this->input->post('submit');
-		echo "action is: " . $action;
-		*/
 		$searchResults = $this->SearchModel->doFullTextSearch($_POST);
 		echo $searchResults;
 	}

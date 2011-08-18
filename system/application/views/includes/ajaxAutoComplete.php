@@ -22,7 +22,6 @@
 	$('.relatedAuthorityRetention').autocomplete('/<?php echo $siteName;?>/index.php/retentionSchedule/autoSuggest_relatedAuthorityRetention');
 	// auto suggest used on editRecordTypeForm
 	$('#recordName').autocomplete('/<?php echo $siteName;?>/index.php/retentionSchedule/autoSuggest_recordName');
-	// auto suggest used on retentionScheduleForm
-	$('#recordCode').autocomplete('/<?php echo $siteName;?>/index.php/retentionSchedule/autoSuggest_recordCode');	
+		
 	});
 </script>
