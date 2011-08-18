@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class SurveyBuilder extends CI_Controller {
+class SurveyBuilder extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 	} 
 	
 	/**
@@ -250,12 +250,7 @@ class SurveyBuilder extends CI_Controller {
 	 * @return void
 	 */
 	public function updateSurvey() {
-		
-		// updates survey description
-		if (isset($_POST['surveyID']) && isset($_POST['descriptionID'])) {
-			$this->SurveyBuilderModel->updateSurveyDescription($_POST);
-		}	
-				
+					
 		// updates survey question
 		if (isset($_POST['questionID']) && !isset($_POST['subQuestionID'])) {
 			$this->SurveyBuilderModel->updateSurveyQuestion($_POST);

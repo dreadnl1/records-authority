@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
 
 
-class UpkeepModel extends CI_Model {
+class UpkeepModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  	}
  	
  	/**
@@ -292,7 +292,7 @@ class UpkeepModel extends CI_Model {
 			 	$recordCategories[$results->recordCategoryID] = $results->recordCategory;
 			 }
 	 	}		
-	 	return $recordCategories;
+	 		return $recordCategories;
 	}
 	
 	/**
@@ -433,39 +433,6 @@ class UpkeepModel extends CI_Model {
 		$user['username'] = $_POST['username'];
 		$this->db->where('userID', $_POST['userID']);
 		$this->db->update('rm_users', $user);
-	}
-	
-	/**
-	 * invokes checkUserNameQuery()
-	 *
-	 *	@access public
-	 *	@return $check TRUE/FALSE
-	 */
-	public function checkUserName() {
-		$check = $this->checkUserNameQuery($_POST);
-		return $check;
-	}
-	
-	/**
-	 *	checks user name is taken
-	 *	
-	 *	@access private
-	 *	@return boolean
-	 */
-	private function checkUserNameQuery($_POST) {
-		$username = $_POST['username'];
-		
-		$this->db->select('username');
-	 	$this->db->from('rm_users');
-	 	$this->db->where('username', $username);
-
- 		$isTaken = $this->db->get();
- 		
-	 	if ($isTaken->num_rows > 0) {
- 			return FALSE;
- 		} else {
- 			return TRUE;
- 		}
 	}
 	
 	/**

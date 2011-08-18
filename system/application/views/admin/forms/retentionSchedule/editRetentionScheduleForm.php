@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -21,7 +21,7 @@
 ?>
 
 <?php 
-	$data['title'] = 'Record Series - Records Authority';
+	$data['title'] = 'Record Group - Records Authority';
 	
 	$var1 = $retentionSchedule['timestamp'];
 	$var2 = mysql_to_unix($var1);
@@ -140,13 +140,12 @@
 	 
 	<div id="tabs">
 		<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Series</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Group</a></li>
         </ul>
        <div id="fragment-1" class="adminForm">
        <br />
 		
 			<form id="retentionSchedule" method="post" action="<?php echo site_url();?>/retentionSchedule/update">
-			
 			<?php 
 				// set retentionSchedule ID for updates
 				if (isset($retentionSchedule['retentionScheduleID'])) {
@@ -337,8 +336,6 @@
 					}
 				?>
 				</select>&nbsp;&nbsp;*
-				</select>&nbsp;&nbsp;*
-
 				&nbsp;&nbsp;&nbsp;&nbsp;<br /><br />
 								
 				<div id="departments">
@@ -356,29 +353,9 @@
 				?>
 				</div>
 				</p>
-			<br />
-			<br />
-
-			<label for='override'>Override Primary Owner:&nbsp;(In case primary owner is multiple departments or divisions)</label><br />
-				<?php 
-					if (isset($retentionSchedule['override']) && $retentionSchedule['override'] == "yes") { 
-						echo "<input name='override' type='radio' value='yes' checked />&nbsp;Yes<br />";
-						echo "<input name='override' type='radio' value='no' />&nbsp;No<br />";
-					} elseif (isset($retentionSchedule['override']) && $retentionSchedule['override'] == "no") { 
-						echo "<input name='override' type='radio' value='yes' />&nbsp;Yes<br />";
-						echo "<input name='override' type='radio' value='no' checked />&nbsp;No<br />";
-					} else {
-						echo "<input name='override' type='radio' value='yes' />&nbsp;Yes<br />";
-						echo "<input name='override' type='radio' value='no' />&nbsp;No<br />";
-					}
-				?>
-			<br />
 			
-			<label for='primaryOwnerOverride'>Primary Owner Override:&nbsp;</label><br />
-			<?php $primaryOwnerOverride = $retentionSchedule['primaryOwnerOverride'] ?>
-			<textarea name="primaryOwnerOverride" rows="3" cols="50" wrap="hard"><?php echo $primaryOwnerOverride; ?></textarea>
-			<br /><br />
-			
+			<br />
+			<br />
 			<label for='associatedUnits'>Associated Units:</label>
 			<div id="auContainer">
 				<div id="loadingContainer">
@@ -407,7 +384,7 @@
 			
 			<label for='notes'>RM notes:&nbsp;<br /></label>
 			<?php $notes = $retentionSchedule['notes'] ?>		
-			<textarea name="notes" rows="3" cols="50" wrap="hard"><?php echo $notes; ?></textarea>
+				<textarea name="notes" rows="3" cols="50" wrap="hard"><?php echo $notes; ?></textarea>
 			<br /><br />
 			
 			<label for='vitalRecord'>Vital Record:</label><br />
@@ -440,7 +417,7 @@
 				?>
 			<br /><br />
 			
-			<label for='approvedByCounselDate'>Public Record Series - Approved Date:&nbsp;*</label><br />
+			<label for='approvedByCounselDate'>Public Record Group - Approved Date:&nbsp;*</label><br />
 			<div style="width:0%;">
 			<?php 
 				$approvedByCounselDate = $retentionSchedule['approvedByCounselDate']; 
@@ -456,7 +433,7 @@
 			<br /><br />
 			
 			<br />
-				<input name="retentionSchedule" type="submit" value="Update Record Series" onClick='setTimeout("self.close()",5000);'/>&nbsp;&nbsp;
+				<input name="retentionSchedule" type="submit" value="Update Record Group" />&nbsp;&nbsp;
 			</form>
 	   <?php
 	   		echo "<span class='deleteSpan'>";

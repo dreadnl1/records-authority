@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class Search extends CI_Controller {
+class Search extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		$this->load->model('LookUpTablesModel');
 		$this->load->model('JsModel');
@@ -116,8 +116,8 @@ class Search extends CI_Controller {
     * @access public
     * @return void
     */
-	public function globalAuditSearch() {
-		$this->load->view('admin/forms/searchAuditForm');
+	public function globalSearch() {
+		$this->load->view('admin/forms/searchGlobalForm');
 	}
 	
 	/**
@@ -214,32 +214,23 @@ class Search extends CI_Controller {
 	}
 	
 	/**
-    * performs search for audit 
-    *
-    * @access public
-    * @return $audit / search results
-    */
-	public function auditSearch() {
-		if (!empty($_POST['keyword'])) {
+	 * performs global search for either record type or retention schedule
+	 * 
+	 * @access public
+	 * @return $globalSearchData
+	 */
+	public function chooseGlobalSearch() {
+		if(!empty($POST['keyword'])) {
 			$keyword = $_POST['keyword'];
-			$audit = $this->SearchModel->getAudit($keyword);
-			echo $audit; // result used by jQuery		
-		}
-	}
-	
-	/**
-    * performs search for audit 
-    *
-    * @access public
-    * @return $audit / search results
-    */
-	public function auditDateSearch() {
-		if (!empty($_POST['beginDate']) && !empty($_POST['endDate'])) {
-			$beginDate = $_POST['beginDate'];
-			$endDate = $_POST['endDate'];
-			$audit = $this->SearchModel->getDateAudit($beginDate,$endDate);
-			echo $audit; // result used by jQuery		
-		}
+			if(!empty($POST['searchGlobalRetentionSchedule'])) {
+				$globalRetentionSchedules = $this->SearchModel->getGlobalRetentionSchedules($keyword);
+				echo $globalRetentionSchedules;
+			}
+			if(!empty($POST['searchGlobalRecordTypes'])) {
+				$globalRecordTypes = $this->SearchModel->getGlobalRecordTypes($keyword);
+				echo $globalRecordTypes; // result used by jQuery
+			}			
+		}	
 	}
 	
 	/**

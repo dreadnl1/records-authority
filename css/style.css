@@ -114,14 +114,14 @@ hr {
 #masthead {
 	width: 960px;
 	background: #fff;
-	height: 80px;
+	height: 160px;
 	float: left;
 }
 #masthead .header {
 	float: left;
 	background: #fff url("../images/header.jpg") no-repeat center bottom;
-	width: 959px;
-	height: 80px;
+	width: 960px;
+	height: 160px;
 	cursor: hand;
 }
 
@@ -143,7 +143,7 @@ hr {
 
 #searchContent {
 	margin: 0 auto;
-	padding: 95px 265px 10px 0px;
+	padding: 175px 265px 10px 0px;
 }
 
 /*IE min-height hack*/
@@ -203,9 +203,9 @@ hr {
 
 #searchFullTextForm {
    margin:0 auto; 
-   width: 760px;
+   width: 500px;
    background: #fff;  
-   padding: 20px 100px 20px 100px;
+   padding: 10px 10px 20px 190px;
 }
 
 #searchByDepartmentForm {
@@ -219,19 +219,7 @@ hr {
     background-color: #ccc;
     border: 1px dotted #000;
     padding: 15px 15px 15px 15px;
-    width: 725px;
-}
-
-.leftFloat {
-	float: left;
-	width: 230px;
-	position: relative;
-}
-
-.rightFloat {
-	float: right;
-	width: 230px;
-	position: relative;
+    width: 430px;
 }
 
 .searchFormByDepartment {
@@ -242,7 +230,7 @@ hr {
 }
 
 .searchByDept-div {
-	font-size: 11px;
+	font-size: 10px;
 }
 
 .searchByDept-div a{
@@ -265,7 +253,7 @@ hr {
     margin-right:auto;
 	border: 0px dotted #000;
 	width: 100%;
-	font-size: 12px;
+	font-size: 11px;
 }
 
 table { 
@@ -325,9 +313,4 @@ th a:active {
     background: #FFE9B2;
     display: none; 
     position: relative; 
-}
-
-.question a {
-	font-size: 14px;
-	margin-left: -40px;
 }

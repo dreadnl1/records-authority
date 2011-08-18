@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
 
  
- class RetentionSchedule extends CI_Controller {
+ class RetentionSchedule extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		// admin user must be loggedin 
 		$this->load->model('SessionManager');
@@ -31,7 +31,6 @@
 		$this->load->model('UpkeepModel');
 		$this->load->model('LookUpTablesModel');
 		$this->load->model('JsModel');
-		$this->load->model('AuditModel');
 	}
 	
 	/**
@@ -71,8 +70,7 @@
 	 */
 	public function save() {
 		if (isset($_POST['retentionPeriod'])) {
-			$this->AuditModel->audit($_POST);
-			$retentionScheduleID = $this->RetentionScheduleModel->saveRetentionSchedule($_POST);
+			$retentionScheduleID = $this->RetentionScheduleModel->saveRetentionSchedule($_POST);	
 			// go into edit mode immediately after save
 			$this->edit($retentionScheduleID);
 		}
@@ -85,7 +83,6 @@
 	 */
 	public function update() {
 		if (isset($_POST['retentionScheduleID'])) {
-			$this->AuditModel->audit($_POST);
 			$retentionScheduleID = $_POST['retentionScheduleID'];
 			$this->RetentionScheduleModel->updateRetentionSchedule($_POST);	
 			$this->edit($retentionScheduleID);
@@ -346,10 +343,7 @@
     * @return void
     */
 	public function indexRetentionSchedules() {
-		$data['title'] = 'Index Retention Schedule - Records Authority';
-		$this->load->view('includes/adminHeader', $data); 
 		$this->RetentionScheduleModel->indexRs();
-		$this->load->view('includes/adminFooter');
 	}
 	
 	/**

@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -39,7 +39,7 @@
 	$user = $this->session->userdata('username');
 	$loginTime = $this->session->userdata('loginTime')
 ?>
-<p>Records Authority ver. <a href="<?php echo $baseUrl?>RecordsAuthority_Release_Notes.txt">2.0.0</a> | <?php echo $this->benchmark->elapsed_time();?>
+<p>Records Authority ver. <a href="<?php echo $baseUrl?>RecordsAuthority_Release_Notes.txt">1.2.0</a> | <?php echo $this->benchmark->elapsed_time();?>
 <br />University of Denver--Penrose Library--University Records Management Program
 <br />User: <?php echo $user;?>
 <br />Login Time: <?php echo $loginTime;?>

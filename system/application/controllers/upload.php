@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2010 University of Denver--Penrose Library--University Records Management Program
  * Author evan.blount@du.edu
  * 
  * This file is part of Records Authority.
@@ -18,11 +18,10 @@
  * You should have received a copy of the GNU General Public License
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
- 
-class Upload extends CI_Controller {
+class Upload extends Controller {
 	
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		//admin user must be logged in
 		$this->load->model('SessionManager');
@@ -49,7 +48,7 @@ class Upload extends CI_Controller {
 	public function do_upload()
 	{
 		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'csv';
+		$config['allowed_types'] = 'csv|txt';
 		$config['remove_spaces'] = TRUE;
 		
 		$this->load->library('upload', $config);
