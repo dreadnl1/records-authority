@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2010 University of Denver--Penrose Library--University Records Management Program
  * Author evan.blount@du.edu
  * 
  * This file is part of Records Authority.
@@ -26,20 +26,10 @@
 	<ul>
     	<li class="ui-tabs-nav-item"><a href="#fragment-1">Upload File</a></li>
     </ul>
-    <?php
-    	$baseUrl = base_url();
-    ?>
+    
     <div id="fragment-1">
     	<div class="adminForm">
-    	<h3><a href="<?php echo $baseUrl; ?>RA_upload_template.xlsx">Data Template</a> - Downloadable xcel spreadsheet form</h3>
-   		<h4>*** Delete Header Row before conversion to CSV format ***</h4>
-   		<table border=2>
-   			<tr><td>recordCategory</td><td>recordCode</td><td>recordName</td><td>recordDescription</td><td>keywords</td><td>retentionPeriod</td><td>disposition</td><td>retentionDecisions</td><td>retentionNotes</td><td>primaryOwnerOverride</td></tr>
-   			<tr><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td></tr>
-   		</table>
-			<?php 
-				echo br(3);
-				echo $error;?>
+			<?php echo $error;?>
 			<?php echo form_open_multipart('upload/do_upload');?>
 			<input type="file" name="userfile" size="20" />
 			<?php echo br(2);?>

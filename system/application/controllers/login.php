@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -20,10 +20,10 @@
  **/
  
  
- class login extends CI_Controller {
+ class login extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 	} 
 	
 	/**
@@ -37,12 +37,12 @@
 	}
 	
 	/**
-	 * authenticates users using LDAP database
+	 * authenticates users
 	 * 
 	 * @access public 
 	 * @return void
 	 */
-	public function authenticateLDAP() {
+	public function authenticate() {
  		 		 				
  		//authenticate the user
 		if (!empty($_POST["uname"]) && !empty($_POST["pcode"])) {
@@ -72,14 +72,8 @@
 			$this->load->view("public/forms/surveyLoginForm");
 		}
  	} 
-
-	/**
-	 * authenticates users not using LDAP
-	 * 
-	 * @access public 
-	 * @return void
-	 */ 	
-  	public function authenticate() {
+ 	
+  	public function authDemo() {
  		// authenticate access to admin screen
  		$auth = $this->DashboardModel->authenticate($_POST);
  		 		

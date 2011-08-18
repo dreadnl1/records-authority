@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -34,19 +34,10 @@
     	<div class="adminForm">
 
 			<form name="addRecordCategory" method="post" action="<?php echo site_url();?>/upkeep/save">
-				<select id='recordCategories' name='recordCategoryID' size='1'>
-					<option value=''>Current Functional Categories</option>
-					<option value=''>-----------------</option>
-					<?php 
-						foreach ($recordCategories as $id => $recordCategories) {
-							echo "<option value='$id'>$recordCategories</option>";
-						}
-					?>
-				</select>
 				<input name="recordCategory" type="text" size="30" />
 				<input name="submit" type="submit" value="Save" /> 
 			</form>
-			<?php if (isset($recordSaved)) { echo $recordSaved; } ?>
+
 		</div>
     </div>
 </div>

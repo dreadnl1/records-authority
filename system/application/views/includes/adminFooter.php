@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -39,12 +39,12 @@
 	$user = $this->session->userdata('username');
 	$loginTime = $this->session->userdata('loginTime')
 ?>
-<p>Records Authority ver. <a href="<?php echo $baseUrl?>RecordsAuthority_Release_Notes.txt">2.0.0</a> | <?php echo $this->benchmark->elapsed_time();?>
+<p>Records Authority ver. <a href="<?php echo $baseUrl?>RecordsAuthority_Release_Notes.txt">1.1.5</a> | <?php echo $this->benchmark->elapsed_time();?>
 <br />University of Denver--Penrose Library--University Records Management Program
 <br />User: <?php echo $user;?>
 <br />Login Time: <?php echo $loginTime;?>
 <div align="right">
-	<a href="http://www.du.edu/bfa/records/" target="_blank">
+	<a href="http://library.du.edu/site/about/urmp/urmp.php" target="_blank">
 	<img src="<?php echo base_url();?>images/rmLogo.jpg" height="112" width="282" border="0" alt="logo" />
 	</a>
 </div>

@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * Edited and updated 2010
  * Author evan.blount@du.edu
  * 
@@ -50,7 +50,8 @@
        <div id="fragment-1" class="adminForm">
        <br />
 <!-- Begin Form -->
-       <form id="updateRecordInformation" name="recordInformation"  method="post" action="<?php echo site_url();?>/recordType/updateRecordTypeEditForm"> 		
+       <form id="updateRecordInformation" name="recordInformation"  method="post" action="<?php echo site_url();?>/recordType/updateRecordTypeEditForm"> 
+					
 			<input name="recordInformationID" type="hidden" value="<?php if (!empty($recordTypeData['recordInformationID'])) { echo $recordTypeData['recordInformationID']; } ?>" />
 			<input name="recordTypeDepartment" type="hidden" value="<?php if (!empty($recordTypeData['recordTypeDepartment'])) { echo $recordTypeData['recordTypeDepartment']; } ?>" />
 			<input name="recordInformationDivisionID" type="hidden" value="<?php if (!empty($_POST['divisionID'])) {echo $_POST['divisionID']; } ?>" />
@@ -151,9 +152,9 @@
 <!-- Question 7 -->
 			<label for='recordStorage'>7.) Where is the record stored?</label><br />
 			<input name="recordStorage" type="radio" value="Physical storage in department" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical storage in department") { echo "checked=\"true\""; }?>/>&nbsp;&nbsp;Physical Storage in department<br />
-			<input name="recordStorage" type="radio" value="Physical storage in other building" id="toggleOtherDUBuilding" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical storage in other building") { echo "checked=\"true\""; } ?>/>&nbsp;&nbsp;Physical Storage in other building (enter other type)<br />
+			<input name="recordStorage" type="radio" value="Physical storage in other DU building" id="toggleOtherDUBuilding" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical storage in other DU building") { echo "checked=\"true\""; } ?>/>&nbsp;&nbsp;Physical Storage in other DU building (enter other type)<br />
 			
-			<div id="<?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical storage in other building") { echo "showDUBuildingText"; } else { echo "otherDUBuildingText"; }?>">
+			<div id="<?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Physical storage in other DU building") { echo "showDUBuildingText"; } else { echo "otherDUBuildingText"; }?>">
 				<input name="otherDUBuildingText" type="text" value="<?php if (!empty($recordTypeData['otherDUBuildingText'])) { echo $recordTypeData['otherDUBuildingText']; } ?>"/>
 			</div>			
 		
@@ -165,7 +166,7 @@
 			
 			<input name="recordStorage" type="radio" value="Banner" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Banner") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Banner<br />
 			<input name="recordStorage" type="radio" value="Peak Digital"  <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Peak Digital") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Peak Digital<br />
-			<input name="recordStorage" type="radio" value="Networked Computer/Server" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Networked Computer/Server") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Networked Computer/Server<br />
+			<input name="recordStorage" type="radio" value="DU Networked Computer/Server" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "DU Networked Computer/Server") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;DU Networked Computer/Server<br />
 			<input name="recordStorage" type="radio" value="Local HD"  <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Local HD") { echo "checked=\"true\""; }?> />&nbsp;&nbsp;Local HD<br />
 			<input name="recordStorage" type="radio" value="Other electronic system" id="toggleOtherElectronicSystem" <?php if (isset($recordTypeData['recordStorage']) && $recordTypeData['recordStorage'] == "Other electronic system") { echo "checked=\"true\""; }?>/>&nbsp;&nbsp;Other electronic system (enter other type)<br />
 				
@@ -280,7 +281,6 @@
 				echo form_checkbox($box3) . "&nbsp;&nbsp;PCI DSS<br />";
 				echo form_checkbox($box4) . "&nbsp;&nbsp;GLBA<br />";
 				echo form_checkbox($box5) . "&nbsp;&nbsp;FCRA/FACTA<br />";
-				echo "<br />";
 			?>
 	
 <!-- Question 15 -->
@@ -314,7 +314,7 @@
 	   		echo "</span>";
 	   		echo br(2);
 	   		$recordInformationID = $recordTypeData['recordInformationID'];
-	   		echo anchor_popup('/retentionSchedule/view/' . $recordInformationID, 'Create Record Series', $popUp);
+	   		echo anchor_popup('/retentionSchedule/view/' . $recordInformationID, 'Create Record Group', $popUp);
 	  	?>
 
 

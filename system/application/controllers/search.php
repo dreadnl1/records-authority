@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class Search extends CI_Controller {
+class Search extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		$this->load->model('LookUpTablesModel');
 		$this->load->model('JsModel');
@@ -41,12 +41,7 @@ class Search extends CI_Controller {
 		$this->load->view('admin/forms/searchForm', $data);		
 	}
 	
-	/**
-    * renders search form
-    *
-    * @access public
-    * @return void
-    */	
+	
 	public function searchRetentionSchedules() {
 		$siteUrl = site_url();
 		$data['sortByScript'] = $this->JsModel->sortByWidgetJs($siteUrl);
@@ -54,13 +49,7 @@ class Search extends CI_Controller {
 		$data['divisions'] = $this->LookUpTablesModel->createDivisionDropDown();
 		$this->load->view('admin/forms/searchRetentionScheduleForm', $data);		
 	}
-
-	/**
-    * renders search form
-    *
-    * @access public
-    * @return void
-    */	
+	
 	public function searchRetentionSchedulesDeleted() {
 		$siteUrl = site_url();
 		$data['sortByScript'] = $this->JsModel->sortByWidgetJs($siteUrl);
@@ -68,13 +57,7 @@ class Search extends CI_Controller {
 		$data['divisions'] = $this->LookUpTablesModel->createDivisionDropDown();
 		$this->load->view('admin/forms/searchRetentionScheduleFormDeleted', $data);		
 	}
-
-	/**
-    * renders search form
-    *
-    * @access public
-    * @return void
-    */	
+	
 	public function searchRecordTypes() {
 		$siteUrl = site_url();
 		//$data['sortByScript'] = $this->JsModel->sortByWidgetRecordTypeJs($siteUrl);
@@ -83,12 +66,6 @@ class Search extends CI_Controller {
 		$this->load->view('admin/forms/searchRecordTypeForm', $data);		
 	}
 	
-	/**
-    * renders search form
-    *
-    * @access public
-    * @return void
-    */	
 	public function searchRecordTypesDeleted() {
 		$siteUrl = site_url();
 		//$data['sortByScript'] = $this->JsModel->sortByWidgetRecordTypeJs($siteUrl);
@@ -97,12 +74,6 @@ class Search extends CI_Controller {
 		$this->load->view('admin/forms/searchRecordTypeFormDeleted', $data);		
 	}
 	
-	/**
-    * renders search form
-    *
-    * @access public
-    * @return void
-    */
 	public function searchSurveys() {
 		$siteUrl = site_url();
 		$data['unitScript'] = $this->JsModel->departmentWidgetJs($siteUrl);
@@ -110,35 +81,41 @@ class Search extends CI_Controller {
 		$this->load->view('admin/forms/searchSurveyForm', $data);	
 	}
 	
-	/**
-    * renders search form
-    *
-    * @access public
-    * @return void
-    */
-	public function globalAuditSearch() {
-		$this->load->view('admin/forms/searchAuditForm');
+	public function globalSearch() {
+		$this->load->view('admin/forms/searchGlobalForm');
 	}
 	
-	/**
-    * renders search form
-    *
-    * @access public
-    * @return void
-    */
 	public function recordTypeGlobalSearch() {
 		$this->load->view('admin/forms/searchGlobalRecordTypeForm');			
 	}
 	
-	/**
-    * renders search form
-    *
-    * @access public
-    * @return void
-    */
 	public function retentionScheduleGlobalSearch() {
 		$this->load->view('admin/forms/searchGlobalRetentionScheduleForm');
 	}
+	
+	// Code does not work anymore, not sure if it did
+	// Rewrite on this function needed
+	/*
+	public function searchSurveys() {
+		$this->load->model('JsModel');
+		$this->load->model('LookUpTablesModel');
+		$this->load->model('DashboardModel');
+		$data['popUpParams'] = $this->JsModel->popUp();
+		
+		$departmentData = $this->getDepartment($departmentID);
+		$name = $departmentData['departmentName'];
+		
+		$exist = $this->DashboardModel->getDepartmentContact($departmentID);
+		if($exist = "<br />No surveys found for the selected department") {
+			echo $exist;
+		} else {
+			echo "$name has submitted a survey";
+		}
+		
+		$data['divisionData'] = $this->lookUpTablesModel->createDivisionDropDown();
+		$data['title'] = "Admin Department Form";
+		$this->load->view('admin/forms/searchSurveys', $data);
+	}*/
 	
 	/**
     * performs search by department 
@@ -214,32 +191,23 @@ class Search extends CI_Controller {
 	}
 	
 	/**
-    * performs search for audit 
-    *
-    * @access public
-    * @return $audit / search results
-    */
-	public function auditSearch() {
-		if (!empty($_POST['keyword'])) {
+	 * performs global search for either record type or retention schedule
+	 * 
+	 * @access public
+	 * @return $globalSearchData
+	 */
+	public function chooseGlobalSearch() {
+		if(!empty($POST['keyword'])) {
 			$keyword = $_POST['keyword'];
-			$audit = $this->SearchModel->getAudit($keyword);
-			echo $audit; // result used by jQuery		
-		}
-	}
-	
-	/**
-    * performs search for audit 
-    *
-    * @access public
-    * @return $audit / search results
-    */
-	public function auditDateSearch() {
-		if (!empty($_POST['beginDate']) && !empty($_POST['endDate'])) {
-			$beginDate = $_POST['beginDate'];
-			$endDate = $_POST['endDate'];
-			$audit = $this->SearchModel->getDateAudit($beginDate,$endDate);
-			echo $audit; // result used by jQuery		
-		}
+			if(!empty($POST['searchGlobalRetentionSchedule'])) {
+				$globalRetentionSchedules = $this->SearchModel->getGlobalRetentionSchedules($keyword);
+				echo $globalRetentionSchedules;
+			}
+			if(!empty($POST['searchGlobalRecordTypes'])) {
+				$globalRecordTypes = $this->SearchModel->getGlobalRecordTypes($keyword);
+				echo $globalRecordTypes; // result used by jQuery
+			}			
+		}	
 	}
 	
 	/**
