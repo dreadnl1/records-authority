@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2010 University of Denver--Penrose Library--University Records Management Program
  * Author evan.blount@du.edu
  * 
  * This file is part of Records Authority.
@@ -21,12 +21,12 @@
 ?>
 
 <?php 
-	$data['title'] = 'Record Series Global Search - Records Authority';
+	$data['title'] = 'Retention Schedule Global Search - Records Authority';
 	$this->load->view('includes/adminHeader', $data); 
 ?>
 	<div id="tabs">
 		<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Global Record Series Search</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Global Retention Schedule Search</a></li>
         </ul>
        	
 		<div id="fragment-1" class="adminForm">
@@ -37,12 +37,7 @@
         		<input name="keyword" type="text" size="50" class="required" />
         		<input name="searchGlobalRetentionSchedule" type="submit" value="Search" /><br/><br />
         	</form>
-			<div id="globalRetentionScheduleSearchResults">
-			<?php
-				if(isset($previousSearch)) { 
-					echo $previousSearch;
-				} ?>
-			</div>
+			<div id="globalRetentionScheduleSearchResults"></div>
     </div>
     </div>  		
 <?php $this->load->view('includes/adminFooter'); ?>

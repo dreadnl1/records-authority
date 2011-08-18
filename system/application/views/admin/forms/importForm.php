@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -28,50 +28,27 @@
 	<ul>
     	<li class="ui-tabs-nav-item"><a href="#fragment-1">Import File</a></li>
     </ul>
-    <?php
-    	$baseUrl = base_url();
-    ?>
+    
     <div id="fragment-1">
     	<div class="adminForm">
     	<br/><br/>
- 
-   		<h3><a href="<?php echo $baseUrl; ?>RA_upload_template.xlsx">Data Template</a> - Downloadable xcel spreadsheet form</h3>
-   		<h4>*** Delete Header Row before conversion to CSV format ***</h4>
-   		<table border=2>
-   			<tr><td>recordCategory</td><td>recordCode</td><td>recordName</td><td>recordDescription</td><td>keywords</td><td>retentionPeriod</td><td>disposition</td><td>retentionDecisions</td><td>retentionNotes</td><td>primaryOwnerOverride</td></tr>
-   			<tr><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td><td>-----</td></tr>
-   		</table>
-
-    	<?php
-    		echo br(3);
-    		$attributes = array('id' => 'importRetentionSchedules');
-    		
-    		echo form_open('/import/importCSV', $attributes);
-
-			echo "<select id='files' name='fileName' size='1' class='required'>";
-			echo "<option value='' selected='selected'>Select your file</option>";
-			echo "<option value=''>--------------------</option>";
-		
-			foreach($files as $fileID => $fileName) {
-				echo "<option value='$fileName'>$fileName</option>";
-			}
+			<form id="importRetentionSchedules" method="post" action="<?php echo site_url();?>/import/importCSV">
+				<select id='files' name='fileID' size='1' class='required'> 
+					<option value='' selected='selected'>Select your file</option>
+					<option value=''>--------------------</option>
+					<?php
+						foreach($files as $fileID => $fileName) {
+							echo "<option value='$fileID'>$fileName</option>";
+						}
+						print_r($directory);
+					?>
+				</select>
 				
-			echo "</select>";
-			
-			echo br(2);
-			$js = "onClick='return confirm(\"Are you sure you want to IMPORT these records?\")'";
-			echo form_submit('importRetentionSchedules','Import Retention Schedules',$js) . "*";
-			echo br(2);
-			echo form_close();
-			if(isset($error)) {
-				echo $error;
-			}
-		?>
-			<div id="importScheduleSearchResults">
-				<?php if(!empty($csv)) {
-					echo $csv;
-				}?>
-			</div>
+				<br/><br/>
+				
+				<input name="importRetentionSchedules" type="submit" value="Import Retention Schedules" /> *<br /><br />
+			</form>
+			<div id="importScheduleSearchResults"></div>
 		</div>
     </div>
 </div>

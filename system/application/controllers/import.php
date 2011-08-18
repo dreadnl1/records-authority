@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2010 University of Denver--Penrose Library--University Records Management Program
  * Author evan.blount@du.edu
  * 
  * This file is part of Records Authority.
@@ -19,11 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class Import extends CI_Controller {
+class Import extends Controller {
 	
 	public function __construct() {
-		parent::__construct();
-		
+		parent::Controller();
 		$this->load->model('SessionManager');
 		$this->SessionManager->isAdminLoggedIn();
 		
@@ -31,34 +30,20 @@ class Import extends CI_Controller {
 		$this->uploadDir = $this->config->item('uploadDirectory');
 	}
 	
-	/**
-    * displays import form
-    *
-    * @access public
-    * @return void
-    */
 	public function index() {
 		$siteUrl = site_url();
-		$data['files'] = $this->ImportModel->listFilesInDir("./uploads/");
-		//$filePath = "./uploads/products.csv";
-		$data['csv'] = "";
+		$data['files'] = $this->ImportModel->listDirs("./uploads/");
+		echo br(3);
+		$filePath = "./uploads/products.csv";
+		$data['csv'] = $this->ImportModel->csvImport($filePath);
 		$this->load->view('admin/forms/importForm', $data);
 	}
 	
-	/**
-    * imports csv file to the retention schedule
-    *
-    * @access public
-    * @return void
-    */
 	public function importCSV() {
-		if (!empty($_POST['fileName'])) {
+		if (!empty($_POST['fileID'])) {
 			$data['csv'] = $this->ImportModel->csvImport("./uploads/" . $_POST['fileName']);
-		} else {
-			$data['error'] = "No file selected";
+			echo "Imported!";
 		}
-		$siteUrl = site_url();
-		$data['files'] = $this->ImportModel->listFilesInDir("./uploads/");
 		$this->load->view('admin/forms/importForm', $data);
 	}
 }
