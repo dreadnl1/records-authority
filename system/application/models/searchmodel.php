@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,11 +19,11 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
  
- class SearchModel extends CI_Model 
+ class SearchModel extends Model 
 {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  		
  		$this->solr = $this->config->item('solr');
  	}
@@ -298,9 +298,9 @@
 			 			
 			// set sort by field name
 			if (isset($_POST['field']) && $_POST['field'] == 1) {
-				$field = "recordName";
-			} else {
 				$field = "recordCategory";
+			} else {
+				$field = "recordName";
 			}
 			
 			// set sort order
@@ -341,8 +341,8 @@
 			$recordTypeResults .= "} "; // js
 			$recordTypeResults .= "</script>";
 			
-			$rc = 0; // 0 = recordCategory
-			$rn = 1; // 1 = recordName
+			$rn = 0; // 0 = recordName
+			$rc = 1; // 1 = recordCategory
 			
 			$this->db->select('recordInformationID, recordInformationDivisionID, recordTypeDepartment, recordName, recordCategory, recordDescription');
 	 		$this->db->from('rm_recordType');
@@ -364,9 +364,9 @@
 			$recordTypeResults .= "<tr>";
 			$recordTypeResults .= "<th><strong>Division</strong></th>";
 			$recordTypeResults .= "<th><strong>Department</strong></th>";
-			$recordTypeResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rc);'>Functional Category</a></strong></th>";
    			$recordTypeResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rn);'>Record Name</a></strong></th>";
-   			$recordTypeResults .= "<th><strong>Description</strong></th>";
+   			$recordTypeResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rc);'>Record Category</a></strong></th>";
+   			$recordTypeResults .= "<th><strong>Record Description</strong></th>";
    			$recordTypeResults .= "</tr>";
 			
 			foreach ($recordTypes->result() as $results) {
@@ -397,11 +397,11 @@
 	 			$recordTypeResults .= "<td>";
 			 	$recordTypeResults .= trim(strip_tags($department));
 			 	$recordTypeResults .= "</td>";
-			 	$recordTypeResults .= "<td>";
-			 	$recordTypeResults .= trim(strip_tags($results->recordCategory));
-			 	$recordTypeResults .= "</td>";
 	 			$recordTypeResults .= "<td>";
 			 	$recordTypeResults .= anchor_popup('recordType/edit/' . $results->recordInformationID, trim(strip_tags($results->recordName)), $attributes);
+			 	$recordTypeResults .= "</td>";
+			 	$recordTypeResults .= "<td>";
+			 	$recordTypeResults .= trim(strip_tags($results->recordCategory));
 			 	$recordTypeResults .= "</td>";
 			 	$recordTypeResults .= "<td>";
 			 	$recordTypeResults .= trim(strip_tags($results->recordDescription));
@@ -488,9 +488,9 @@
 			
 			// set sort by field name
 			if (isset($_POST['field']) && $_POST['field'] == 1) {
-				$field = "recordName";
-			} else {
 				$field = "recordCategory";
+			} else {
+				$field = "recordName";
 			}
 			
 			// set sort order
@@ -531,8 +531,8 @@
 			$recordTypeResults .= "} "; // js
 			$recordTypeResults .= "</script>";
 			
-			$rc = 0; // 0 = recordCategory
-			$rn = 1; // 1 = recordName
+			$rn = 0; // 0 = recordName
+			$rc = 1; // 1 = recordCategory
 			
 			$this->db->select('recordInformationID, recordInformationDivisionID, recordTypeDepartment, recordName, recordCategory, recordDescription');
 	 		$this->db->from('rm_recordTypeDeleted');
@@ -555,9 +555,9 @@
 			$recordTypeResults .= "<th><strong>Restore</strong></th>";
 			$recordTypeResults .= "<th><strong>Division</strong></th>";
 			$recordTypeResults .= "<th><strong>Department</strong></th>";
-			$recordTypeResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rc);'>Functional Category</a></strong></th>";
    			$recordTypeResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rn);'>Record Name</a></strong></th>";
-   			$recordTypeResults .= "<th><strong>Description</strong></th>";
+   			$recordTypeResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rc);'>Record Category</a></strong></th>";
+   			$recordTypeResults .= "<th><strong>Record Description</strong></th>";
    			$recordTypeResults .= "<th><strong>Purge</strong></th>";
    			$recordTypeResults .= "</tr>";
 			
@@ -596,11 +596,11 @@
 			 	$recordTypeResults .= "<td>";
 			 	$recordTypeResults .= trim(strip_tags($department));
 			 	$recordTypeResults .= "</td>";
-			 	$recordTypeResults .= "<td>";
-			 	$recordTypeResults .= trim(strip_tags($results->recordCategory));
-			 	$recordTypeResults .= "</td>";
 				$recordTypeResults .= "<td>";
 			 	$recordTypeResults .= trim(strip_tags($results->recordName));
+			 	$recordTypeResults .= "</td>";
+			 	$recordTypeResults .= "<td>";
+			 	$recordTypeResults .= trim(strip_tags($results->recordCategory));
 			 	$recordTypeResults .= "</td>";
 			 	$recordTypeResults .= "<td>";
 			 	$recordTypeResults .= trim(strip_tags($results->recordDescription));
@@ -620,220 +620,6 @@
 		}
 	}
 	
-	/**
-	 * invokes getAuditQuery()
-	 *
-	 * @param $keyword
-	 * @return $audit
-	 */
-	public function getAudit($keyword) {
- 		$audit = $this->getAuditQuery($keyword);
- 		return $audit;
- 	}
- 	
- 	/**
-	 * gets any audit based on search keyword
-	 *
-	 * @param $keyword
-	 * @return $auditResults
-	 */
- 	private function getAuditQuery($keyword) {
-		$baseUrl = base_url();
-		$siteUrl = site_url();
-		$siteName = $this->config->item('site_name');
-		
-		$js = "js/searchResults.js";
-		$jsPath = $baseUrl . $js;
-		
-		// set sort by field name
-		if (isset($_POST['field']) && $_POST['field'] == 1) {
-			$field = "username";
-		} else {
-			$field = "updateDate";
-		}
-		
-		// set sort order
-		if (isset($_POST['sortBy']) && $_POST['sortBy'] == 1) {
-			$sortBy = 2; // desc : Z - A
-			$sort = "desc";
-		} else {
-			$sortBy = 1; // asc : A - Z
-			$sort = "asc";
-		}
-		
-		$this->db->select('auditID, username, updateDate, previousData, currentData');
-	 	$this->db->from('rm_audit');
-	 	if($keyword != '*') {
-		 	$this->db->where('MATCH(
-		 						username,
-		 						updateDate,
-		 						previousData,
-		 						currentData) 
-		 						AGAINST ("*' . $keyword . '*" IN BOOLEAN MODE)');
-	 	}
-
-	 	$this->db->order_by($field,$sort);
-	 	$auditQuery = $this->db->get();
-	 	
-	 	if ($auditQuery->num_rows() > 0) {
-			
-			$auditResults= "";
-			$auditResults .= "<script src='$jsPath' type='text/javascript'></script>";
-			$auditResults .= "<script type='text/javascript'>";
-			$auditResults .= "function sortBy(keyword, sortBy, field) { ";
-			$auditResults .= "$('#sorting').show(); ";
-			$auditResults .= "$.post('$siteUrl/search/auditSearch',{keyword: keyword, sortBy: sortBy, field: field, ajax: 'true'}, function(results){ ";
-			$auditResults .= "$('#auditSearchResults').html(results); ";
-			$auditResults .= "$('#sorting').hide(); ";
-			$auditResults .= "}); "; // post
-			$auditResults .= "} "; // js
-			$auditResults .= "</script>";
-			
-			$dt = 0; // date
-			$un = 1; // username
-			
-			$auditResults .= "<a href='$siteUrl/export/transformAudit/excel'><img src='/$siteName/images/page_excel.png' alt='Export to Excel' border='0' /></a>&nbsp;&nbsp;";
-			//$auditResults .= "<a href='$siteUrl/export/transformAudit/pdf'><img src='/$siteName/images/page_white_acrobat.png' alt='Export to PDF' border='0' /></a>&nbsp;&nbsp;";
-			$auditResults .= "<a href='$siteUrl/export/transformAudit/csv'><img src='/$siteName/images/page_csv.png' alt='Export to CSV' border='0' /></a>&nbsp;&nbsp;";
-			$auditResults .= "<a href='$siteUrl/export/transformAudit/html'><img src='/$siteName/images/page_html.png' alt='Export to HTML' border='0' /></a>&nbsp;&nbsp;";
-			$auditResults .= "<a href='$siteUrl/export/transformAudit/auditXml'><img src='/$siteName/images/page_xml.png' alt='Export to XML' border='0' /></a>&nbsp;&nbsp;";
-			
-			$auditResults .= "<table id='searchResultsTable'>";
-			$auditResults .= "<tr>"; 
-			$auditResults .= "<th><strong>User</a></strong></th>";
-			$auditResults .= "<th><strong>Date</a></strong></th>";
-	   		$auditResults .= "<th><strong>Previous Data</strong></th>";
-	   		$auditResults .= "<th><strong>Current Data</strong></th>";
-	   		$auditResults .= "</tr>";
-			
-			foreach ($auditQuery->result() as $results) {
-				$auditID = $results->auditID;
-								
-				$auditResults .= "<tr>";
-				$auditResults .= "<td>";
-			 	$auditResults .= trim(strip_tags($results->username));
-			 	$auditResults .= "</td>";
-				$auditResults .= "<td>";
-			 	$auditResults .= trim(strip_tags($results->updateDate));
-			 	$auditResults .= "</td>";
-			 	$auditResults .= "<td>";
-			 	$auditResults .= trim(strip_tags($results->previousData));
-				$auditResults .= "</td>"; 
-			 	$auditResults .= "<td>";
-			 	$auditResults .= trim(strip_tags($results->currentData));
-				$auditResults .= "</td>"; 
-				$auditResults .= "</tr>";
-			}
-		
-			$auditResults .= "</table>";
-			return $auditResults;
-		} else {
-			$noResults = "No results found<br /><br />";
-			return $noResults;
-		}
- 	}
- 	
- 	/**
-	 * invokes getDateAuditQuery()
-	 *
-	 * @param $beginDate, $endDate
-	 * @return $audit
-	 */
- 	public function getDateAudit($beginDate,$endDate) {
- 		$audit = $this->getDateAuditQuery($beginDate,$endDate);
- 		return $audit;
- 	}
- 	
- 	 /**
-	 * gets any audit based on two dates
-	 *
-	 * @param $beginDate,$endDate
-	 * @return $auditResults
-	 */
- 	private function getDateAuditQuery($beginDate,$endDate) {
-		$baseUrl = base_url();
-		$siteUrl = site_url();
-		$siteName = $this->config->item('site_name');
-		
-		$js = "js/searchResults.js";
-		$jsPath = $baseUrl . $js;
-		
-		// set sort by field name
-		if (isset($_POST['field']) && $_POST['field'] == 1) {
-			$field = "username";
-		} else {
-			$field = "updateDate";
-		}
-		
-		// set sort order
-		if (isset($_POST['sortBy']) && $_POST['sortBy'] == 1) {
-			$sortBy = 2; // desc : Z - A
-			$sort = "desc";
-		} else {
-			$sortBy = 1; // asc : A - Z
-			$sort = "asc";
-		}
-		$this->db->select("* FROM rm_audit WHERE timestamp BETWEEN '$beginDate' AND '$endDate'", false);  
-	 	$auditQuery = $this->db->get();
-	 	
-	 	if ($auditQuery->num_rows() > 0) {
-			
-			$auditResults= "";
-			$auditResults .= "<script src='$jsPath' type='text/javascript'></script>";
-			$auditResults .= "<script type='text/javascript'>";
-			$auditResults .= "function sortBy(keyword, sortBy, field) { ";
-			$auditResults .= "$('#sorting').show(); ";
-			$auditResults .= "$.post('$siteUrl/search/auditSearch',{beginDate: beginDate, endDate: endDate, sortBy: sortBy, field: field, ajax: 'true'}, function(results){ ";
-			$auditResults .= "$('#auditSearchResults').html(results); ";
-			$auditResults .= "$('#sorting').hide(); ";
-			$auditResults .= "}); "; // post
-			$auditResults .= "} "; // js
-			$auditResults .= "</script>";
-			
-			$dt = 0; // date
-			$un = 1; // username
-			
-			$auditResults .= "<a href='$siteUrl/export/transformAudit/excel'><img src='/$siteName/images/page_excel.png' alt='Export to Excel' border='0' /></a>&nbsp;&nbsp;";
-			//$auditResults .= "<a href='$siteUrl/export/transformAudit/pdf'><img src='/$siteName/images/page_white_acrobat.png' alt='Export to PDF' border='0' /></a>&nbsp;&nbsp;";
-			$auditResults .= "<a href='$siteUrl/export/transformAudit/csv'><img src='/$siteName/images/page_csv.png' alt='Export to CSV' border='0' /></a>&nbsp;&nbsp;";
-			$auditResults .= "<a href='$siteUrl/export/transformAudit/html'><img src='/$siteName/images/page_html.png' alt='Export to HTML' border='0' /></a>&nbsp;&nbsp;";
-			$auditResults .= "<a href='$siteUrl/export/transformAudit/xml'><img src='/$siteName/images/page_xml.png' alt='Export to XML' border='0' /></a>&nbsp;&nbsp;";
-			
-			$auditResults .= "<table id='searchResultsTable'>";
-			$auditResults .= "<tr>"; 
-			$auditResults .= "<th><strong>User</a></strong></th>";
-			$auditResults .= "<th><strong>Date</a></strong></th>";
-	   		$auditResults .= "<th><strong>Previous Data</strong></th>";
-	   		$auditResults .= "<th><strong>Current Data</strong></th>";
-	   		$auditResults .= "</tr>";
-			
-			foreach ($auditQuery->result() as $results) {
-				$auditID = $results->auditID;
-								
-				$auditResults .= "<tr>";
-				$auditResults .= "<td>";
-			 	$auditResults .= trim(strip_tags($results->username));
-			 	$auditResults .= "</td>";
-				$auditResults .= "<td>";
-			 	$auditResults .= trim(strip_tags($results->updateDate));
-			 	$auditResults .= "</td>";
-			 	$auditResults .= "<td>";
-			 	$auditResults .= trim(strip_tags($results->previousData));
-				$auditResults .= "</td>"; 
-			 	$auditResults .= "<td>";
-			 	$auditResults .= trim(strip_tags($results->currentData));
-				$auditResults .= "</td>"; 
-				$auditResults .= "</tr>";
-			}
-		
-			$auditResults .= "</table>";
-			return $auditResults;
-		} else {
-			$noResults = "No results found<br /><br />";
-			return $noResults;
-		}
- 	}
- 	
 	/**
 	 * invokes getGlobalRecordTypesQuery()
 	 *
@@ -870,9 +656,9 @@
 				 			
 		// set sort by field name
 		if (isset($_POST['field']) && $_POST['field'] == 1) {
-			$field = "recordName";
-		} else {
 			$field = "recordCategory";
+		} else {
+			$field = "recordName";
 		}
 		
 		// set sort order
@@ -924,7 +710,9 @@
 	 	$globalRecordTypes = $this->db->get();
 	 	
 	 	if ($globalRecordTypes->num_rows() > 0) {
-			
+			$rn = 0; // recordName
+			$rc = 1; // recordCategory
+
 			$globalRecordTypeResults = "";
 			$globalRecordTypeResults .= "<script src='$jsPath' type='text/javascript'></script>";
 			$globalRecordTypeResults .= "<script type='text/javascript'>";
@@ -936,18 +724,13 @@
 			$globalRecordTypeResults .= "}); "; // post
 			$globalRecordTypeResults .= "} "; // js
 			$globalRecordTypeResults .= "</script>";
-			
-			$rc = 0; // recordCategory
-			$rn = 1; // recordName
-			
-			
 			$globalRecordTypeResults .= "<table id='searchResultsTable'>";
 			$globalRecordTypeResults .= "<tr>"; 
 			$globalRecordTypeResults .= "<th><strong>Division</strong></th>";
 			$globalRecordTypeResults .= "<th><strong>Department</strong></th>";
-			$globalRecordTypeResults .= "<th><strong><a href='#' onClick='sortBy(\"$keyword\", $sortBy, $rc);'>Functional Category</a></strong></th>";
-			$globalRecordTypeResults .= "<th><strong><a href='#' onClick='sortBy(\"$keyword\", $sortBy, $rn);'>Record Name</a></strong></th>";
-	   		$globalRecordTypeResults .= "<th><strong>Description</strong></th>";
+			$globalRecordTypeResults .= "<th><strong><a href='#' onClick='sortBy($keyword, $sortBy, $rn);'>Record Name</a></strong></th>";
+   			$globalRecordTypeResults .= "<th><strong><a href='#' onClick='sortBy($keyword, $sortBy, $rc);'>Record Category</a></strong></th>";
+	   		$globalRecordTypeResults .= "<th><strong>Record Description</strong></th>";
 	   		$globalRecordTypeResults .= "</tr>";
 			
 			foreach ($globalRecordTypes->result() as $results) {
@@ -963,10 +746,10 @@
 				$globalRecordTypeResults .= trim(strip_tags($divDeptArray['departmentName']));
 				$globalRecordTypeResults .= "</td>";
 				$globalRecordTypeResults .= "<td>";
-			 	$globalRecordTypeResults .= trim(strip_tags($results->recordCategory));
-			 	$globalRecordTypeResults .= "</td>";
-				$globalRecordTypeResults .= "<td>";
 			 	$globalRecordTypeResults .= anchor_popup('recordType/edit/' . $results->recordInformationID, trim(strip_tags($results->recordName)), $attributes);
+			 	$globalRecordTypeResults .= "</td>";
+			 	$globalRecordTypeResults .= "<td>";
+			 	$globalRecordTypeResults .= trim(strip_tags($results->recordCategory));
 			 	$globalRecordTypeResults .= "</td>";
 			 	$globalRecordTypeResults .= "<td>";
 			 	$globalRecordTypeResults .= trim(strip_tags($results->recordDescription));
@@ -1045,10 +828,9 @@
 		
 		// get retention schedule ids
 		$this->db->select('retentionScheduleID');
-		//$this->db->from('rm_associatedUnits');
-	 	$this->db->from('rm_retentionSchedule');
+	 	$this->db->from('rm_associatedUnits');
 	 	if ($departmentID != 999999) {
-	 		$this->db->where('officeOfPrimaryResponsibility', $departmentID);
+	 		$this->db->where('departmentID', $departmentID);
 	 	}
  		$retentionScheduleIDs = $this->db->get();
  		
@@ -1068,9 +850,9 @@
 			} elseif (isset($_POST['field']) && $_POST['field'] == 3) {
 				$field = "disposition";
 			} elseif (isset($_POST['field']) && $_POST['field'] == 4) {
-				$field = "recordName";
-			} else {
 				$field = "recordCode";
+			} else {
+				$field = "recordName";
 			}
 			
 			// set sort order
@@ -1104,11 +886,11 @@
 			$retentionScheduleResults .= "} "; // js
 			$retentionScheduleResults .= "</script>";
 			
-			$rec = 0; // 0 = recordCode
-			$rn = 4; // 4 = recordName
+			$rn = 0; // 0 = recordName
 			$rc = 1; // 1 = recordCategory
 			$opr = 2; // 2 = officeOfPrimaryResponsibility
 			$dis = 3; // 3 = disposition
+			$rec = 4; // 4 = recordCode
 			
 			$retentionScheduleResults .= "<br /><br /><br /><br />";
 			$retentionScheduleResults .= "<div id='sorting'>Sorting...</div>";
@@ -1117,17 +899,16 @@
 			//$retentionScheduleResults .= "<a href='$siteUrl/export/transform/$departmentID/pdf'><img src='/$siteName/images/page_white_acrobat.png' alt='Export to PDF' border='0' /></a>&nbsp;&nbsp;";
 			$retentionScheduleResults .= "<a href='$siteUrl/export/transform/$departmentID/csv'><img src='/$siteName/images/page_csv.png' alt='Export to CSV' border='0' /></a>&nbsp;&nbsp;";
 			$retentionScheduleResults .= "<a href='$siteUrl/export/transform/$departmentID/html'><img src='/$siteName/images/page_html.png' alt='Export to HTML' border='0' /></a>&nbsp;&nbsp;";
-			$retentionScheduleResults .= "<a href='$siteUrl/export/transform/$departmentID/xml'><img src='/$siteName/images/page_xml.png' alt='Export to XML' border='0' /></a>&nbsp;&nbsp;";
 			
 			$retentionScheduleResults .= "<table id='searchResultsTable'>";
 			$retentionScheduleResults .= "<tr>";
 			$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rec);'>Record Code</a></strong></th>";
 			$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rn);'>Record Name</a></strong></th>";
-			$retentionScheduleResults .= "<th><strong>Description</strong></th>";
-	   		$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $opr);'>Primary Owner</a></strong></th>";
-	   		$retentionScheduleResults .= "<th><strong>Retention Period</strong></th>";
-			$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $dis);'>Retention Rules</a></strong></th>";
-	   		$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rc);'>Functional Category</a></strong></th>";
+			$retentionScheduleResults .= "<th><strong>Record Description</strong></th>";
+	   		$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $opr);'>Office of Primary Responsibility</a></strong></th>";
+	   		$retentionScheduleResults .= "<th><strong>retentionPeriod</strong></th>";
+			$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $dis);'>Disposition</a></strong></th>";
+	   		$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rc);'>Record Category</a></strong></th>";
 			$retentionScheduleResults .= "</tr>";
 		  			 	 								
 			$this->db->select('retentionScheduleID, recordCode, recordName, recordCategory, retentionPeriod, disposition, officeOfPrimaryResponsibility, recordDescription');
@@ -1142,17 +923,17 @@
 		 			foreach ($retentionScheduleQuery->result() as $results) {
 		 						 						 				
 		 				$retentionScheduleResults .= "<tr>";
-		 				$retentionScheduleResults .= "<td>";
+		 				$retentionScheduleResults .= "<td width='20%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($results->recordCode));
 						$retentionScheduleResults .= "</td>";
-		 				$retentionScheduleResults .= "<td>";
+		 				$retentionScheduleResults .= "<td width='20%'>";
 					 	$retentionScheduleResults .= anchor_popup('retentionSchedule/edit/' . $results->retentionScheduleID, trim(strip_tags($results->recordName)), $attributes);
 					 	$retentionScheduleResults .= "</td>";
 					 	
 					 	$recordDescription = $results->recordDescription;
 						$description = $this->getDescriptionLength($retentionScheduleID="", $recordDescription);
 						
-						$retentionScheduleResults .= "<td>";
+						$retentionScheduleResults .= "<td width='25%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($description));
 						$retentionScheduleResults .= "</td>";
 												
@@ -1167,19 +948,19 @@
 	 						$officeOfPrimaryResponsibility = $officeOfPrimaryResponsibility->departmentName;
 	 					}	
 					 	
-					 	$retentionScheduleResults .= "<td>";
+					 	$retentionScheduleResults .= "<td width='20%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($officeOfPrimaryResponsibility));
 						$retentionScheduleResults .= "</td>";
 						
-						$retentionScheduleResults .= "<td>";
+						$retentionScheduleResults .= "<td width='20%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($results->retentionPeriod));
 						$retentionScheduleResults .= "</td>";
 												
-						$retentionScheduleResults .= "<td>";
+						$retentionScheduleResults .= "<td width='5%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($results->disposition));
 						$retentionScheduleResults .= "</td>";
 						
-						$retentionScheduleResults .= "<td>";
+						$retentionScheduleResults .= "<td width='15%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($results->recordCategory));
 					 	$retentionScheduleResults .= "</td>";
 					 	$retentionScheduleResults .= "</tr>";
@@ -1257,8 +1038,7 @@
 		
 		// get retention schedule ids
 		$this->db->select('retentionScheduleID');
-	 	//$this->db->from('rm_associatedUnits');
-	 	$this->db->from('rm_retentionScheduleDeleted');
+	 	$this->db->from('rm_associatedUnits');
 	 	if($departmentID != 999999) {
 	 		$this->db->where('departmentID', $departmentID);
 	 	}
@@ -1280,9 +1060,9 @@
 			} elseif (isset($_POST['field']) && $_POST['field'] == 3) {
 				$field = "disposition";
 			} elseif (isset($_POST['field']) && $_POST['field'] == 4) {
-				$field = "recordName";
-			} else {
 				$field = "recordCode";
+			} else {
+				$field = "recordName";
 			}
 			
 			// set sort order
@@ -1319,11 +1099,11 @@
 			$retentionScheduleResults .= "} "; // js
 			$retentionScheduleResults .= "</script>";
 			
-			$rec = 0; // 0 = recordCode
+			$rn = 0; // 0 = recordName
 			$rc = 1; // 1 = recordCategory
 			$opr = 2; // 2 = officeOfPrimaryResponsibility
 			$dis = 3; // 3 = disposition
-			$rn = 4; // 4 = recordName
+			$rec = 4; // 4 = recordCode
 			
 			$retentionScheduleResults .= "<br /><br /><br /><br />";
 			$retentionScheduleResults .= "<div id='sorting'>Sorting...</div>";
@@ -1333,11 +1113,11 @@
 			$retentionScheduleResults .= "<th><strong>Restore</strong></th>";
 			$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rec);'>Record Code</a></strong></th>";
 			$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rn);'>Record Name</a></strong></th>";
-			$retentionScheduleResults .= "<th><strong>Description</strong></th>";
-	   		$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $opr);'>Primary Owner</a></strong></th>";
-	   		$retentionScheduleResults .= "<th><strong>Retention Period</strong></th>";
-			$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $dis);'>Retention Rules</a></strong></th>";
-	   		$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rc);'>Functional Category</a></strong></th>";
+			$retentionScheduleResults .= "<th><strong>Record Description</strong></th>";
+	   		$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $opr);'>Office of Primary Responsibility</a></strong></th>";
+	   		$retentionScheduleResults .= "<th><strong>retentionPeriod</strong></th>";
+			$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $dis);'>Disposition</a></strong></th>";
+	   		$retentionScheduleResults .= "<th><strong><a href='#' onClick='sortBy($departmentID, $divisionID, $sortBy, $rc);'>Record Category</a></strong></th>";
 			$retentionScheduleResults .= "<th><strong>Purge</strong></th>";
 	   		$retentionScheduleResults .= "</tr>";
 		  			 	 								
@@ -1360,18 +1140,18 @@
 			 			$retentionScheduleResults .= "</form>";
 			 			$retentionScheduleResults .= "</td>"; 
 			 			
-			 			$retentionScheduleResults .= "<td>";
+			 			$retentionScheduleResults .= "<td width='20%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($results->recordCode));
 						$retentionScheduleResults .= "</td>";
 						
-		 				$retentionScheduleResults .= "<td>";
+		 				$retentionScheduleResults .= "<td width='20%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($results->recordName));
 					 	$retentionScheduleResults .= "</td>";
 					 	
 					 	$recordDescription = $results->recordDescription;
 						$description = $this->getDescriptionLength($retentionScheduleID="", $recordDescription);
 						
-						$retentionScheduleResults .= "<td>";
+						$retentionScheduleResults .= "<td width='25%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($description));
 						$retentionScheduleResults .= "</td>";
 												
@@ -1386,19 +1166,19 @@
 	 						$officeOfPrimaryResponsibility = $officeOfPrimaryResponsibility->departmentName;
 	 					}	
 					 	
-					 	$retentionScheduleResults .= "<td>";
+					 	$retentionScheduleResults .= "<td width='20%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($officeOfPrimaryResponsibility));
 						$retentionScheduleResults .= "</td>";
 						
-						$retentionScheduleResults .= "<td>";
+						$retentionScheduleResults .= "<td width='20%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($results->retentionPeriod));
 						$retentionScheduleResults .= "</td>";
 												
-						$retentionScheduleResults .= "<td>";
+						$retentionScheduleResults .= "<td width='5%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($results->disposition));
 						$retentionScheduleResults .= "</td>";
 						
-						$retentionScheduleResults .= "<td>";
+						$retentionScheduleResults .= "<td width='15%'>";
 					 	$retentionScheduleResults .= trim(strip_tags($results->recordCategory));
 					 	$retentionScheduleResults .= "</td>";
 					 	
@@ -1448,38 +1228,13 @@
             'screenx'    => '0',
             'screeny'    => '0'
 		);
-		$siteUrl = site_url();
-		$publishUrl = $siteUrl . "/retentionSchedule/publish/";
-		$siteName = $this->config->item('site_name');
-		
-		$js = 'onclick="jqCheckAll( this.id, "approvedByCounsel" )"';
 		
 		// load model (loading a model within a model is not typical)
 		$CI =& get_instance();
 		//Load LookUptablesModel as getDivAndDept Alias
 		$CI->load->model('LookUpTablesModel', 'getDivAndDept', true);
-		
-		// set sort by field name
-		if (isset($_POST['field']) && $_POST['field'] == 1) {
-			$field = "recordCategory";
-		} elseif (isset($_POST['field']) && $_POST['field'] == 2) {
-			$field = "recordName";
-		} elseif (isset($_POST['field']) && $_POST['field'] == 3) {
-			$field = "approvedByCounsel";
-		} else {
-			$field = "recordCode";
-		}
-		
-		// set sort order
-		if (isset($_POST['sortBy']) && $_POST['sortBy'] == 1) {
-			$sortBy = 2; // desc : Z - A
-			$sort = "desc";
-		} else {
-			$sortBy = 1; // asc : A - Z
-			$sort = "asc";
-		}
 				
-		$this->db->select('retentionScheduleID, recordCode, recordName, recordCategory, recordDescription, keywords, officeOfPrimaryResponsibility, uuid, approvedByCounsel');
+		$this->db->select('retentionScheduleID, recordCode, recordName, recordCategory, recordDescription, keywords, officeOfPrimaryResponsibility, uuid');
 	 	$this->db->from('rm_retentionSchedule');
 	 	//Check for Search all with *
 	 	if($keyword != '*') {
@@ -1502,7 +1257,7 @@
 		 						approvedByCounselDate) 
 		 						AGAINST ("*' . $keyword . '*" IN BOOLEAN MODE)');
 	 	}
-	 	$this->db->order_by($field,$sort);
+	 	$this->db->order_by('recordName','asc');
 	 	$globalRetentionSchedules = $this->db->get();
 	 	
 	 	if ($globalRetentionSchedules->num_rows() > 0) {
@@ -1511,47 +1266,16 @@
 			$jsPath = $baseUrl . $js;
 			$globalRetentionSchedulesResults = "";
 			$globalRetentionSchedulesResults .= "<script src='$jsPath' type='text/javascript'></script>";
-			
-			$globalRetentionSchedulesResults .= "<script type='text/javascript'>";
-			$globalRetentionSchedulesResults .= "function sortBy(keyword, sortBy, field) { ";
-			$globalRetentionSchedulesResults .= "$('#sorting').show(); ";
-			$globalRetentionSchedulesResults .= "$.post('$siteUrl/search/getGlobalRetentionSchedules',{keyword: keyword, sortBy: sortBy, field: field, ajax: 'true'}, function(results){ ";
-			$globalRetentionSchedulesResults .= "$('#globalRetentionScheduleSearchResults').html(results); ";
-			$globalRetentionSchedulesResults .= "$('#sorting').hide(); ";
-			$globalRetentionSchedulesResults .= "}); "; // post
-			$globalRetentionSchedulesResults .= "} "; // js
-			$globalRetentionSchedulesResults .= "</script>";
-			
-			$cd = 0; // recordCode
-			$rn = 2; // recordName
-			$rc = 1; // recordCategory
-			$pb = 3; // publication
-			
-			if($keyword != '*') {
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/excel'><img src='/$siteName/images/page_excel.png' alt='Export to Excel' border='0' /></a>&nbsp;&nbsp;";
-				//$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/pdf'><img src='/$siteName/images/page_white_acrobat.png' alt='Export to PDF' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/csv'><img src='/$siteName/images/page_csv.png' alt='Export to CSV' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/html'><img src='/$siteName/images/page_html.png' alt='Export to HTML' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transformText/$keyword/xml'><img src='/$siteName/images/page_xml.png' alt='Export to XML' border='0' /></a>&nbsp;&nbsp;";
-			} else {
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/excel'><img src='/$siteName/images/page_excel.png' alt='Export to Excel' border='0' /></a>&nbsp;&nbsp;";
-				//$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/pdf'><img src='/$siteName/images/page_white_acrobat.png' alt='Export to PDF' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/csv'><img src='/$siteName/images/page_csv.png' alt='Export to CSV' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/html'><img src='/$siteName/images/page_html.png' alt='Export to HTML' border='0' /></a>&nbsp;&nbsp;";
-				$globalRetentionSchedulesResults .= "<a href='$siteUrl/export/transform/999999/xml'><img src='/$siteName/images/page_xml.png' alt='Export to XML' border='0' /></a>&nbsp;&nbsp;";
-			}
 			$globalRetentionSchedulesResults .= "<table id='searchResultsTable'>";
 			$globalRetentionSchedulesResults .= "<tr>"; 
-
-			$globalRetentionSchedulesResults .= "<th><strong><a href='#' onClick='sortBy(\"$keyword\", $sortBy, $cd);'>Record Code</a></strong></th>";
-	   		$globalRetentionSchedulesResults .= "<th><strong><a href='#' onClick='sortBy(\"$keyword\", $sortBy, $rn);'>Record Name</a></strong></th>";
-	   		$globalRetentionSchedulesResults .= "<th><strong><a href='#' onClick='sortBy(\"$keyword\", $sortBy, $rc);'>Functional Category</a></strong></th>";
+			$globalRetentionSchedulesResults .= "<th><strong>Division</strong></th>";
+			$globalRetentionSchedulesResults .= "<th><strong>Department</strong></th>";
+			$globalRetentionSchedulesResults .= "<th><strong>Record Code</strong></th>";
+	   		$globalRetentionSchedulesResults .= "<th><strong>Record Name</strong></th>";
+	   		$globalRetentionSchedulesResults .= "<th><strong>Record Category</strong></th>";
 	   		$globalRetentionSchedulesResults .= "<th><strong>Record Description</strong></th>";
 	   		$globalRetentionSchedulesResults .= "<th><strong>Keywords</strong></th>";
-	   		$globalRetentionSchedulesResults .= "<th><strong>Division</strong></th>";
-			$globalRetentionSchedulesResults .= "<th><strong>Department</strong></th>";
 	   		$globalRetentionSchedulesResults .= "<th><strong>UUID</strong></th>";
-	   		$globalRetentionSchedulesResults .= "<th><strong><a href='#' onClick='sortBy(\"$keyword\", $sortBy, $pb);'>Publication</a></strong><br />";
 	   		$globalRetentionSchedulesResults .= "</tr>";
 			
 		foreach ($globalRetentionSchedules->result() as $results) {
@@ -1560,6 +1284,12 @@
 			$divDeptArray = $CI->getDivAndDept->getDivision($departmentID); 		
 							
 			$globalRetentionSchedulesResults .= "<tr>";
+			$globalRetentionSchedulesResults .= "<td>";
+			$globalRetentionSchedulesResults .= trim(strip_tags($divDeptArray['divisionName']));
+			$globalRetentionSchedulesResults .= "</td>";
+			$globalRetentionSchedulesResults .= "<td>";
+			$globalRetentionSchedulesResults .= trim(strip_tags($divDeptArray['departmentName']));
+			$globalRetentionSchedulesResults .= "</td>";
 			$globalRetentionSchedulesResults .= "<td>";
 		 	$globalRetentionSchedulesResults .= trim(strip_tags($results->recordCode));
 		 	$globalRetentionSchedulesResults .= "</td>";
@@ -1574,39 +1304,14 @@
 			$globalRetentionSchedulesResults .= "</td>";
 			$globalRetentionSchedulesResults .= "<td>";
 		 	$globalRetentionSchedulesResults .= trim(strip_tags($results->keywords));
-			$globalRetentionSchedulesResults .= "</td>"; 
-			$globalRetentionSchedulesResults .= "<td>";
-			$globalRetentionSchedulesResults .= trim(strip_tags($divDeptArray['divisionName']));
-			$globalRetentionSchedulesResults .= "</td>";
-			$globalRetentionSchedulesResults .= "<td>";
-			$globalRetentionSchedulesResults .= trim(strip_tags($divDeptArray['departmentName']));
-			$globalRetentionSchedulesResults .= "</td>"; 
+			$globalRetentionSchedulesResults .= "</td>";  
 			$globalRetentionSchedulesResults .= "<td>";
 		 	$globalRetentionSchedulesResults .= trim(strip_tags($results->uuid));
-			$globalRetentionSchedulesResults .= "</td>";
-			$globalRetentionSchedulesResults .= "<td>";
-			$globalRetentionSchedulesResults .= "<form name='approveAndPublish' method='post' action='$publishUrl'>";
-			
-			if($results->approvedByCounsel == "yes") {
-				$globalRetentionSchedulesResults .= "<input type='checkbox' name='approvedByCounsel' value='yes' checked />publish<br />";
-				$globalRetentionSchedulesResults .= "<input type='hidden' name='retentionScheduleID' value='$results->retentionScheduleID' />";
-			} else {
-				$globalRetentionSchedulesResults .= "<input type='checkbox' name='approvedByCounsel' value='yes' />publish<br />";
-				$globalRetentionSchedulesResults .= "<input type='hidden' name='retentionScheduleID' value='$results->retentionScheduleID' />";
-			}
-			$globalRetentionSchedulesResults .= "<input type='hidden' name='keyword' value='$keyword'>";
-			$globalRetentionSchedulesResults .= "<input type='submit' value='submit'>";
-			$globalRetentionSchedulesResults .= "</form>";
-			$globalRetentionSchedulesResults .= "</td>";
+			$globalRetentionSchedulesResults .= "</td>"; 
 			$globalRetentionSchedulesResults .= "</tr>";
 		}
 		
 		$globalRetentionSchedulesResults .= "</table>";
-		$globalRetentionSchedulesResults .= "<form name='publishAllRetentionSchedules' method='post' action='$siteUrl/retentionSchedule/publishAll'>";
-		$globalRetentionSchedulesResults .= "<input type='checkbox' name='publishAll' value='yes' />Publish All&nbsp&nbsp&nbsp";
-		$globalRetentionSchedulesResults .= "<input type='hidden' name='keyword' value='$keyword'>";
-		$globalRetentionSchedulesResults .= "<input type='submit' value='submit'>";
-		
 			return $globalRetentionSchedulesResults;
 		} else {
 			$noResults = "No results found<br /><br />";
@@ -1647,11 +1352,9 @@
 		} elseif(isset($_POST['field']) && $_POST['field'] == 4) {
 			$field = "retentionPeriod";
 		} elseif(isset($_POST['field']) && $_POST['field'] == 5) {
-			$field = "recordName";
-		} elseif(isset($_POST['field']) && $_POST['field'] == 6) {
-			$field = "keywords";
-		} else {
 			$field = "recordCode";
+		} else {
+			$field = "recordName";
 		}	
 			
 		// set sort order
@@ -1690,7 +1393,7 @@
 					
 		if ($recordCount > 0) {
 																
-			$solrResults = $this->generateSolrResults($keyword, $result, $sortBy, $field, $recordCount);
+			$solrResults = $this->generateSolrResults($keyword, $result, $sortBy, $recordCount);
 			$retentionScheduleResults = "";
 			$retentionScheduleResults .= $solrResults;
 					
@@ -1706,7 +1409,7 @@
 	 * @param array $results
 	 * @return $retentionScheduleResults
 	 */
-	private function generateSolrResults($keyword, $result, $sortBy, $field, $recordCount) {
+	private function generateSolrResults($keyword, $result, $sortBy, $recordCount) {
 						
 		// generate output
 		$siteUrl = site_url();		 		
@@ -1734,103 +1437,31 @@
 			$retentionScheduleResults .= "</script>";
 		} 
 						
-		$rco = 0; // 0 = recordCode
+		$rn =  0; // 0 = recordName
 		$opr = 1; // 1 = officeOfPrimaryResponsibility
 		$dis = 2; // 2 = disposition
 		$rc =  3; // 3 = recordCategory
 		$rp =  4; // 4 = retentionPeriod
-		$rn =  5; // 5 = recordName
-		$kw = 6;  // 6 = keywords
-		
-		//Assign regular image
-		$image0 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image1 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image2 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image3 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image4 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image5 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image6 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		
-		//Assign Sort arrow images
-		if($field == "recordCode") {
-			if($sortBy == 2) {
-				$image0 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image0 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image0 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "officeOfPrimaryResponsibility") {
-			if($sortBy == 2) {
-				$image1 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image1 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image1 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "disposition") {
-			if($sortBy == 2) {
-				$image2 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image2 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image2 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "recordCategory") {
-			if($sortBy == 2) {
-				$image3 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image3 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image3 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "retentionPeriod") {
-			if($sortBy == 2) {
-				$image4 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image4 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else {
-				$image4 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "recordName") {
-			if($sortBy == 2) {
-				$image5 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image5 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image5 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "keywords") { 
-			if($sortBy == 2) {
-				$image6 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image6 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image6 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		}
+		$rco = 5; // 5 = recordCode
 		
 		//$retentionScheduleResults .= "&nbsp;&nbsp;<a href='http://library.du.edu/site/about/urmp/retentionFAQ.php' target='_blank'>About the Records Retention Schedule</a><br />";
 		//$retentionScheduleResults .= "&nbsp;&nbsp;<a href='http://library.du.edu/site/about/urmp/glossaryURMP.php' target='_blank'>What do these codes mean?</a><br /><br />";
 		
+		$retentionScheduleResults .= "<div id='loadingContainer'><span id='sorting'><em>Sorting...</em></span></div><br />";
 		$retentionScheduleResults .= "&nbsp;&nbsp;Records Found:&nbsp;" . $recordCount;
 		$retentionScheduleResults .= "<table id='searchResultsTable' width='100%'>";
 		
 		$retentionScheduleResults .= "<tr>";
-		$retentionScheduleResults .= "<th width='6%'><strong><a href='#' title='Click to sort' onClick='sortBy($rco);'>Record Code$image0</a></strong></th>";
-		$retentionScheduleResults .= "<th width='10%'><strong><a href='#' title='Click to sort' onClick='sortBy($rc);'>Functional Category$image3</a></strong></th>";
-		$retentionScheduleResults .= "<th width='13%'><strong><a href='#' title='Click to sort' onClick='sortBy($rn);'>Record Group$image5</a></strong></th>";
-		$retentionScheduleResults .= "<th width='19%'><strong>Description</strong></th>";
-		$retentionScheduleResults .= "<th width='19%'><strong><a href='#' title='Click to sort' onClick='sortBy($kw);'>Search Terms$image6</a></strong></th>";
-		$retentionScheduleResults .= "<th width='16%'><strong><a href='#' title='Click to sort' onClick='sortBy($rp);'>Retention Period$image4</a></strong></th>";
-		$retentionScheduleResults .= "<th width='16%'><strong><a href='#' title='Click to sort' onClick='sortBy($dis);'>Retention Rules$image2</a></strong></th>";
-		//$retentionScheduleResults .= "<th width='10%'><strong><a href='#' title='Click to sort' onClick='sortBy($opr);'>Primary Owner$image1</a></strong></th>";
-		$retentionScheduleResults .= "<th width='1%'><strong></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($rco);'>Record Code</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($rc);'>Functional Category</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($rn);'>Record Name</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong>Record Description</strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($rp);'>Retention Period</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($dis);'>Retention Rules</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($opr);'>Primary Owner</a></strong></th>";
+				
 		$retentionScheduleResults .= "</tr>";
-		$retentionScheduleResults .= "</table>";
-		
-		$retentionScheduleResults .= "<div id='loadingContainer' style='height:630px; overflow: auto;'><span id='sorting'><em>Sorting...</em></span><br />";
-		$retentionScheduleResults .= "<table id='searchResultsTable' width='100%'>";
+				
 		// display records
 		foreach ($result['response'] as $response) {
 			if (is_array($response)) {
@@ -1866,57 +1497,44 @@
 					foreach ($docs['recordCategory'] as $record) {
 						$recordCategory = $record;
 					}
-					
-					foreach ($docs['keywords'] as $record) {
-						$keywords = $record;
-					}
-					
 					$retentionScheduleResults .= "<tr>";
 					
-					$retentionScheduleResults .= "<td width='6%'>";
+					$retentionScheduleResults .= "<td width='10%' align>";
 					$retentionScheduleResults .= trim(strip_tags($recordCode));
 					$retentionScheduleResults .= "</td>";
 					
-					$retentionScheduleResults .= "<td width=10%'>";
+					$retentionScheduleResults .= "<td width='20%'>";
 					$retentionScheduleResults .= trim(strip_tags($recordCategory));
 					$retentionScheduleResults .= "</td>";
 	
-					$retentionScheduleResults .= "<td width='13%'>";
+					$retentionScheduleResults .= "<td width='15%'>";
 					$retentionScheduleResults .= "<a href='/$siteName/index.php/du/getRetentionSchedule/" . $retentionScheduleID . "?height=435&width=450' class='thickbox' title='Click to view details'>$recordName</a>";
 					$retentionScheduleResults .= "</td>";
 					
-					$retentionScheduleResults .= "<td width='19%'>";
+					$retentionScheduleResults .= "<td width='25%'>";
 					$descResults = $this->getDescriptionLength($retentionScheduleID, $recordDescription);
 					$retentionScheduleResults .= trim($descResults);
 					$retentionScheduleResults .= "</td>";
-					
-					$retentionScheduleResults .= "<td width='19%'>";
-					$keywordsResults = $this->getDescriptionLength($retentionScheduleID, $keywords);
-					$retentionScheduleResults .= trim($keywordsResults);
-					$retentionScheduleResults .= "</td>";
 										
-					$retentionScheduleResults .= "<td width='16%'>";
-					$retentionPeriodResults	= $this->getDescriptionLength($retentionScheduleID, $retentionPeriod);
-					$retentionScheduleResults .= trim($retentionPeriodResults);
+					$retentionScheduleResults .= "<td width='10%'>";
+					$retentionScheduleResults .= trim(strip_tags($retentionPeriod));
 					$retentionScheduleResults .= "</td>";
 							
-					$retentionScheduleResults .= "<td width='16%'>";
+					$retentionScheduleResults .= "<td width='10%'>";
 					$retentionScheduleResults .= trim(strip_tags($disposition));
 					$retentionScheduleResults .= "</td>";
 					
-					/*
-					 
-					$retentionScheduleResults .= "<td width='10%'>";
+					$retentionScheduleResults .= "<td width='20%'>";
 					$retentionScheduleResults .= trim(strip_tags($officeOfPrimaryResponsibility)); 
 					$retentionScheduleResults .= "</td>";
-					*/			
+										
 					$retentionScheduleResults .= "</tr>";	
 							
 				}
 			} 
 		}
 		
-		$retentionScheduleResults .= "</table></div>";
+		$retentionScheduleResults .= "</table>";
 		$retentionScheduleResults .= "<br /><br />";
 		
 		return $retentionScheduleResults;
@@ -1929,20 +1547,22 @@
 	 * @return $retentionScheduleResults
 	 */
 	public function doRecordCategorySearch($_POST) {
-	
+		
+		$recordCategory = trim($_POST['recordCategory']);
+						
 		// set sort by field name
 		if (isset($_POST['field']) && $_POST['field'] == 2) {
 			$field = "disposition";
 		} elseif(isset($_POST['field']) && $_POST['field'] == 1) {
-			$field = "keywords";
+			$field = "officeOfPrimaryResponsibility";
 		} elseif(isset($_POST['field']) && $_POST['field'] == 3) {
 			$field = "recordCategory";
 		} elseif(isset($_POST['field']) && $_POST['field'] == 4) {
 			$field = "retentionPeriod";
 		} elseif(isset($_POST['field']) && $_POST['field'] == 5) {
-			$field = "recordName";
-		} else {
 			$field = "recordCode";
+		} else {
+			$field = "recordName";
 		}
 		// set sort order
 		if (isset($_POST['sortBy']) && $_POST['sortBy'] == 1) {
@@ -1952,34 +1572,17 @@
 			$sortBy = 1; // asc : A - Z
 			$sort = "asc";
 		}
-		$this->db->select(); // "*" is assumed by codeigniter
-		$this->db->from('rm_fullTextSearch'); 
-		//$this->db->where('recordCategory', $rc[0]);
-		$categories = "";
 		
-		//Check for ajax call back
-		if (isset($_POST['recordCategory'])) {
-			// parse string with explode()
-			$recordCategories = explode("|", $_POST['recordCategory']);
-			foreach($recordCategories as $recordCategory) {
-				$categories .= $recordCategory . "|";
-				$rc = trim($recordCategory);
-				$this->db->or_where('recordCategory', $rc);
-			}
-		} else {
-			foreach($_POST as $recordCategory) {
-				$categories .= $recordCategory . "|";
-				$rc = trim($recordCategory);
-				$this->db->or_where('recordCategory', $rc);
-			}
-		}
+		$this->db->select('retentionScheduleID, recordCode, recordName, recordCategory, officeOfPrimaryResponsibility, disposition, retentionPeriod, recordDescription');
+		$this->db->from('rm_fullTextSearch'); 
+		$this->db->where('recordCategory', $recordCategory);
 		$this->db->order_by($field, $sort);
 		$retentionScheduleQuery = $this->db->get();
-
+	 	
 		if ($retentionScheduleQuery->num_rows() > 0) {
 				
 	 			$retentionScheduleResults = "";
-	 			$results = $this->generateSearchResults($divisionID="", $departmentID="", $sortBy, $retentionScheduleQuery, $keyword="", $categories, $field);
+	 			$results = $this->generateSearchResults($divisionID="", $departmentID="", $sortBy, $retentionScheduleQuery, $keyword="", $recordCategory);
 				$retentionScheduleResults .= $results;
 	 						
 				return $retentionScheduleResults;
@@ -2008,19 +1611,19 @@
  		
  		if ($retentionScheduleIDs->num_rows() > 0) {
 					
-			// set sort by field name
+ 			// set sort by field name
 			if (isset($_POST['field']) && $_POST['field'] == 2) {
 				$field = "disposition";
 			} elseif(isset($_POST['field']) && $_POST['field'] == 1) {
-				$field = "keywords";
+				$field = "officeOfPrimaryResponsibility";
 			} elseif(isset($_POST['field']) && $_POST['field'] == 3) {
 				$field = "recordCategory";
 			} elseif(isset($_POST['field']) && $_POST['field'] == 4) {
 				$field = "retentionPeriod";
 			} elseif(isset($_POST['field']) && $_POST['field'] == 5) {
-				$field = "recordName";
-			} else {
 				$field = "recordCode";
+			} else {
+				$field = "recordName";
 			}
 			// set sort order
 			if (isset($_POST['sortBy']) && $_POST['sortBy'] == 1) {
@@ -2037,7 +1640,7 @@
 				$ids[] = $id->retentionScheduleID;				
 			}
 			 		 		
- 			$this->db->select(); // "*" is assumed by codeigniter
+ 			$this->db->select('retentionScheduleID, recordCode, recordName, recordCategory, officeOfPrimaryResponsibility, disposition, retentionPeriod, recordDescription');
 			$this->db->from('rm_fullTextSearch'); 
 			$this->db->where_in('retentionScheduleID', $ids);
 		 	$this->db->order_by($field, $sort);
@@ -2046,7 +1649,7 @@
 	 		if ($retentionScheduleQuery->num_rows() > 0) {
 				
 	 			$retentionScheduleResults = "";
-	 			$results = $this->generateSearchResults($divisionID, $departmentID, $sortBy, $retentionScheduleQuery, $keyword="", $recordCategory="", $field);
+	 			$results = $this->generateSearchResults($divisionID, $departmentID, $sortBy, $retentionScheduleQuery, $keyword="", $recordCategory="");
 				$retentionScheduleResults .= $results;
 	 						
 				return $retentionScheduleResults;
@@ -2067,7 +1670,7 @@
 	 * @param $divisionID, $departmentID, $retentionScheduleQuery, $keyword
 	 * @return $retentionScheduleResults
 	 */
-	private function generateSearchResults($divisionID="", $departmentID="", $sortBy, $retentionScheduleQuery, $keyword="", $recordCategory="", $field) {
+	private function generateSearchResults($divisionID="", $departmentID="", $sortBy, $retentionScheduleQuery, $keyword="", $recordCategory="") {
 		
 		$recordCount = $retentionScheduleQuery->num_rows();
 		// generate output
@@ -2089,8 +1692,7 @@
 			$retentionScheduleResults .= "function sortBy(field) { ";
 			$retentionScheduleResults .= "$('#sorting').show(); ";
 			$retentionScheduleResults .= "$.post('$siteUrl/du/searchByDepartment',{ divisionID: $divisionID, departmentID: $departmentID, sortBy: $sortBy, field: field, ajax: 'true'}, function(results){ ";
-			$retentionScheduleResults .= "$('#retentionScheduleSearchResults').html(results); ";
-			//$retentionScheduleResults .= "$('#divDeptRetentionScheduleSearchResults').html(results); ";
+			$retentionScheduleResults .= "$('#divDeptRetentionScheduleSearchResults').html(results); ";
 			$retentionScheduleResults .= "$('#sorting').hide(); ";
 			$retentionScheduleResults .= "}); "; // post
 			$retentionScheduleResults .= "} "; // js
@@ -2110,143 +1712,73 @@
 			$retentionScheduleResults .= "function sortBy(field) { ";
 			$retentionScheduleResults .= "$('#sorting').show(); ";
 			$retentionScheduleResults .= "$.post('$siteUrl/du/searchByRecordCategory',{ recordCategory: '$recordCategory', sortBy: $sortBy, field: field, ajax: 'true'}, function(results){ ";
-			$retentionScheduleResults .= "$('#retentionScheduleSearchResults').html(results); ";
-			//$retentionScheduleResults .= "$('#recordCategoryRetentionScheduleSearchResults').html(results); ";
+			$retentionScheduleResults .= "$('#recordCategoryRetentionScheduleSearchResults').html(results); ";
 			$retentionScheduleResults .= "$('#sorting').hide(); ";
 			$retentionScheduleResults .= "}); "; // post
 			$retentionScheduleResults .= "} "; // js
 			$retentionScheduleResults .= "</script>";
 		}
 				
-		$rco = 0; // 0 = record code
-		$kw = 1; // 1 = keywords
+		$rn =  0; // 0 = recordName
+		$opr = 1; // 1 = officeOfPrimaryResponsibility
 		$dis = 2; // 2 = disposition
 		$rc =  3; // 3 = recordCategory
 		$rp =  4; // 4 = retentionPeriod
-		$rn =  5; // 5 = recordName
-		$opr = 6; // 6 = officeOfPrimaryResponsibility
-
-		
-		//Assign regular image
-		$image0 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image1 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image2 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image3 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image4 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image5 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		$image6 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-		
-		//Assign Sort arrow images
-		if($field == "recordCode") {
-			if($sortBy == 2) {
-				$image0 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image0 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image0 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "keywords") {
-			if($sortBy == 2) {
-				$image1 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image1 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image1 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "disposition") {
-			if($sortBy == 2) {
-				$image2 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image2 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image2 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "recordCategory") {
-			if($sortBy == 2) {
-				$image3 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image3 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image3 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "retentionPeriod") {
-			if($sortBy == 2) {
-				$image4 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image4 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else {
-				$image4 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} elseif($field == "recordName") {
-			if($sortBy == 2) {
-				$image5 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_up_white.gif' /></img>";
-			} elseif ($sortBy == 1) {
-				$image5 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_down_white.gif' /></img>";
-			} else { 
-				$image5 = "<img src='" . $baseUrl . "images/222222_7x7_arrow_updown_white.gif' /></img>";
-			}
-		} 
-		
+		$rec = 5; // 5 = record code
 		//$retentionScheduleResults .= "&nbsp;&nbsp;<a href='http://library.du.edu/site/about/urmp/retentionFAQ.php' target='_blank'>About the Records Retention Schedule</a><br />";
 		//$retentionScheduleResults .= "&nbsp;&nbsp;<a href='http://library.du.edu/site/about/urmp/glossaryURMP.php' target='_blank'>What do these codes mean?</a><br /><br />";
 		
 		$retentionScheduleResults .= "<div id='loadingContainer'><span id='sorting'><em>Sorting...</em></span></div><br />";
 		$retentionScheduleResults .= "&nbsp;&nbsp;Records Found:&nbsp;" . $recordCount;
-		
 		$retentionScheduleResults .= "<table id='searchResultsTable' width='100%'>";
+		
 		$retentionScheduleResults .= "<tr>";
-		$retentionScheduleResults .= "<th width='6%'><strong><a href='#' title='Click to sort' onClick='sortBy($rco);'>Record Code$image0</a></strong></th>";
-		$retentionScheduleResults .= "<th width='10%'><strong><a href='#' title='Click to sort' onClick='sortBy($rc);'>Functional Category$image3</a></strong></th>";
-		$retentionScheduleResults .= "<th width='13%'><strong><a href='#' title='Click to sort' onClick='sortBy($rn);'>Record Group$image5</a></strong></th>";
-		$retentionScheduleResults .= "<th width='19%'><strong>Description</strong></th>";
-		$retentionScheduleResults .= "<th width='19%'><strong><a href='#' title='Click to sort' onClick='sortBy($kw);'>Search Terms$image1</a></strong></th>";
-		$retentionScheduleResults .= "<th width='16%'><strong><a href='#' title='Click to sort' onClick='sortBy($rp);'>Retention Period$image4</a></strong></th>";
-		$retentionScheduleResults .= "<th width='16%'><strong><a href='#' title='Click to sort' onClick='sortBy($dis);'>Retention Rules$image2</a></strong></th>";
-		//$retentionScheduleResults .= "<th width='10%'><strong><a href='#' title='Click to sort' onClick='sortBy($opr);'>Primary Owner$image6</a></strong></th>";
-		$retentionScheduleResults .= "<th width='1%'><strong></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($rec);'>Record Code</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($rc);'>Functional Category</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($rn);'>Record Name</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong>Record Description</strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($opr);'>Primary Owner</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($rp);'>Retention Period</a></strong></th>";
+		$retentionScheduleResults .= "<th><strong><a href='#' title='Click to sort' onClick='sortBy($dis);'>Retention Rules</a></strong></th>";
+				
 		$retentionScheduleResults .= "</tr>";
-		$retentionScheduleResults .= "</table>";
-		
-		$retentionScheduleResults .= "<div id='loadingContainer' style='height:630px; overflow: auto;'><span id='sorting'><em>Sorting...</em></span><br />";
-		$retentionScheduleResults .= "<table id='searchResultsTable' width='100%'>";
 		
 		foreach ($retentionScheduleQuery->result() as $results) {
 			
-			$retentionScheduleID = $results->retentionScheduleID;
-			$recordDescription = $results->recordDescription;
-			$keywords = $results->keywords;
-			$retentionPeriod = $results->retentionPeriod;
-			
 			$retentionScheduleResults .= "<tr>";
 			
-			$retentionScheduleResults .= "<td width='6%'>";
+			$retentionScheduleResults .= "<td width='20%'>";
 			$retentionScheduleResults .= trim(strip_tags($results->recordCode));
 			$retentionScheduleResults .= "</td>";
 			
-			$retentionScheduleResults .= "<td width='10%'>";
+			$retentionScheduleResults .= "<td width='20%'>";
 			$retentionScheduleResults .= trim(strip_tags($results->recordCategory));
 			$retentionScheduleResults .= "</td>";
 			
-			$retentionScheduleResults .= "<td width='13%'>";
+			$retentionScheduleResults .= "<td width='15%'>";
 			$retentionScheduleResults .= "<a href='/$siteName/index.php/du/getRetentionSchedule/$results->retentionScheduleID?height=420&width=450' class='thickbox' title='Click to view details'>$results->recordName</a>";
 			$retentionScheduleResults .= "</td>";
 
-			$retentionScheduleResults .= "<td width='19%'>";
+			
+			$retentionScheduleResults .= "<td width='25%'>";
+					
+			$retentionScheduleID = $results->retentionScheduleID;
+			$recordDescription = $results->recordDescription;
+					
 			$descResults = $this->getDescriptionLength($retentionScheduleID, $recordDescription);
 			$retentionScheduleResults .= trim($descResults);
+										
 			$retentionScheduleResults .= "</td>";
-			
-			$retentionScheduleResults .= "<td width='19%'>";
-			$keywordsResults = $this->getDescriptionLength($retentionScheduleID, $keywords);
-			$retentionScheduleResults .= trim($keywordsResults);
+									
+			$retentionScheduleResults .= "<td width='20%'>";
+			$retentionScheduleResults .= trim(strip_tags($results->officeOfPrimaryResponsibility)); 
 			$retentionScheduleResults .= "</td>";
 
-			$retentionScheduleResults .= "<td width='16%'>";
-			$retentionPeriodResults	= $this->getDescriptionLength($retentionScheduleID, $retentionPeriod);
-			$retentionScheduleResults .= trim($retentionPeriodResults);
+			$retentionScheduleResults .= "<td width='10%'>";
+			$retentionScheduleResults .= trim(strip_tags($results->retentionPeriod));
 			$retentionScheduleResults .= "</td>";
 						
-			$retentionScheduleResults .= "<td width='16%'>";
+			$retentionScheduleResults .= "<td width='10%'>";
 			$retentionScheduleResults .= trim(strip_tags($results->disposition));
 			$retentionScheduleResults .= "</td>";
 			
@@ -2254,14 +1786,14 @@
 			$retentionScheduleResults .= "</tr>";	
 		}
 		 	
-		$retentionScheduleResults .= "</table></div>";
+		$retentionScheduleResults .= "</table>";
 		$retentionScheduleResults .= "<br /><br />";
 		
 		return $retentionScheduleResults;
 	}
-		
+			
      /**
-	 * deterines the length of the text in the description field and truncates it to the last space if it is more than 100 characters
+	 * deterines the lenght of the text in the description field and truncates it if it is more than 150 characters
 	 * adds more url to full description
 	 * 
 	 * @param $retentionScheduleID
@@ -2270,23 +1802,27 @@
 	 */
 	private function getDescriptionLength($retentionScheduleID, $recordDescription) {
 		$siteName = $this->config->item('site_name');
+		
 		$results = "";
-		if ( strlen($recordDescription) <= 100 ) {
-			return $recordDescription;
-		}
-		
-		$newstr = substr($recordDescription, 0, 100);
-		
-		if ( substr($newstr,-1,1) != ' ' ) {
-			$newstr = substr($newstr, 0, strrpos($newstr, " "));	
-		}
-		if ($retentionScheduleID !== "") {
-			$results .= $newstr . "&nbsp;<a href='/$siteName/index.php/du/getRetentionSchedule/$retentionScheduleID?height=420&width=450' class='thickbox' title='University Records Management Program'>more...</a>";	
-		} else {
-			$results .= $newstr . "&nbsp;...";		
+		$length = strlen(trim($recordDescription));
+		if ($length > 150) {
+			$truncate = $length - 150; 
+			if ($truncate <= 10) {
+				$truncatedRecordDescription = substr($recordDescription, 0, -$truncate);
+			} else {
+				$truncatedRecordDescription = substr($recordDescription, 0, -$truncate);
+			}
+				if ($retentionScheduleID !== "") {
+					$results .= $truncatedRecordDescription . "&nbsp;<a href='/$siteName/index.php/du/getRetentionSchedule/$retentionScheduleID?height=420&width=450' class='thickbox' title='University Records Management Program'>more...</a>";	
+				} else {
+					$results .= $truncatedRecordDescription . "&nbsp;...";		
+				}
+			} else {
+				$results .= $recordDescription;
 		}
 		return $results;
 	}
+ 
 
 	/**
  	 * Invokes getDepartmentQuery()

@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -19,10 +19,10 @@
  * along with Records Authority.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-class Du extends CI_Controller {
+class Du extends Controller {
 
 	public function __construct() {
-		parent::__construct();
+		parent::Controller();
 		
 		$this->load->library('iputility');
 		$this->load->model('LookUpTablesModel');
@@ -37,15 +37,12 @@ class Du extends CI_Controller {
     * @return void
     */
 	public function retentionSchedules() {
-		//enable this code to lock to DU IP only
 		/*$duIP = $this->iputility->checkDuIp();
 		if ($duIP == FALSE) { 
 	    	$this->load->view("public/displays/accessDenied");
 			return; 
 	    }*/
-	    $this->load->model('JsModel');
-		$data['searchPopUp'] = $this->JsModel->searchPopUp();
-		
+	    
 		// handles search forms
 		if ($this->uri->segment(3) == "recordCategory") {
 			$siteUrl = site_url();
@@ -58,7 +55,7 @@ class Du extends CI_Controller {
 			$data['divisions'] = $this->LookUpTablesModel->createDivisionDropDown();
 	    	$this->load->view('public/forms/retentionScheduleDDSearchForm', $data);
 	    } else {
-	        $this->load->view('public/forms/retentionScheduleFTSearchForm', $data);                                                              
+	        $this->load->view('public/forms/retentionScheduleFTSearchForm');                                                              
 	    }
 	}
 	

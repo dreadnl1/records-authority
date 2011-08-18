@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
  * Author evan.blount@du.edu
  * 
  * This file is part of Records Authority.
@@ -20,10 +20,10 @@
  **/
 
 
-class DashboardModel extends CI_Model {
+class DashboardModel extends Model {
 
 	public function __construct() {
- 		parent::__construct();
+ 		parent::Model();
  	}
 	
 	/**

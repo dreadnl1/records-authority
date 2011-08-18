@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright 2011 University of Denver--Penrose Library--University Records Management Program
- * Author evan.blount@du.edu and fernando.reyes@du.edu
+ * Copyright 2008 University of Denver--Penrose Library--University Records Management Program
+ * Author fernando.reyes@du.edu
  * 
  * This file is part of Records Authority.
  * 
@@ -21,7 +21,7 @@
 ?>
 
 <?php 
-	$data['title'] = 'Record Inventory - Records Authority';
+	$data['title'] = 'Record Type - Records Authority';
 	$this->load->view('includes/adminHeader', $data); 
 ?>
 
@@ -35,7 +35,7 @@
 <div id="tabs">
 	<div id="setDepartment">Setting Department...</div>
 	  	<ul>
-        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Inventory</a></li>
+        	<li class="ui-tabs-nav-item"><a href="#fragment-1">Record Information</a></li>
             <!-- <li class="ui-tabs-nav-item"><a href="#fragment-2">Format and Location</a></li> -->
             <!-- <li class="ui-tabs-nav-item"><a href="#fragment-3"><span>Management</span></a></li> -->
         </ul>
@@ -96,7 +96,7 @@
 			<!-- <label for='recordCategory'>3.) Record Category:</label><br />  -->
 			3.) 
 			<select name='recordCategory' size='1' class='required' >
-				<option value=''>Select a Functional Category</option>
+				<option value=''>Select a Record Category</option>
 				<option value=''>-----------------</option>
 				<?php 
 					foreach ($recordCategories as $recordCategory) {
@@ -190,7 +190,7 @@
 <!-- Question 7 -->			
 			<label for='recordStorage'>7.) Where is the record stored?</label><br />
 			<input name="recordStorage" type="radio" value="Physical storage in department" />&nbsp;&nbsp;Physical Storage in department<br />
-			<input name="recordStorage" type="radio" value="Physical storage in other building" id="toggleOtherDUBuilding" />&nbsp;&nbsp;Physical Storage in other building (enter other type)<br />
+			<input name="recordStorage" type="radio" value="Physical storage in other DU building" id="toggleOtherDUBuilding" />&nbsp;&nbsp;Physical Storage in other DU building (enter other type)<br />
 			
 			<div id="otherDUBuildingText">
 				<input name="otherDUBuildingText" type="text"/>
@@ -204,7 +204,7 @@
 			
 			<input name="recordStorage" type="radio" value="Banner" />&nbsp;&nbsp;Banner<br />
 			<input name="recordStorage" type="radio" value="Peak Digital"  />&nbsp;&nbsp;Peak Digital<br />
-			<input name="recordStorage" type="radio" value="Networked Computer/Server" />&nbsp;&nbsp;Networked Computer/Server<br />
+			<input name="recordStorage" type="radio" value="DU Networked Computer/Server" />&nbsp;&nbsp;DU Networked Computer/Server<br />
 			<input name="recordStorage" type="radio" value="Local HD"  />&nbsp;&nbsp;Local HD<br />
 			
 			<input name="recordStorage" type="radio" value="Other electronic system" id="toggleOtherElectronicSystem" />&nbsp;&nbsp;Other electronic system (enter other type)<br />
