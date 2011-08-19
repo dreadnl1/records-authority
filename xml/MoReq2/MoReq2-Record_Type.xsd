@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.dlm-network.org/moreq2/1.04.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.04.01">
+	<xs:element name="Record_Type">
+		<xs:annotation>
+			<xs:documentation>Describes a record made from a document with the corresponding document type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Description">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="abstract" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>A description of the record type.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M029</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="title">
+								<xs:annotation>
+									<xs:documentation>A name given to a record type.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M028</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Identity">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="system_identifier">
+								<xs:annotation>
+									<xs:documentation>An identifier assigned to a record type.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M027</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Relation" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="retention_and_disposition_schedule" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>System identifier of the retention and disposition schedules assigned to the record type.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M087</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Custom" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Any additional metadata that isn't included elsewhere in this entity.  This section will allow the MoReq2 schema to be extended without making the resulting XML invalid against the MoReq2 Schema.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any processContents="skip" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

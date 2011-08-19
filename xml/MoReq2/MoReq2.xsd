@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.dlm-network.org/moreq2/1.04.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:moreq2="http://www.dlm-network.org/moreq2/1.04.01" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.04.01">
+	<xs:annotation>
+		<xs:documentation>This schema defines layout of data that must be used to import and export data between MoReq2 compliant systems.</xs:documentation>
+		<xs:appinfo>
+			<xs:MoReq2_Specification_Version>1.03</xs:MoReq2_Specification_Version>
+			<xs:MoReq2_Specification_Date>June 2008</xs:MoReq2_Specification_Date>
+		</xs:appinfo>
+	</xs:annotation>
+	<!-- Declaration of schemas which are referenced from this root schema -->
+	<xs:include schemaLocation="MoReq2-Class.xsd"/>
+	<xs:include schemaLocation="MoReq2-Class_Stub.xsd"/>
+	<xs:include schemaLocation="MoReq2-Record_Type.xsd"/>
+	<xs:include schemaLocation="MoReq2-User.xsd"/>
+	<xs:include schemaLocation="MoReq2-Role.xsd"/>
+	<xs:include schemaLocation="MoReq2-Group.xsd"/>
+	<xs:include schemaLocation="MoReq2-Entity_Agent.xsd"/>
+	<xs:include schemaLocation="MoReq2-Retention_And_Disposition.xsd"/>
+	<!--
+	
+	* General MoReq2 XML Schema conventions *
+
+	Users of this schema are strongly advised to refer to the MoReq2 Metatdata Model which is available at http://www.dlm-network.org/moreq2
+
+	Schema Version:  The schema version number is stored in the version attribute of all schemas and made up of the MoReq2 Specification
+	version that the schema is based upon followed by the schema revision since the release of that version of the MoReq2 Specification.
+	Pre-release versions will have the suffix "DRAFT".  For example, the pre-release schema based on specification version 1.01 which has had
+	three revisions since the specification was released would have a version number: 1.01.03 DRAFT
+	The namespace for all MoReq2 XML Schemas includes the version appended to it to identify in the XML which version of the schema was used
+	to create the XML document.
+	
+	The naming convention of metadata elements:
+	- Element names maintain the capitalisation defined in the MoReq2 metadata specification.
+	- Elements are defined with a parent/child relation which dictated by the dot notation of element names, where the right most part of the
+	name is the child element.
+	- The convention for elements is explained in section 9.6 of Appendix9 of the MoReq2 specification.
+	
+	All metadata elements have annotations which contain the following:
+	- Documentation: A short explanation of the element, this is normally the definition for the element defined in the MoReq2 metadata
+	specification.
+	- MetadataRef: This contains the reference number of the metadata element defined in the MoReq2 metadata model.
+	
+	Date elements:
+	- Combined date and time elements are defined using XML Schema data type "dateTime" which is closely related to the ISO 8601 standard.
+	 DateTimes are generally used for historic events and audits.
+	- Date only elements are defined using the XML Schema data type "date", which does not follow the IS0 8601 standard.  Dates are generally
+	used for future (planned) events.
+	- Element M022 is specified as only having a month and day component.  This cannot be defined using existing data types and therefore has
+	been defined specifically for this schema.  See the element annotation for specific details.
+	
+	YES/NO elements:
+	All elements defined in the MoReq2 Metadata Model as having only YES/NO values are defined in the schema as xs:boolean XML datatype
+	which uses true/false values respectively.
+	
+	Custom Metadata:
+	Each entity has a Custom element that allows for any additional metadata to be included within a MoReq2 export.  Any metadata that exends
+	the schema should be placed within the Custom element to ensure that the resulting XML will still be valid against the MoReq2 schema.
+	Implementations 	that exchange custom metadata should extend the schema to allow their own custom metadata to be validated when exchanged between
+	similar systems.  However, the resulting XML must still be valid against the original MoReq2 Schema.
+	
+	* MoReq2.xsd *
+	This schema (MoReq2) defines Classification Scheme plus the additional entities that are not natural child elements of the Classification
+	Scheme.
+	
+	All other schemas that form the complete MoReq2 schema are referenced directly or indirectly from this schema.
+	
+	-->
+	<xs:element name="Classification_Scheme">
+		<xs:annotation>
+			<xs:documentation>A classification scheme is the foundation of any ERMS.  It allows electronic records to be stored together with other information that provide its context, by defining the way in which the electronic records will be organised into aggregations (files, classes etc.), and the relationships between them.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Description">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="abstract" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="description" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>The description of the classification scheme.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M046</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="title">
+								<xs:annotation>
+									<xs:documentation>The name that identifies the classification scheme.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M045</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Identity">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="system_identifier">
+								<xs:annotation>
+									<xs:documentation>The identifier of the classification scheme.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M044</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Custom" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Any additional metadata that isn't included elsewhere in this entity.  This section will allow the MoReq2 schema to be extended without making the resulting XML invalid against the MoReq2 Schema.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any processContents="skip" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Classes">
+					<xs:annotation>
+						<xs:documentation>This element has been included to group individual classes together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="moreq2:Class" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="moreq2:Class_Stub" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--
+	The following elements are root nodes for entities that are not part of the Classification Scheme, but are needed to import and export records.
+	This means that the entities in these root notes can be imported/exported separately.  Exporting records from a MoReq2 compliant system
+	using this schema in a way that preserves all the functionality of the system requires multiple XML documents to be created, one for each of
+	the root nodes.
+	-->
+	<xs:element name="Record_Types">
+		<xs:annotation>
+			<xs:documentation>A list of record types.  This element has been included to group individual record types together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="moreq2:Record_Type" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Users">
+		<xs:annotation>
+			<xs:documentation>A list of users.  This element has been included to group individual users together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="moreq2:User" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Groups">
+		<xs:annotation>
+			<xs:documentation>A list of groups.  This element has been included to group individual groups together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="moreq2:Group" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Roles">
+		<xs:annotation>
+			<xs:documentation>A list of roles.  This element has been included to group individual roles together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="moreq2:Role" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Entity_Agents">
+		<xs:annotation>
+			<xs:documentation>A list of entity agents.  This element has been included to group individual entity agents together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="moreq2:Entity_Agent" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Retention_And_Disposition_Schedules">
+		<xs:annotation>
+			<xs:documentation>A list of Retention And Disposition Schedules.  This element has been included to group individual retention and disposition schedules together  It is not defined in the MoReq2 metadata model.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="moreq2:Retention_And_Disposition" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

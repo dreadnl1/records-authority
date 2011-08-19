@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.dlm-network.org/moreq2/1.04.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.04.01">
+	<xs:element name="Component">
+		<xs:annotation>
+			<xs:documentation>A component of a record or document.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Description">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="abstract" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="reason_for_rendition" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Why the component has been rendered.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M131</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="classification">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="classification_code">
+											<xs:annotation>
+												<xs:documentation>The classification code of the component, unique within its parent.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M153</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="fully_qualified_classification_code">
+											<xs:annotation>
+												<xs:documentation>The hierarchical identifier of the component, unique within the ERMS.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M154</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Event_history" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="date" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="rendered" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Date the component was rendered.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M132</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Identity">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="system_identifier">
+								<xs:annotation>
+									<xs:documentation>An identifier for a record component.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M064</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="system_identifier_rendition" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>An unique identifier of a rendition of a component.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M130</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Relation">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="is_child_of">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of the parent record.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M090</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="has_rendition" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of a rendition associated with the component.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M150</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="is_rendition_of" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The fully qualified classification code of the component for which the subject is a rendition.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M151</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Use">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="technical_environment">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="file_format">
+											<xs:annotation>
+												<xs:documentation>The file format in which the component is encoded.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M128</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="file_format_original">
+											<xs:annotation>
+												<xs:documentation>The file format in which the component was encoded at time of capture.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M196</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="file_format_version">
+											<xs:annotation>
+												<xs:documentation>The version of the file format in which the component was encoded.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M129</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="file_format_version_original">
+											<xs:annotation>
+												<xs:documentation>The version of the file format in which the component was encoded at time of capture.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M142</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Custom" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Any additional metadata that isn't included elsewhere in this entity.  This section will allow the MoReq2 schema to be extended without making the resulting XML invalid against the MoReq2 Schema.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any processContents="skip" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Electronic_Component" type="xs:base64Binary" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The electronic document or part of an electronic document.  This schema allows for the content of components to be embedded within the XML document or to be stored separately (i.e. in one or more objects that are external to the XML document).  The method used for referencing external binary components is not defined by the MoReq2 Specification, this is left to individual implementations of MoReq2.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

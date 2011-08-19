@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.dlm-network.org/moreq2/1.04.01" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.04.01">
+	<xs:element name="Retention_And_Disposition">
+		<xs:annotation>
+			<xs:documentation>Retention and Disposition Schedules, Disposal Holds.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Description">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="abstract">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="description" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>A description of the retention and disposition schedule or disposal hold.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M043</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="reason" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>The reason for the specification of the retention and disposition schedule or disposal hold.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M015</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="mandate" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>A mandate which specifies the justification for the retention and disposition schedule.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M030</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="title" type="xs:string" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The title of the retention and disposition schedule or disposal hold.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M024</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Event_plan">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="date" type="xs:date" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The disposition date associated with a retention and disposition schedule.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M152</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="event_type">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="disposition_action">
+											<xs:annotation>
+												<xs:documentation>The retention and disposition action that will be executed.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M014</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="RETAIN"/>
+													<xs:enumeration value="REVIEW"/>
+													<xs:enumeration value="DESTROY AUTOMATICALLY"/>
+													<xs:enumeration value="DESTROY AFTER AUTHORISATION"/>
+													<xs:enumeration value="TRANSFER"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="period" type="xs:integer" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The retention period associated with a retention and disposition schedule.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M013</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="reminder" type="xs:date" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>The date the reminder for the disposal hold is due.</xs:documentation>
+									<xs:appinfo>
+										<MetadataRef>M037</MetadataRef>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="event_trigger">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="kind">
+											<xs:annotation>
+												<xs:documentation>Defines the kind of event which allows the calculation of when the disposition schedule action can be executed.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M052</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="AFTER ENTITY OPENED"/>
+													<xs:enumeration value="AFTER ENTITY CLOSED"/>
+													<xs:enumeration value="AFTER RECORD ADDED"/>
+													<xs:enumeration value="AFTER RECORD RETRIEVED"/>
+													<xs:enumeration value="AFTER EXTERNAL EVENT"/>
+													<xs:enumeration value="PERMANENT"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="external_event" type="xs:string" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>An event external to the ERMS that triggers the start of the retention period of a retention and disposition schedule.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M183</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Identity">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="system_identifier">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="disposal_hold">
+											<xs:annotation>
+												<xs:documentation>The unique identifier for a disposal hold.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M137</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="retention_and_disposition_schedule">
+											<xs:annotation>
+												<xs:documentation>The unique identifier for a retention and disposition schedule.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M008</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:minLength value="1"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Use">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="status">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="inheritance" type="xs:boolean">
+											<xs:annotation>
+												<xs:documentation>Specifies whether the retention and disposition schedule should, or should not, be inherited by child entities of entities to which it is allocated.</xs:documentation>
+												<xs:appinfo>
+													<MetadataRef>M197</MetadataRef>
+												</xs:appinfo>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Custom" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Any additional metadata that isn't included elsewhere in this entity.  This section will allow the MoReq2 schema to be extended without making the resulting XML invalid against the MoReq2 Schema.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any processContents="skip" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
