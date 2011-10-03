@@ -39,7 +39,7 @@
 	$user = $this->session->userdata('username');
 	$loginTime = $this->session->userdata('loginTime')
 ?>
-<p>Records Authority ver. <a href="<?php echo $baseUrl?>RecordsAuthority_Release_Notes.txt">2.0.0</a> | <?php echo $this->benchmark->elapsed_time();?>
+<p>Records Authority ver. <a href="<?php echo $baseUrl?>RecordsAuthority_Release_Notes.txt">2.0.1</a> | <?php echo $this->benchmark->elapsed_time();?>
 <br />University of Denver--Penrose Library--University Records Management Program
 <br />User: <?php echo $user;?>
 <br />Login Time: <?php echo $loginTime;?>

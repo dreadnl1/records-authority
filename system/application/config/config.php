@@ -11,7 +11,7 @@
 |	http://example.com/
 |
 */
-$config['base_url']	= "http://localhost/records-authority/";
+$config['base_url']	= "http://localhost/recordsAuthority/";
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,7 @@ $config['base_url']	= "http://localhost/records-authority/";
 |	http://example.com/
 |
 */
-$config['site_name'] = "records-authority";
+$config['site_name'] = "recordsAuthority";
 
 /*
 |--------------------------------------------------------------------------
@@ -244,7 +244,7 @@ $config['encryption_key'] = "R3c0rdM@n@g3m3ntL1@50n";
 | 'time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'rm_session';
+$config['sess_cookie_name']		= 'rmsession';
 $config['sess_expiration']		= 0;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= TRUE;

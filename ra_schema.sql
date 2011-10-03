@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 01, 2011 at 11:32 AM
+-- Generation Time: Oct 03, 2011 at 10:13 AM
 -- Server version: 5.1.44
 -- PHP Version: 5.3.2
 
@@ -19,7 +19,7 @@ START TRANSACTION;
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `test`
+-- Database: `recordsManagementDB`
 --
 
 -- --------------------------------------------------------
@@ -27,8 +27,8 @@ START TRANSACTION;
 --
 -- Table structure for table `rm_associatedUnits`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_associatedUnits`;
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS `rm_associatedUnits` (
 --
 -- Table structure for table `rm_associatedUnits_temp`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_associatedUnits_temp`;
@@ -75,8 +75,8 @@ CREATE TABLE IF NOT EXISTS `rm_associatedUnits_temp` (
 --
 -- Table structure for table `rm_audit`
 --
--- Creation: Aug 01, 2011 at 11:21 AM
--- Last update: Aug 01, 2011 at 11:21 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_audit`;
@@ -101,8 +101,8 @@ CREATE TABLE IF NOT EXISTS `rm_audit` (
 --
 -- Table structure for table `rm_departmentContacts`
 --
--- Creation: Aug 01, 2011 at 11:21 AM
--- Last update: Aug 01, 2011 at 11:21 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_departmentContacts`;
@@ -129,8 +129,8 @@ CREATE TABLE IF NOT EXISTS `rm_departmentContacts` (
 --
 -- Table structure for table `rm_departments`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:24 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_departments`;
@@ -154,8 +154,8 @@ INSERT DELAYED IGNORE INTO `rm_departments` (`departmentID`, `divisionID`, `depa
 --
 -- Table structure for table `rm_disposition`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_disposition`;
@@ -183,8 +183,8 @@ INSERT DELAYED IGNORE INTO `rm_disposition` (`dispositionID`, `dispositionShort`
 --
 -- Table structure for table `rm_divisions`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:25 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_divisions`;
@@ -207,8 +207,8 @@ INSERT DELAYED IGNORE INTO `rm_divisions` (`divisionID`, `divisionName`, `timest
 --
 -- Table structure for table `rm_docTypes`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_docTypes`;
@@ -247,8 +247,8 @@ INSERT DELAYED IGNORE INTO `rm_docTypes` (`docTypeID`, `docType`, `timestamp`) V
 --
 -- Table structure for table `rm_fieldTypes`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_fieldTypes`;
@@ -275,8 +275,8 @@ INSERT DELAYED IGNORE INTO `rm_fieldTypes` (`fieldTypeID`, `fieldType`, `timesta
 --
 -- Table structure for table `rm_fullTextSearch`
 --
--- Creation: Aug 01, 2011 at 11:22 AM
--- Last update: Aug 01, 2011 at 11:22 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_fullTextSearch`;
@@ -307,8 +307,8 @@ CREATE TABLE IF NOT EXISTS `rm_fullTextSearch` (
 --
 -- Table structure for table `rm_recordCategories`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:25 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_recordCategories`;
@@ -331,9 +331,8 @@ INSERT DELAYED IGNORE INTO `rm_recordCategories` (`recordCategoryID`, `recordCat
 --
 -- Table structure for table `rm_recordType`
 --
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
--- Last check: Aug 01, 2011 at 11:25 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_recordType`;
@@ -383,9 +382,8 @@ CREATE TABLE IF NOT EXISTS `rm_recordType` (
 --
 -- Table structure for table `rm_recordTypeDeleted`
 --
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
--- Last check: Aug 01, 2011 at 11:25 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_recordTypeDeleted`;
@@ -435,9 +433,8 @@ CREATE TABLE IF NOT EXISTS `rm_recordTypeDeleted` (
 --
 -- Table structure for table `rm_retentionSchedule`
 --
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
--- Last check: Aug 01, 2011 at 11:25 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_retentionSchedule`;
@@ -481,8 +478,8 @@ CREATE TABLE IF NOT EXISTS `rm_retentionSchedule` (
 --
 -- Table structure for table `rm_retentionScheduleDeleted`
 --
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_retentionScheduleDeleted`;
@@ -525,8 +522,8 @@ CREATE TABLE IF NOT EXISTS `rm_retentionScheduleDeleted` (
 --
 -- Table structure for table `rm_rsRelatedAuthorities`
 --
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_rsRelatedAuthorities`;
@@ -549,18 +546,19 @@ CREATE TABLE IF NOT EXISTS `rm_rsRelatedAuthorities` (
 --
 -- Table structure for table `rm_sessions`
 --
--- Creation: Aug 01, 2011 at 11:25 AM
--- Last update: Aug 01, 2011 at 11:25 AM
+-- Creation: Oct 03, 2011 at 10:12 AM
+-- Last update: Oct 03, 2011 at 10:12 AM
 --
 
 DROP TABLE IF EXISTS `rm_sessions`;
 CREATE TABLE IF NOT EXISTS `rm_sessions` (
   `session_id` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `ip_address` varchar(16) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `user_agent` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `user_agent` varchar(120) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
   `user_data` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`session_id`)
+  PRIMARY KEY (`session_id`),
+  KEY `last_activity_idx` (`last_activity`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -573,8 +571,8 @@ CREATE TABLE IF NOT EXISTS `rm_sessions` (
 --
 -- Table structure for table `rm_surveyContactFields`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyContactFields`;
@@ -614,8 +612,8 @@ INSERT DELAYED IGNORE INTO `rm_surveyContactFields` (`contactFieldID`, `contactQ
 --
 -- Table structure for table `rm_surveyContactNotes`
 --
--- Creation: Aug 01, 2011 at 11:26 AM
--- Last update: Aug 01, 2011 at 11:26 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyContactNotes`;
@@ -637,8 +635,8 @@ CREATE TABLE IF NOT EXISTS `rm_surveyContactNotes` (
 --
 -- Table structure for table `rm_surveyContactQuestions`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyContactQuestions`;
@@ -663,8 +661,8 @@ INSERT DELAYED IGNORE INTO `rm_surveyContactQuestions` (`contactQuestionID`, `su
 --
 -- Table structure for table `rm_surveyContactResponses`
 --
--- Creation: Aug 01, 2011 at 11:26 AM
--- Last update: Aug 01, 2011 at 11:26 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyContactResponses`;
@@ -688,8 +686,8 @@ CREATE TABLE IF NOT EXISTS `rm_surveyContactResponses` (
 --
 -- Table structure for table `rm_surveyNotes`
 --
--- Creation: Aug 01, 2011 at 11:26 AM
--- Last update: Aug 01, 2011 at 11:26 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyNotes`;
@@ -714,8 +712,8 @@ CREATE TABLE IF NOT EXISTS `rm_surveyNotes` (
 --
 -- Table structure for table `rm_surveyQuestionResponses`
 --
--- Creation: Aug 01, 2011 at 11:27 AM
--- Last update: Aug 01, 2011 at 11:27 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyQuestionResponses`;
@@ -740,8 +738,8 @@ CREATE TABLE IF NOT EXISTS `rm_surveyQuestionResponses` (
 --
 -- Table structure for table `rm_surveyQuestions`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveyQuestions`;
@@ -782,8 +780,8 @@ INSERT DELAYED IGNORE INTO `rm_surveyQuestions` (`questionID`, `surveyID`, `ques
 --
 -- Table structure for table `rm_surveys`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveys`;
@@ -809,8 +807,8 @@ INSERT DELAYED IGNORE INTO `rm_surveys` (`surveyID`, `surveyName`, `surveyDescri
 --
 -- Table structure for table `rm_surveySubChoiceQuestionResponses`
 --
--- Creation: Aug 01, 2011 at 11:27 AM
--- Last update: Aug 01, 2011 at 11:27 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveySubChoiceQuestionResponses`;
@@ -836,8 +834,8 @@ CREATE TABLE IF NOT EXISTS `rm_surveySubChoiceQuestionResponses` (
 --
 -- Table structure for table `rm_surveySubChoiceQuestions`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveySubChoiceQuestions`;
@@ -864,8 +862,8 @@ INSERT DELAYED IGNORE INTO `rm_surveySubChoiceQuestions` (`subChoiceQuestionID`,
 --
 -- Table structure for table `rm_surveySubQuestionResponses`
 --
--- Creation: Aug 01, 2011 at 11:27 AM
--- Last update: Aug 01, 2011 at 11:27 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveySubQuestionResponses`;
@@ -891,8 +889,8 @@ CREATE TABLE IF NOT EXISTS `rm_surveySubQuestionResponses` (
 --
 -- Table structure for table `rm_surveySubQuestions`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:07 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_surveySubQuestions`;
@@ -935,8 +933,8 @@ INSERT DELAYED IGNORE INTO `rm_surveySubQuestions` (`subQuestionID`, `questionID
 --
 -- Table structure for table `rm_users`
 --
--- Creation: Aug 01, 2011 at 11:07 AM
--- Last update: Aug 01, 2011 at 11:28 AM
+-- Creation: Oct 03, 2011 at 10:07 AM
+-- Last update: Oct 03, 2011 at 10:07 AM
 --
 
 DROP TABLE IF EXISTS `rm_users`;
