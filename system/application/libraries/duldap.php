@@ -16,9 +16,9 @@
 
 class duLdap {
 	
-	private $ldapHost = "ldap://ldap.du.edu";
-	private $ldapPort = "636";
-	private $dn = "ou=people,o=du.edu,o=universityofdenver"; 
+	private $ldapHost = "";
+	private $ldapPort = "";
+	private $dn = ""; 
 	
 	public function authenticate($ldapUser, $ldapPswd) {
 		
