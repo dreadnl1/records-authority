@@ -951,6 +951,6 @@ CREATE TABLE IF NOT EXISTS `rm_users` (
 --
 
 INSERT DELAYED IGNORE INTO `rm_users` (`userID`, `username`, `passcode`, `timestamp`) VALUES
-(1, 'admin', 'feebc824cc06f056df9d1877c8686ff483b3eb26', '2010-04-14 15:23:52');
+(1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2010-04-14 15:23:52');
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;

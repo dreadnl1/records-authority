@@ -51,7 +51,7 @@
 		</ul>
 	*/ ?>
 	    <p><span class="copyright">&copy;2011 University of Denver. All Rights Reserved. <a href="http://www.du.edu/privacy/" 
-	    title="Privacy Policy">Privacy Policy</a></span><br />The University of Denver is an equal opportunity/affirmative action institution.<br />Records Authority ver. <a href="<?php echo $siteUrl?>/dashboard">2.0.1</a> | <?php echo $this->benchmark->elapsed_time();?></p>
+	    title="Privacy Policy">Privacy Policy</a></span><br />The University of Denver is an equal opportunity/affirmative action institution.<br />Records Authority ver. <a href="<?php echo $siteUrl?>/dashboard">2.0.2</a> | <?php echo $this->benchmark->elapsed_time();?></p>
     </div>
   </div>
 <!-- END global-footer -->

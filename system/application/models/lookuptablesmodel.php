@@ -233,6 +233,41 @@ class LookUpTablesModel extends CI_Model
 	}
 	
 	/**
+    * invokes getDivisionID()
+    * 
+    * @access public 
+    * @param $divisionName
+    * @return $division
+    */
+	public function getDivisionID($divisionName) {
+		$division = $this->getDivisionIDQuery($divisionName);
+		return $division;
+	}
+	
+	/**
+    * gets division ID
+    * used by admin forms
+    * 
+    * @access private 
+    * @param $divisionName
+    * @return $division
+    */
+	private function getDivisionIDQuery($divisionName) {
+		$this->db->select('divisionID');
+		$this->db->from('rm_divisions');
+		$this->db->where('divisionName', $divisionName);
+		
+		$divisionQuery = $this->db->get();
+		
+		if ($divisionQuery->num_rows() > 0) {
+			$result = $divisionQuery->row();
+			$division = $result->divisionID;  
+			
+			return $division;
+		}
+	}
+	
+	/**
     * invokes getDepartmentQuery()
     * 
     * @access public 
@@ -263,6 +298,41 @@ class LookUpTablesModel extends CI_Model
 		if ($departmentQuery->num_rows() > 0) {
 	   		$result = $departmentQuery->row();
 			$department = $result->departmentName;  	
+			
+			return $department;
+		}
+	}
+	
+	/**
+    * invokes getDepartmentID()
+    * 
+    * @access public 
+    * @param $divisionName
+    * @return $division
+    */
+	public function getDepartmentID($departmentName) {
+		$department = $this->getDepartmentIDQuery($departmentName);
+		return $department;
+	}
+	
+	/**
+    * gets division ID
+    * used by admin forms
+    * 
+    * @access private 
+    * @param $divisionName
+    * @return $division
+    */
+	private function getDepartmentIDQuery($departmentName) {
+		$this->db->select('departmentID');
+		$this->db->from('rm_departments');
+		$this->db->where('departmentName', $departmentName);
+		
+		$departmentQuery = $this->db->get();
+		
+		if ($departmentQuery->num_rows() > 0) {
+			$result = $departmentQuery->row();
+			$department = $result->departmentID;  
 			
 			return $department;
 		}

@@ -32,12 +32,12 @@
 			<?php if (!empty($error)) {echo "<font color='red'>" . $error . "</font><br /><br />";} ?>
 			
 			<div id="loginMessage">
-				Welcome to the DU Records Management Program Departmental Survey.  Please log in here to begin filling out the survey.  
+				Welcome to the DU Records Management Program Departmental Survey. Please log in with your DU ID and passcode to fill out the survey.
 	 			<br /><br />
 				<!-- Your DU ID is the 9-digit number on your DU ID card. Your passcode is the same as the one you use to log in to MyWeb or WebCentral.  For more information about the DU ID and passcode, please go here:
 				<a href="http://www.du.edu/uts/helpdesk/du-id.html" target="_blank">http://www.du.edu/uts/helpdesk/du-id.html</a>
 	 			<br /><br />-->
-				If you have questions about this survey, please contact the Records Management Program at <a href="mailto:<?php echo $this->config->item('prodEmail');?>"><?php echo $this->config->item('prodEmail');?></a> or x13662.
+				If you have questions about this survey, please contact the Records Management Program at <br /><a href="mailto:<?php echo $this->config->item('prodEmail');?>"><?php echo $this->config->item('prodEmail');?></a> or x13662.
 				<br /><br />
 				<a href="<?php $siteUrl = site_url();echo $siteUrl;?>/du/retentionSchedules">Records Authority Search</a>
 			</div>

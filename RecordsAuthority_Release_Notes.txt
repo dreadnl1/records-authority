@@ -185,4 +185,6 @@ a.b.c Where a is Major version #, b is Minor version #, c is Bug fix #
       
 2.0.1
     	:	Added the record inventory exporting functionality
-		
+
+2.0.2
+		:	Added Division and Department importing from CSV

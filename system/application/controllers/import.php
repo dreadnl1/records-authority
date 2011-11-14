@@ -52,8 +52,10 @@ class Import extends CI_Controller {
     * @return void
     */
 	public function importCSV() {
-		if (!empty($_POST['fileName'])) {
+		if (!empty($_POST['fileName']) && $_POST['importType'] == "retentionSchedule") {
 			$data['csv'] = $this->ImportModel->csvImport("./uploads/" . $_POST['fileName']);
+		} elseif (!empty($_POST['fileName']) && $_POST['importType'] == "divisionAndDepartment") {
+			$data['csv'] = $this->ImportModel->csvDivImport("./uploads/" . $_POST['fileName']);
 		} else {
 			$data['error'] = "No file selected";
 		}

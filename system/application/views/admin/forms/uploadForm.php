@@ -31,6 +31,12 @@
     ?>
     <div id="fragment-1">
     	<div class="adminForm">
+    	 <h4>*** Delete Header Row before conversion to CSV format ***</h4>
+   		<table border=2>
+   			<tr><td>Division Name</td><td>Department Name</td></tr>
+   			<tr><td>-----</td><td>-----</td></tr>
+   		</table>
+   		<br /><br />
     	<h3><a href="<?php echo $baseUrl; ?>RA_upload_template.xlsx">Data Template</a> - Downloadable xcel spreadsheet form</h3>
    		<h4>*** Delete Header Row before conversion to CSV format ***</h4>
    		<table border=2>
